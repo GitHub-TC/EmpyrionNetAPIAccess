@@ -1,0 +1,66 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="$(SolutionDir)\dependencies\Mif.dll"  #>
+<#@ assembly name="$(SolutionDir)EmpyrionNetAPIDefinitions\bin\$(Configuration)\EmpyrionNetAPIDefinitions.dll" #>
+<#@ import namespace="EmpyrionNetAPIDefinitions" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Eleon.Modding" #>
+<#@ output extension=".cs" #> 
+using Eleon.Modding;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+//this file was auto-generatedx
+
+namespace EmpyrionNetAPIAccess
+{
+	public partial class Broker {
+
+    private Dictionary<CmdId, Delegate> eventTable = new Dictionary<CmdId, Delegate>();
+    
+    <#  foreach(var item in APIManifest.EventManifest){
+          var handlerType = item.ParamType == null ? "Action" : $"Action<{item.ParamType.Name}>";
+    #>
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+    public event <#=handlerType#> <#=item.CmdId#>
+    {
+      add {
+        if (eventTable.ContainsKey(CmdId.<#=item.CmdId#>))
+          eventTable[CmdId.<#=item.CmdId#>] = (<#=handlerType#>)eventTable[CmdId.<#=item.CmdId#>] + value;
+        else
+          eventTable[CmdId.<#=item.CmdId#>] = value;
+      }
+      remove {
+        if (eventTable.ContainsKey(CmdId.<#=item.CmdId#>))
+          eventTable[CmdId.<#=item.CmdId#>] = (<#=handlerType#>)eventTable[CmdId.<#=item.CmdId#>] - value;
+        else
+          eventTable[CmdId.<#=item.CmdId#>] = value;
+      }
+    }
+    <#  }#>
+  
+  }
+
+  public abstract partial class EmpyrionModBase {
+    <#  foreach(var item in APIManifest.EventManifest){
+      var handlerType = item.ParamType == null ? "Action" : $"Action<{item.ParamType.Name}>";
+    #>
+    
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+    public event <#=handlerType#> <#=item.CmdId#>
+    {
+      add {
+        <#=item.CmdId#> += value;
+      }
+      remove {
+        <#=item.CmdId#> -= value;
+      }
+    }
+
+    <#  }#>
+  }
+}

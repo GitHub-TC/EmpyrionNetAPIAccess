@@ -1,0 +1,140 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="$(SolutionDir)\dependencies\Mif.dll"  #>
+<#@ assembly name="$(SolutionDir)EmpyrionNetAPIDefinitions\bin\$(Configuration)\EmpyrionNetAPIDefinitions.dll" #>
+<#@ import namespace="EmpyrionNetAPIDefinitions" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ import namespace="Eleon.Modding" #>
+<#@ output extension=".cs" #> 
+using Eleon.Modding;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+//this file was auto-generated
+
+namespace EmpyrionNetAPIAccess
+{
+  public partial class Broker {
+  <#foreach(var item in APIManifest.RequestManifest){
+    var expectedResponse = APIManifest.APIRequestResponseTable[item.CmdId];
+    var signature = generateMethodSignature(item);
+    
+    var callbackBaseType = signature.GetSubTypeForArg("callback");
+    
+    var castCallback = "(_, val) => callback()";
+    if(callbackBaseType != null){
+      castCallback = $"(_, val) => callback(({callbackBaseType})val)";
+    }
+
+  #>
+    		
+    public void <#=signature#>{     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = <#=castCallback#>;
+      
+      var apiCmd = new GenericAPICommand(
+        CmdId.<#=signature.methodName#>,
+        <#=signature.HasArgWithName("arg") ? "arg" : "null" #>,
+        wiredCallback,
+        onError ?? noOpErrorHandler
+      );
+      Execute(apiCmd);
+    }
+  <#}#>
+  }
+
+  public abstract partial class EmpyrionModBase {
+    <#foreach(var item in APIManifest.RequestManifest){	
+      var signature = generateMethodSignature(item);
+      var args = signature.args.Select(x=>x.argName);
+      var argString = String.Join(", ", args);
+    #>
+
+	  public void <#=signature#>{
+      <#=signature.methodName#>(<#=argString#>);
+    }
+    <#}#>    
+  }
+}
+
+<#+
+
+  public class GenericArg {
+    public string argName;
+    public string argType;
+    public string defaultVal;
+
+    public GenericArg(string argName, string argType) : this(argName, argType, null){  }
+
+    public GenericArg(string argType, string argName, string defaultVal){
+      this.argName = argName;
+      this.argType = argType;
+      this.defaultVal = defaultVal;
+    }
+
+    public override string ToString() {
+      string val = defaultVal == null ? "" : $" = {this.defaultVal}";
+      return $"{this.argType} {this.argName}{val}";
+    }
+  }
+
+  public class GenericMethodSignature {
+    public string methodName;
+    
+    public List<GenericArg> args;
+    private static Regex actionTypePattern = new Regex(@"Action<(.*)>");
+
+
+    public bool HasArgWithName(string argName){
+      return this.args.Any(x=>x.argName == "arg");
+    }
+
+    public string GetTypeForArg(string argName){
+      var result= this.args.FirstOrDefault(x=>x.argName==argName);
+      if(result == null) return null;
+      return result.argType;
+    }
+
+    public string GetSubTypeForArg(string argName){
+      var baseType = this.GetTypeForArg(argName);
+      if(baseType == null) return null;
+      var match = actionTypePattern.Match(baseType);
+      if(!match.Success) return null;
+      return match.Groups[1].Value;
+    }
+
+    public override string ToString(){
+      var argString = String.Join(", ", this.args);
+      return $"{methodName}({argString})";
+    }
+  }
+
+  public static GenericMethodSignature generateMethodSignature(APIRequest item){
+    var expectedResponse = APIManifest.APIRequestResponseTable[item.CmdId];
+    var result = new GenericMethodSignature();
+    result.methodName = item.CmdId.ToString();
+    var tmpArgList = new List<GenericArg>();
+    
+    if (item.ParamType != null){
+      tmpArgList.Add(new GenericArg(item.ParamType.Name, "arg"));
+    }
+
+    if (expectedResponse.ParamType != null)
+    {
+      var typeName = expectedResponse.ParamType.Name;
+      tmpArgList.Add(new GenericArg($"Action<{typeName}>", "callback", "null"));
+    } else {
+      tmpArgList.Add(new GenericArg($"Action", "callback", "null"));
+    }
+
+      tmpArgList.Add(new GenericArg("Action<ErrorInfo>", "onError", "null"));
+    result.args = tmpArgList;
+    return result;
+  }
+
+ #>
+
