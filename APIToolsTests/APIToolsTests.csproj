@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EmpyrionAPITools\EmpyrionNetAPIAccess.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="Mif">
       <HintPath>..\dependencies\Mif.dll</HintPath>
     </Reference>
