@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using Eleon.Modding;
 using EmpyrionNetAPIDefinitions;
 
 namespace EmpyrionNetAPIAccess
 {
-  public abstract partial class EmpyrionModBase : ModInterface
+    public abstract partial class EmpyrionModBase : ModInterface
   {
 
         public Broker Broker { get; set; } = new Broker();
@@ -110,17 +108,17 @@ namespace EmpyrionNetAPIAccess
       this.ChatCommandManager = new ChatCommandManager(this.ChatCommands);
     }
 
-    private void SimpleMod_ProcessChatCommands(ChatInfo obj)
+    private async void SimpleMod_ProcessChatCommands(ChatInfo obj)
     {
       var match = ChatCommandManager.MatchCommand(obj.msg);
       if (match == null) return;
       if (match.command.minimumPermissionLevel > EmpyrionNetAPIDefinitions.PermissionType.Player)
       {
-        this.Request_Player_Info(obj.playerId.ToId(), (info) => {
-          if (info.permission < (int)match.command.minimumPermissionLevel) return;
-          match.command.handler(obj, match.parameters);
-        });
-        return;
+        var info = await Request_Player_Info(obj.playerId.ToId());
+
+        if (info.permission < (int)match.command.minimumPermissionLevel) return;
+        match.command.handler(obj, match.parameters);
+
       }
       match.command.handler(obj, match.parameters);
     }

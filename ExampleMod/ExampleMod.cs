@@ -28,7 +28,7 @@ namespace ExampleMod
           id = data.playerId,
           msg = $"{args["yellthis"].ToUpper()}!!!!!"
         };
-        this.Request_InGameMessage_SinglePlayer(msg);
+        Request_InGameMessage_SinglePlayer(msg).Wait();
       }));
 
       this.ChatCommands.Add(new ChatCommand(@"/explosion", (data, __) => {
@@ -39,36 +39,38 @@ namespace ExampleMod
           PosButtonText = "yes",
           NegButtonText = "No"
         };
-        this.Request_ShowDialog_SinglePlayer(dialogData, (result) => {
-          var resultInterpreted = result.Value == 0 ? "YES": "NO";
-          this.Request_InGameMessage_SinglePlayer(resultInterpreted.ToIdMsgPrio(data.playerId));
-        });
+
+        var t = Request_ShowDialog_SinglePlayer(dialogData);
+        t.Wait();
+        var resultInterpreted = t.Result.Value == 0 ? "YES": "NO";
+
+        Request_InGameMessage_SinglePlayer(resultInterpreted.ToIdMsgPrio(data.playerId)).Wait();
       }, "blows it up", PermissionType.Moderator));
 
       
 
-      this.ChatCommands.Add(new ChatCommand(@"/help", (data, __) => {
-        this.Request_Player_Info(data.playerId.ToId(), (info) =>
-        {
-          var playerPermissionLevel = (PermissionType)info.permission;
-          var header = $"Commands available to {info.playerName}; permission level {playerPermissionLevel}\n";
+      //this.ChatCommands.Add(new ChatCommand(@"/help", (data, __) => {
+      //  this.Request_Player_Info(data.playerId.ToId(), (info) =>
+      //  {
+      //    var playerPermissionLevel = (PermissionType)info.permission;
+      //    var header = $"Commands available to {info.playerName}; permission level {playerPermissionLevel}\n";
           
-          var lines = this.GetChatCommandsForPermissionLevel(playerPermissionLevel)
-            .Select(x => x.ToString())
-            .OrderBy(x => x.Length).ToList();
+      //    var lines = this.GetChatCommandsForPermissionLevel(playerPermissionLevel)
+      //      .Select(x => x.ToString())
+      //      .OrderBy(x => x.Length).ToList();
 
-          lines.Insert(0, header);
+      //    lines.Insert(0, header);
 
           
-          var dialogData = new DialogBoxData()
-          {
-            Id = data.playerId,
-            MsgText = String.Join("\n", lines.ToArray())
-          };
+      //    var dialogData = new DialogBoxData()
+      //    {
+      //      Id = data.playerId,
+      //      MsgText = String.Join("\n", lines.ToArray())
+      //    };
 
-          Request_ShowDialog_SinglePlayer(dialogData);
-        });
-      }));
+      //    Request_ShowDialog_SinglePlayer(dialogData);
+      //  });
+      //}));
     }
 
     private void ChatCommand_TestMessage(ChatInfo data, Dictionary<string, string> args)
@@ -79,7 +81,7 @@ namespace ExampleMod
         id = data.playerId,
         msg = $"{repeating} {repeating} {repeating}!"
       };
-      this.Request_InGameMessage_SinglePlayer(msg);
+      this.Request_InGameMessage_SinglePlayer(msg).Wait();
     }
 
     private void PlayerDied_Event_Statistics(StatisticsParam obj)
@@ -95,7 +97,7 @@ namespace ExampleMod
             msg = $"Player {deathStats.PlayerId.id} was killed by {deathStats.KillerId.id}"
           };
           log(msg.msg);
-          this.Request_InGameMessage_AllPlayers(msg);
+          this.Request_InGameMessage_AllPlayers(msg).Wait();
           break;
         default:
           break;
@@ -110,7 +112,7 @@ namespace ExampleMod
         msg = $@"A game event occured, name:{obj.Name}, type:{obj.Type}, eventType:{obj.EventType}"
       };
       
-      this.Request_InGameMessage_AllPlayers(eventMessage);
+      this.Request_InGameMessage_AllPlayers(eventMessage).Wait();
     }
 
     private void ExampleMod_Event_HandleLottoChatMessage(ChatInfo obj)
@@ -118,46 +120,46 @@ namespace ExampleMod
       log("lotto check");
       if (obj.msg != "lottery") return;
 
-      this.Request_Player_List(list =>
-      {
-        var index = rnd.Next() % list.list.Count;
-        var selectedId = list.list[index];
+      //this.Request_Player_List(list =>
+      //{
+      //  var index = rnd.Next() % list.list.Count;
+      //  var selectedId = list.list[index];
 
-        var msgParam = new IdMsgPrio()
-        {
-          id = selectedId,
-          msg = $"Congratulations!, You Won!"
-        };
+      //  var msgParam = new IdMsgPrio()
+      //  {
+      //    id = selectedId,
+      //    msg = $"Congratulations!, You Won!"
+      //  };
 
-        var rewardParam = new ItemExchangeInfo()
-        {
-          id = selectedId,
-          buttonText = "ok",
-          title = "test",
-          desc = "testdesc",
-          items = new ItemStack[] {
-            new ItemStack()
-            {
-              id = 256,
-              count = 1
-            }
-          }
-        };
+      //  var rewardParam = new ItemExchangeInfo()
+      //  {
+      //    id = selectedId,
+      //    buttonText = "ok",
+      //    title = "test",
+      //    desc = "testdesc",
+      //    items = new ItemStack[] {
+      //      new ItemStack()
+      //      {
+      //        id = 256,
+      //        count = 1
+      //      }
+      //    }
+      //  };
 
-        this.Request_Player_ItemExchange(rewardParam, result =>
-        {
-          log($"itemexchange result count {result.items.Count()}");
-          if (result.items.Count() == 0) return;
-          var tyParam = new IdMsgPrio()
-          {
-            id = selectedId,
-            msg = $"Thanks for the gift!"
-          };
-          this.Request_InGameMessage_SinglePlayer(tyParam);
+      //  this.Request_Player_ItemExchange(rewardParam, result =>
+      //  {
+      //    log($"itemexchange result count {result.items.Count()}");
+      //    if (result.items.Count() == 0) return;
+      //    var tyParam = new IdMsgPrio()
+      //    {
+      //      id = selectedId,
+      //      msg = $"Thanks for the gift!"
+      //    };
+      //    this.Request_InGameMessage_SinglePlayer(tyParam);
 
-        }, x => log($"itemexchange error: {x.errorType.ToString()}"));
+      //  }, x => log($"itemexchange error: {x.errorType.ToString()}"));
         
-      });
+      //});
       
     }
 

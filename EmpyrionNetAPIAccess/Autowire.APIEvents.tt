@@ -54,10 +54,10 @@ namespace EmpyrionNetAPIAccess
     public event <#=handlerType#> <#=item.CmdId#>
     {
       add {
-        <#=item.CmdId#> += value;
+        Broker.<#=item.CmdId#> += value;
       }
       remove {
-        <#=item.CmdId#> -= value;
+        Broker.<#=item.CmdId#> -= value;
       }
     }
 

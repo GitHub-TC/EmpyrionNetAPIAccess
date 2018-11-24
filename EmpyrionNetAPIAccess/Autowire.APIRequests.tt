@@ -10,54 +10,22 @@
 <#@ import namespace="Eleon.Modding" #>
 <#@ output extension=".cs" #> 
 using Eleon.Modding;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 
 //this file was auto-generated
 
 namespace EmpyrionNetAPIAccess
 {
-  public partial class Broker {
+  public partial class EmpyrionModBase {
   <#foreach(var item in APIManifest.RequestManifest){
     var expectedResponse = APIManifest.APIRequestResponseTable[item.CmdId];
     var signature = generateMethodSignature(item);
-    
-    var callbackBaseType = signature.GetSubTypeForArg("callback");
-    
-    var castCallback = "(_, val) => callback()";
-    if(callbackBaseType != null){
-      castCallback = $"(_, val) => callback(({callbackBaseType})val)";
-    }
-
   #>
     		
-    public void <#=signature#>{     
-      Action<CmdId, object> wiredCallback = null;
-      if(callback != null) wiredCallback = <#=castCallback#>;
-      
-      var apiCmd = new GenericAPICommand(
-        CmdId.<#=signature.methodName#>,
-        <#=signature.HasArgWithName("arg") ? "arg" : "null" #>,
-        wiredCallback,
-        onError ?? noOpErrorHandler
-      );
-      Execute(apiCmd);
+    public async <#=signature#>{     
+      <#=signature.returnType == null ? "await Broker.SendRequest" : "return await Broker.SendRequest<"+signature.returnType+">"#>(CmdId.<#=signature.methodName#>,<#=signature.HasArgWithName("arg") ? "arg" : "null" #>);
     }
   <#}#>
-  }
-
-  public abstract partial class EmpyrionModBase {
-    <#foreach(var item in APIManifest.RequestManifest){	
-      var signature = generateMethodSignature(item);
-      var args = signature.args.Select(x=>x.argName);
-      var argString = String.Join(", ", args);
-    #>
-
-	  public void <#=signature#>{
-      <#=signature.methodName#>(<#=argString#>);
-    }
-    <#}#>    
   }
 }
 
@@ -84,6 +52,7 @@ namespace EmpyrionNetAPIAccess
 
   public class GenericMethodSignature {
     public string methodName;
+    public string returnType;
     
     public List<GenericArg> args;
     private static Regex actionTypePattern = new Regex(@"Action<(.*)>");
@@ -109,7 +78,7 @@ namespace EmpyrionNetAPIAccess
 
     public override string ToString(){
       var argString = String.Join(", ", this.args);
-      return $"{methodName}({argString})";
+      return $"{(returnType == null ? "Task" : "Task<" + returnType + ">")} {methodName}({argString})";
     }
   }
 
@@ -123,15 +92,8 @@ namespace EmpyrionNetAPIAccess
       tmpArgList.Add(new GenericArg(item.ParamType.Name, "arg"));
     }
 
-    if (expectedResponse.ParamType != null)
-    {
-      var typeName = expectedResponse.ParamType.Name;
-      tmpArgList.Add(new GenericArg($"Action<{typeName}>", "callback", "null"));
-    } else {
-      tmpArgList.Add(new GenericArg($"Action", "callback", "null"));
-    }
+	result.returnType = expectedResponse.ParamType?.Name;
 
-      tmpArgList.Add(new GenericArg("Action<ErrorInfo>", "onError", "null"));
     result.args = tmpArgList;
     return result;
   }
