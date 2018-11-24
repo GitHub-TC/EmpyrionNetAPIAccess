@@ -1,5 +1,7 @@
 ﻿# EmpyrionAPITools
 
+ASTIC/TC: Ist similiar to the original - only with async await and .NET 4.6
+
 ## FAQ
 
 ### What is this?
