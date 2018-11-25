@@ -36,7 +36,17 @@ namespace EmpyrionNetAPIAccess
 
         public bool HandleGameEvent(CmdId eventId, ushort seqNr, object data)
         {
-            if (eventTable.TryGetValue(eventId, out Delegate handler)) handler.DynamicInvoke(new object[] { data });
+            if (eventTable.TryGetValue(eventId, out Delegate handler))
+            {
+                try
+                {
+                    handler.DynamicInvoke(new object[] { data });
+                }
+                catch (Exception Error)
+                {
+                    log($"HandleGameEvent: CmdId:{eventId} seqNr:{seqNr} data:{data} => {Error}");
+                }
+            }
 
             return _requestTracker.TryHandleEvent(eventId, seqNr, data);
         }
