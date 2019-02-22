@@ -23,7 +23,7 @@ namespace EmpyrionNetAPIAccess
   #>
     		
     public async <#=signature#>{     
-      <#=signature.returnType == null ? "await Broker.SendRequest" : "return await Broker.SendRequest<"+signature.returnType+">"#>(CmdId.<#=signature.methodName#>,<#=signature.HasArgWithName("arg") ? "arg" : "null" #>);
+      <#=signature.returnType == null ? "await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest" : "return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<"+signature.returnType+">"#>(CmdId.<#=signature.methodName#>,<#=signature.HasArgWithName("arg") ? "arg" : "null" #>));
     }
   <#}#>
   }

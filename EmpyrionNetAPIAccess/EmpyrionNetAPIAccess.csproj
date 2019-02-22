@@ -66,6 +66,7 @@
     <Compile Include="RequestTracker.cs" />
     <Compile Include="EmpyrionModBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaskExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Autowire.APIRequests.tt">

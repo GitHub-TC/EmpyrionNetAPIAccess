@@ -47,7 +47,7 @@ namespace EmpyrionNetAPIDefinitions
       new APIRequest(CmdId.Request_Player_Info, typeof(Id), CmdId.Event_Player_Info),
       new APIRequest(CmdId.Request_Player_List, null, CmdId.Event_Player_List),
       new APIRequest(CmdId.Request_Player_GetInventory, typeof(Id), CmdId.Event_Player_Inventory),
-      new APIRequest(CmdId.Request_Player_SetInventory, typeof(Id), CmdId.Event_Player_Inventory),
+      new APIRequest(CmdId.Request_Player_SetInventory, typeof(Inventory), CmdId.Event_Player_Inventory),
       new APIRequest(CmdId.Request_Player_AddItem, typeof(IdItemStack), CmdId.Event_Ok),
       new APIRequest(CmdId.Request_Player_Credits, typeof(Id), CmdId.Event_Player_Credits),
       new APIRequest(CmdId.Request_Player_SetCredits, typeof(IdCredits), CmdId.Event_Player_Credits),
