@@ -86,7 +86,7 @@ namespace EmpyrionNetAPIAccess
         protected void MessagePlayer(int playerId, string message, MessagePriorityType priority = MessagePriorityType.Message)
         {
             var msg = message.ToIdMsgPrio(playerId, priority);
-            this.Request_InGameMessage_SinglePlayer(msg);
+            Request_InGameMessage_SinglePlayer(msg).Wait(1000);
         }
 
 

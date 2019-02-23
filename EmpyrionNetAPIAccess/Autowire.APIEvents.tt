@@ -11,7 +11,6 @@
 using Eleon.Modding;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 //this file was auto-generatedx
 
@@ -29,17 +28,21 @@ namespace EmpyrionNetAPIAccess
     public event <#=handlerType#> <#=item.CmdId#>
     {
       add {
-        if (eventTable.ContainsKey(CmdId.<#=item.CmdId#>))
-          eventTable[CmdId.<#=item.CmdId#>] = (<#=handlerType#>)eventTable[CmdId.<#=item.CmdId#>] + value;
-        else
-          eventTable[CmdId.<#=item.CmdId#>] = value;
+		lock(eventTable){
+			if (eventTable.ContainsKey(CmdId.<#=item.CmdId#>))
+			  eventTable[CmdId.<#=item.CmdId#>] = (<#=handlerType#>)eventTable[CmdId.<#=item.CmdId#>] + value;
+			else
+			  eventTable[CmdId.<#=item.CmdId#>] = value;
+		}
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.<#=item.CmdId#>))
-          eventTable[CmdId.<#=item.CmdId#>] = (<#=handlerType#>)eventTable[CmdId.<#=item.CmdId#>] - value;
-        else
-          eventTable[CmdId.<#=item.CmdId#>] = value;
-      }
+		lock(eventTable){
+			if (eventTable.ContainsKey(CmdId.<#=item.CmdId#>))
+			  eventTable[CmdId.<#=item.CmdId#>] = (<#=handlerType#>)eventTable[CmdId.<#=item.CmdId#>] - value;
+			else
+			  eventTable[CmdId.<#=item.CmdId#>] = value;
+		}
+	  }
     }
     <#  }#>
   
