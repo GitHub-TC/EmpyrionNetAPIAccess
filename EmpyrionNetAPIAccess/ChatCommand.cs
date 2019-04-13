@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using Eleon.Modding;
-using System.Collections.Specialized;
-using System.Collections.ObjectModel;
+﻿using Eleon.Modding;
 using EmpyrionNetAPIDefinitions;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace EmpyrionNetAPIAccess
 {
-  public class ChatCommand
+    public class ChatCommand
   {
-    public delegate void ChatCommandHandler(ChatInfo info, Dictionary<string, string> arguments = null);
+    public delegate Task ChatCommandHandler(ChatInfo info, Dictionary<string, string> arguments = null);
 
     public readonly string invocationPattern;
     public ChatCommandHandler handler;

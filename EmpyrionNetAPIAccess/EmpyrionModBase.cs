@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 using Eleon.Modding;
 using EmpyrionNetAPIDefinitions;
 
@@ -89,21 +91,51 @@ namespace EmpyrionNetAPIAccess
             Request_InGameMessage_SinglePlayer(msg).Wait(1000);
         }
 
+        public async System.Threading.Tasks.Task ShowDialog(int aPlayerId, PlayerInfo aPlayer, string aTitle, string aMessage)
+        {
+            await Request_ShowDialog_SinglePlayer(new DialogBoxData()
+            {
+                Id = aPlayerId,
+                MsgText = $"{aTitle}: [c][ffffff]{aPlayer.playerName}[-][/c] with permission [c][ffffff]{(PermissionType)aPlayer.permission}[-][/c]\n" + aMessage,
+            });
+        }
 
-        void ModInterface.Game_Event(CmdId eventId, ushort seqNr, object data)
+        public async System.Threading.Tasks.Task DisplayHelp(int playerId, string additionalInfos)
+        {
+            var player = await Request_Player_Info(playerId.ToId());
+            var CurrentAssembly = Assembly.GetAssembly(this.GetType());
+            //[c][hexid][-][/c]    [c][019245]test[-][/c].
+
+            await ShowDialog(playerId, player, "Commands",
+                "\n" + String.Join("\n", GetChatCommandsForPermissionLevel((PermissionType)player.permission).Select(C => C.MsgString()).ToArray()) +
+                (additionalInfos == null ? "" : "\n\n") + additionalInfos +
+                $"\n\n[c][c0c0c0]{CurrentAssembly.GetAttribute<AssemblyTitleAttribute>()?.Title} by {CurrentAssembly.GetAttribute<AssemblyCompanyAttribute>()?.Company} Version:{CurrentAssembly.GetAttribute<AssemblyFileVersionAttribute>()?.Version}[-][/c]"
+                );
+        }
+
+        public void Game_Event(CmdId eventId, ushort seqNr, object data)
         {
             Broker.HandleGameEvent(eventId, seqNr, data);
-            if (eventId == CmdId.Event_ChatMessage) SimpleMod_ProcessChatCommands((ChatInfo)data);
+            if (eventId == CmdId.Event_ChatMessage)
+                try
+                {
+                    ProcessChatCommands((ChatInfo)data).Wait();
+                }
+                catch (Exception error)
+                {
+                    var c = (ChatInfo)data;
+                    log($"ChatCommand Exception: {c.msg}/{c.playerId} : {error}");
+                }
 
             API_Message_Received?.Invoke(eventId, seqNr, data);
         }
 
-        void ModInterface.Game_Exit()
+        public void Game_Exit()
         {
             API_Exit?.Invoke();
         }
 
-        void ModInterface.Game_Start(ModGameAPI dediAPI)
+        public void Game_Start(ModGameAPI dediAPI)
         {
             Broker.api = dediAPI;
             this.Initialize(dediAPI);
@@ -111,7 +143,7 @@ namespace EmpyrionNetAPIAccess
             this.ChatCommandManager = new ChatCommandManager(this.ChatCommands);
         }
 
-        private async void SimpleMod_ProcessChatCommands(ChatInfo obj)
+        private async Task ProcessChatCommands(ChatInfo obj)
         {
             var match = ChatCommandManager.MatchCommand(obj.msg);
             if (match == null) return;
@@ -120,13 +152,13 @@ namespace EmpyrionNetAPIAccess
                 var info = await Request_Player_Info(obj.playerId.ToId());
 
                 if (info.permission < (int)match.command.minimumPermissionLevel) return;
-                match.command.handler(obj, match.parameters);
+                await match.command.handler(obj, match.parameters);
 
             }
-            match.command.handler(obj, match.parameters);
+            await match.command.handler(obj, match.parameters);
         }
 
-        void ModInterface.Game_Update()
+        public void Game_Update()
         {
             Update_Received?.Invoke(Broker.api.Game_GetTickTime());
         }

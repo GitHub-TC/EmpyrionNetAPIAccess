@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Eleon.Modding;
 using EmpyrionNetAPIAccess;
 using EmpyrionNetAPIDefinitions;
@@ -22,16 +23,16 @@ namespace ExampleMod
       this.Event_GameEvent += ExampleMod_Event_GameEvent;
       this.Event_Statistics += PlayerDied_Event_Statistics;
       this.ChatCommands.Add(new ChatCommand(@"/repeat (?<repeat>\S+)", ChatCommand_TestMessage));
-      this.ChatCommands.Add(new ChatCommand(@"!loudly (?<yellthis>.+)", (data, args) => {
+      this.ChatCommands.Add(new ChatCommand(@"!loudly (?<yellthis>.+)", async (data, args) =>  {
         var msg = new IdMsgPrio()
         {
           id = data.playerId,
           msg = $"{args["yellthis"].ToUpper()}!!!!!"
         };
-        Request_InGameMessage_SinglePlayer(msg).Wait();
+          await Request_InGameMessage_SinglePlayer(msg);
       }));
 
-      this.ChatCommands.Add(new ChatCommand(@"/explosion", (data, __) => {
+      this.ChatCommands.Add(new ChatCommand(@"/explosion", async (data, __) => {
         var dialogData = new DialogBoxData()
         {
           Id = data.playerId,
@@ -44,7 +45,7 @@ namespace ExampleMod
         t.Wait();
         var resultInterpreted = t.Result.Value == 0 ? "YES": "NO";
 
-        Request_InGameMessage_SinglePlayer(resultInterpreted.ToIdMsgPrio(data.playerId)).Wait();
+        await Request_InGameMessage_SinglePlayer(resultInterpreted.ToIdMsgPrio(data.playerId));
       }, "blows it up", PermissionType.Moderator));
 
       
@@ -73,7 +74,7 @@ namespace ExampleMod
       //}));
     }
 
-    private void ChatCommand_TestMessage(ChatInfo data, Dictionary<string, string> args)
+    private async Task ChatCommand_TestMessage(ChatInfo data, Dictionary<string, string> args)
     {
       var repeating = args["repeat"];
       var msg = new IdMsgPrio()
@@ -81,7 +82,7 @@ namespace ExampleMod
         id = data.playerId,
         msg = $"{repeating} {repeating} {repeating}!"
       };
-      this.Request_InGameMessage_SinglePlayer(msg).Wait();
+      await Request_InGameMessage_SinglePlayer(msg);
     }
 
     private void PlayerDied_Event_Statistics(StatisticsParam obj)

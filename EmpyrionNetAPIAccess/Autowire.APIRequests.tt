@@ -19,11 +19,16 @@ namespace EmpyrionNetAPIAccess
   public partial class EmpyrionModBase {
   <#foreach(var item in APIManifest.RequestManifest){
     var expectedResponse = APIManifest.APIRequestResponseTable[item.CmdId];
-    var signature = generateMethodSignature(item);
+    var signature        = generateMethodSignature(false, item);
+    var signatureTimeout = generateMethodSignature(true,  item);
   #>
     		
     public async <#=signature#>{     
       <#=signature.returnType == null ? "await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest" : "return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<"+signature.returnType+">"#>(CmdId.<#=signature.methodName#>,<#=signature.HasArgWithName("arg") ? "arg" : "null" #>));
+    }
+
+    public async <#=signatureTimeout#>{     
+      <#=signature.returnType == null ? "await TaskWait.For(timeoutSeconds, Broker.SendRequest" : "return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<"+signature.returnType+">"#>(CmdId.<#=signature.methodName#>,<#=signature.HasArgWithName("arg") ? "arg" : "null" #>));
     }
   <#}#>
   }
@@ -82,11 +87,13 @@ namespace EmpyrionNetAPIAccess
     }
   }
 
-  public static GenericMethodSignature generateMethodSignature(APIRequest item){
+  public static GenericMethodSignature generateMethodSignature(bool withTimeout, APIRequest item){
     var expectedResponse = APIManifest.APIRequestResponseTable[item.CmdId];
     var result = new GenericMethodSignature();
     result.methodName = item.CmdId.ToString();
     var tmpArgList = new List<GenericArg>();
+
+	if(withTimeout) tmpArgList.Add(new GenericArg("int", "timeoutSeconds"));
     
     if (item.ParamType != null){
       tmpArgList.Add(new GenericArg(item.ParamType.Name, "arg"));

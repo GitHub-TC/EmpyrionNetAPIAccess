@@ -9,7 +9,7 @@ namespace EmpyrionNetAPIAccess
     public class RequestTracker
     {
         private static object _nextAvailableIdLock = new object();
-        private static int _nextAvailableId = 12340;
+        private static int _nextAvailableId = new Random().Next(10000);
         private ConcurrentDictionary<ushort, object/*TaskCompletionSource<T>*/> _taskCompletionSourcesById = new ConcurrentDictionary<ushort, object>();
 
         internal Tuple<ushort, Task<T>> GetNewTaskCompletionSource<T>()
@@ -41,7 +41,11 @@ namespace EmpyrionNetAPIAccess
             else
             {
                 System.Reflection.MethodInfo setResult = taskCompletionSource.GetType().GetMethod("SetResult");
-                setResult.Invoke(taskCompletionSource, new[] { data });
+                try{ setResult.Invoke(taskCompletionSource, new[] { data }); }
+                catch (Exception error) {
+                    System.Reflection.MethodInfo setException = taskCompletionSource.GetType().GetMethod("SetException", new Type[] { typeof(Exception) });
+                    setException.Invoke(taskCompletionSource, new[] { error });
+                }
             }
 
             return true;

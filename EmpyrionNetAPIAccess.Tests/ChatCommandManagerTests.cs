@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Eleon.Modding;
 using EmpyrionNetAPIDefinitions;
+using System.Threading.Tasks;
+using System;
 
 namespace EmpyrionNetAPIAccess.Tests
 {
@@ -48,7 +50,7 @@ namespace EmpyrionNetAPIAccess.Tests
     public void testCommandWithArg()
     {
       var pattern = @"test (?<name>\S*) is (?<disposition>\S*)";
-      var cc = new ChatCommand(pattern, (x, y) => { });
+      var cc = new ChatCommand(pattern, async (x, y) => await TestDummy());
       commandList.Add(cc);
       ccm = new ChatCommandManager(commandList);
 
@@ -57,7 +59,12 @@ namespace EmpyrionNetAPIAccess.Tests
 
     }
 
-    [TestMethod]
+        private Task<Task> TestDummy()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
     public void testPatternToString()
     {
       var pattern = @"test (?<name>\S*) is (?<disposition>\S*)";
@@ -71,9 +78,9 @@ namespace EmpyrionNetAPIAccess.Tests
     public void testCommandsToString()
     {
 
-      var c1 = new ChatCommand(@"test (?<name>\S*) is (?<disposition>\S*)", (_, __) => { });
-      var c2 = new ChatCommand(@"test2 (?<name>\S*) is (?<disposition>\S*)", (_, __) => { }, "something");
-      var c3 = new ChatCommand(@"test3 (?<name>\S*) is (?<disposition>\S*)", (_, __) => { }, "somethingelse", PermissionType.GameMaster);
+      var c1 = new ChatCommand(@"test (?<name>\S*) is (?<disposition>\S*)", (_, __) => TestDummy());
+      var c2 = new ChatCommand(@"test2 (?<name>\S*) is (?<disposition>\S*)", (_, __) => TestDummy(), "something");
+      var c3 = new ChatCommand(@"test3 (?<name>\S*) is (?<disposition>\S*)", (_, __) => TestDummy(), "somethingelse", PermissionType.GameMaster);
 
       var actuals = new Dictionary<string, string>()
       {
@@ -98,9 +105,9 @@ namespace EmpyrionNetAPIAccess.Tests
     public void tesMatchCompetition()
     {
 
-      var c1 = new ChatCommand(@"test (?<name>\S*) is (?<disposition>\S*)", (_, __) => { });
-      var c2 = new ChatCommand(@"test2 (?<name>\S*) is (?<disposition>\S*)", (_, __) => { }, "something");
-      var c3 = new ChatCommand(@"test3 (?<name>\S*) is (?<disposition>\S*)", (_, __) => { }, "somethingelse", PermissionType.GameMaster);
+      var c1 = new ChatCommand(@"test (?<name>\S*) is (?<disposition>\S*)", (_, __) => TestDummy());
+      var c2 = new ChatCommand(@"test2 (?<name>\S*) is (?<disposition>\S*)", (_, __) => TestDummy(), "something");
+      var c3 = new ChatCommand(@"test3 (?<name>\S*) is (?<disposition>\S*)", (_, __) => TestDummy(), "somethingelse", PermissionType.GameMaster);
 
       ccm = new ChatCommandManager(new List<ChatCommand>()
       {

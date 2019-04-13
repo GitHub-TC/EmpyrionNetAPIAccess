@@ -53,7 +53,7 @@ namespace EmpyrionNetAPIAccess
 
         public void log(string message)
         {
-            log(message, LogLevel.Debug);
+            log(message, LogLevel.Message);
         }
 
         public void log(string message, LogLevel aLevel)

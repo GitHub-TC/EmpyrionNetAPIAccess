@@ -34,9 +34,11 @@ namespace EmpyrionNetAPITools
             get { return Path.Combine(ProgramPath, DedicatedYaml.SaveDirectory ?? "Saves", "Cache", DedicatedYaml.SaveGameName ?? ""); }
         }
 
+        public static string ModName { get; set; }
+
         public static string SaveGameModPath
         {
-            get { return Path.Combine(SaveGamePath, @"Mods\EWA"); }
+            get { return Path.Combine(SaveGamePath, "Mods", ModName ?? String.Empty); }
         }
 
         public static DedicatedYamlStruct DedicatedYaml { get; set; } = new DedicatedYamlStruct(Path.Combine(ProgramPath, DedicatedFilename));

@@ -12,6 +12,7 @@ namespace EmpyrionNetAPITools
             get => _mConfigFilename;
             set {
                 _mConfigFilename = value;
+                try{ Directory.CreateDirectory(Path.GetDirectoryName(ConfigFilename)); } catch {}
                 ActivateFileChangeWatcher();
             }
         }
