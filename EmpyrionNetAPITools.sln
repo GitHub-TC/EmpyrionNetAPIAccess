@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmpyrionNetAPIAccess.Tests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmpyrionNetAPITools", "EmpyrionNetAPITools\EmpyrionNetAPITools.csproj", "{8EF00A6C-A10A-4A4A-BF60-C83178D6A093}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmpyrionNetAPI", "EmpyrionNetAPI\EmpyrionNetAPI.csproj", "{BE4D8DE4-F6A8-4B3D-84E3-DCAE109EC09A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{8EF00A6C-A10A-4A4A-BF60-C83178D6A093}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EF00A6C-A10A-4A4A-BF60-C83178D6A093}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EF00A6C-A10A-4A4A-BF60-C83178D6A093}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE4D8DE4-F6A8-4B3D-84E3-DCAE109EC09A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE4D8DE4-F6A8-4B3D-84E3-DCAE109EC09A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE4D8DE4-F6A8-4B3D-84E3-DCAE109EC09A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE4D8DE4-F6A8-4B3D-84E3-DCAE109EC09A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

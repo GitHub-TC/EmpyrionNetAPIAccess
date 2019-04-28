@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("EmpyrionNetAPI")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("ASTIC/TC")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("EmpyrionNetAPI")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d1c387ff-fffe-4b64-ad9e-571ba7b87ab8")]
+[assembly: Guid("be4d8de4-f6a8-4b3d-84e3-dcae109ec09a")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -263,3 +263,6 @@ __pycache__/
 # Generated files
 Autowire.APIEvents.cs
 Autowire.APIRequests.cs
+
+# build.debug
+!build.debug/*.pdb
