@@ -6,6 +6,12 @@ using System.Xml.Serialization;
 
 namespace EmpyrionNetAPITools
 {
+    public enum ConfigurationFileFormat
+    {
+        JSON,
+        XML
+    }
+
     public class ConfigurationManager<T>
     {
         public string ConfigFilename {
@@ -23,7 +29,7 @@ namespace EmpyrionNetAPITools
         public T Current { get; set; }
 
         public static Action<string> Log { get; set; }
-        public bool UseJSON { get; set; }
+        public ConfigurationFileFormat FileFormat { get; set; } = ConfigurationFileFormat.JSON;
 
         private void ActivateFileChangeWatcher()
         {
@@ -43,17 +49,19 @@ namespace EmpyrionNetAPITools
             try
             {
                 Log?.Invoke($"ConfigurationManager load '{ConfigFilename}'");
-                if (UseJSON)
+                switch (FileFormat)
                 {
-                    Current = JsonConvert.DeserializeObject<T>(File.ReadAllText(ConfigFilename));
-                }
-                else
-                {
-                    var serializer = new XmlSerializer(typeof(T));
-                    using (var reader = XmlReader.Create(ConfigFilename))
-                    {
-                        Current = (T)serializer.Deserialize(reader);
-                    }
+                    default:
+                    case ConfigurationFileFormat.JSON:
+                        Current = JsonConvert.DeserializeObject<T>(File.ReadAllText(ConfigFilename));
+                        break;
+                    case ConfigurationFileFormat.XML:
+                        var serializer = new XmlSerializer(typeof(T));
+                        using (var reader = XmlReader.Create(ConfigFilename))
+                        {
+                            Current = (T)serializer.Deserialize(reader);
+                        }
+                        break;
                 }
             }
             catch (Exception Error)
@@ -70,16 +78,19 @@ namespace EmpyrionNetAPITools
                 Log?.Invoke($"ConfigurationManager save '{ConfigFilename}'");
                 mConfigFileChangedWatcher.EnableRaisingEvents = false;
                 Directory.CreateDirectory(Path.GetDirectoryName(ConfigFilename));
-                if (UseJSON)
+                switch (FileFormat)
                 {
-                    File.WriteAllText(ConfigFilename, JsonConvert.SerializeObject(Current, Newtonsoft.Json.Formatting.Indented));
-                }
-                else {
-                    var serializer = new XmlSerializer(typeof(T));
-                    using (var writer = XmlWriter.Create(ConfigFilename, new XmlWriterSettings() { Indent = true, IndentChars = "  " }))
-                    {
-                        serializer.Serialize(writer, Current);
-                    }
+                    default:
+                    case ConfigurationFileFormat.JSON:
+                        File.WriteAllText(ConfigFilename, JsonConvert.SerializeObject(Current, Newtonsoft.Json.Formatting.Indented));
+                        break;
+                    case ConfigurationFileFormat.XML:
+                        var serializer = new XmlSerializer(typeof(T));
+                        using (var writer = XmlWriter.Create(ConfigFilename, new XmlWriterSettings() { Indent = true, IndentChars = "  " }))
+                        {
+                            serializer.Serialize(writer, Current);
+                        }
+                        break;
                 }
                 Log?.Invoke($"ConfigurationManager saved '{ConfigFilename}'");
             }
