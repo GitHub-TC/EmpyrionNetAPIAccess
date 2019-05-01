@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>EmpyrionNetAPI</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <title>EmpyrionNetAPI</title>
     <authors>ASTIC/TC</authors>
     <owners>ASTIC/TC</owners>
@@ -16,5 +16,8 @@
       <dependency id="YamlDotNet" version="6.0.0" />
     </dependencies>
   </metadata>
-  <files />
+  <files>
+    <file src="bin\Release\EmpyrionNetApi.dll" target="lib\netcoreapp2.2" />
+    <file src=""/>
+  </files>
 </package>

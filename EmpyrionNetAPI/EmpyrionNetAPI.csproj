@@ -85,7 +85,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"$(SolutionDir)packages\NuGet.CommandLine.4.9.4\tools\NuGet.exe"  pack "$(ProjectPath)" -properties Configuration=Release -OutputDirectory  F:\NuGet.Local\$(ProjectName)
+    <PostBuildEvent>"$(SolutionDir)packages\NuGet.CommandLine.4.9.4\tools\NuGet.exe"  pack "$(ProjectPath)" -properties Configuration=Release -OutputDirectory  F:\NuGet.Local\$(ProjectName) -Exclude ILMergeOrder.txt
 
 </PostBuildEvent>
   </PropertyGroup>
