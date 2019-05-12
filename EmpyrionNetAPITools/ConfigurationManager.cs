@@ -8,6 +8,7 @@ namespace EmpyrionNetAPITools
 {
     public enum ConfigurationFileFormat
     {
+        Default,
         JSON,
         XML
     }
@@ -29,7 +30,23 @@ namespace EmpyrionNetAPITools
         public T Current { get; set; }
 
         public static Action<string> Log { get; set; }
-        public ConfigurationFileFormat FileFormat { get; set; } = ConfigurationFileFormat.JSON;
+        public ConfigurationFileFormat FileFormat { get; set; } = ConfigurationFileFormat.Default;
+        public ConfigurationFileFormat SelectFileFormat
+        {
+            get {
+                switch (FileFormat)
+                {
+                    case ConfigurationFileFormat.Default:
+                        switch (Path.GetExtension(ConfigFilename).ToLower())
+                        {
+                            case ".json":   return ConfigurationFileFormat.JSON;
+                            case ".xml":    return ConfigurationFileFormat.XML;
+                            default:        return ConfigurationFileFormat.JSON;
+                        }
+                    default: return FileFormat;
+                }
+            }
+        }
 
         private void ActivateFileChangeWatcher()
         {
@@ -49,7 +66,7 @@ namespace EmpyrionNetAPITools
             try
             {
                 Log?.Invoke($"ConfigurationManager load '{ConfigFilename}'");
-                switch (FileFormat)
+                switch (SelectFileFormat)
                 {
                     default:
                     case ConfigurationFileFormat.JSON:
@@ -78,7 +95,7 @@ namespace EmpyrionNetAPITools
                 Log?.Invoke($"ConfigurationManager save '{ConfigFilename}'");
                 mConfigFileChangedWatcher.EnableRaisingEvents = false;
                 Directory.CreateDirectory(Path.GetDirectoryName(ConfigFilename));
-                switch (FileFormat)
+                switch (SelectFileFormat)
                 {
                     default:
                     case ConfigurationFileFormat.JSON:

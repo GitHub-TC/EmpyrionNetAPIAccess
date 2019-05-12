@@ -19,6 +19,8 @@ namespace EmpyrionNetAPITools
 
         public static string GetDirWith(string aTestDir, string aTestFile)
         {
+            if (aTestDir == null) return string.Empty;
+
             return File.Exists(Path.Combine(aTestDir, aTestFile))
                 ? aTestDir
                 : GetDirWith(Path.GetDirectoryName(aTestDir), aTestFile);
@@ -26,12 +28,12 @@ namespace EmpyrionNetAPITools
 
         public static string SaveGamePath
         {
-            get { return Path.Combine(ProgramPath, DedicatedYaml.SaveDirectory ?? "Saves", "Games", DedicatedYaml.SaveGameName ?? "");  }
+            get { return Path.Combine(ProgramPath ?? string.Empty, DedicatedYaml?.SaveDirectory ?? "Saves", "Games", DedicatedYaml?.SaveGameName ?? "");  }
         }
 
         public static string SaveGameCachePath
         {
-            get { return Path.Combine(ProgramPath, DedicatedYaml.SaveDirectory ?? "Saves", "Cache", DedicatedYaml.SaveGameName ?? ""); }
+            get { return Path.Combine(ProgramPath ?? string.Empty, DedicatedYaml?.SaveDirectory ?? "Saves", "Cache", DedicatedYaml?.SaveGameName ?? ""); }
         }
 
         public static string ModName { get; set; }

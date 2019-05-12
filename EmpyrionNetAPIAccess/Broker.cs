@@ -1,8 +1,6 @@
 ﻿using Eleon.Modding;
-using System.Collections.Generic;
-using System.Linq;
-using System;
 using EmpyrionNetAPIDefinitions;
+using System;
 using System.Threading.Tasks;
 
 namespace EmpyrionNetAPIAccess
@@ -11,8 +9,7 @@ namespace EmpyrionNetAPIAccess
     public partial class Broker
     {
         public ModGameAPI api { get; set; }
-        public bool verbose { get; set; }
-        public LogLevel LogLevel { get; set; }
+        public LogLevel LogLevel { get; set; } = LogLevel.Message;
 
         private RequestTracker _requestTracker = new RequestTracker();
 
@@ -58,8 +55,7 @@ namespace EmpyrionNetAPIAccess
 
         public void log(string message, LogLevel aLevel)
         {
-            if (verbose && LogLevel <= aLevel)
-                api.Console_Write(message);
+            if (LogLevel <= aLevel) api.Console_Write(message);
         }
 
         public void log(System.Func<string> message)
@@ -69,8 +65,7 @@ namespace EmpyrionNetAPIAccess
 
         public void log(System.Func<string> message, LogLevel aLevel)
         {
-            if (verbose && LogLevel <= aLevel)
-                api.Console_Write(message());
+            if (LogLevel <= aLevel) api.Console_Write(message());
         }
         public void noOpErrorHandler(ErrorInfo info) { }
     }

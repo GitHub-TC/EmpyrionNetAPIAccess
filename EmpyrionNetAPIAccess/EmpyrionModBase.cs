@@ -18,16 +18,6 @@ namespace EmpyrionNetAPIAccess
         /// </summary>
         public TimeSpan EmpyrionRequestsDefaultTimeout { get; set; } = new TimeSpan(0, 0, 0, 10);
 
-        protected bool verbose
-        {
-            set {
-                Broker.verbose = value;
-            }
-            get {
-                return Broker.verbose;
-            }
-        }
-
         protected LogLevel LogLevel
         {
             get { return Broker.LogLevel; }
