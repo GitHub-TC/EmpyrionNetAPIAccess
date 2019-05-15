@@ -58,12 +58,12 @@ namespace EmpyrionNetAPIAccess
             return aAssembly.GetCustomAttributes(typeof(T), false).OfType<T>().FirstOrDefault();
         }
 
-        static Regex GetCommand = new Regex(@"(?<cmd>(\w|\/|\s)+)");
+        static Regex GetCommand = new Regex(@"(?<cmd>(\w|\/|\\|\s)+)");
 
         public static string MsgString(this ChatCommand aCommand)
         {
             var CmdString = GetCommand.Match(aCommand.invocationPattern).Groups["cmd"]?.Value ?? aCommand.invocationPattern;
-            return $"[c][ff00ff]{CmdString}[-][/c]{aCommand.paramNames.Aggregate(" ", (S, P) => S + $"<[c][00ff00]{P}[-][/c]> ")}: {aCommand.description}";
+            return $"[c][ff00ff]{CmdString.Replace(@"\\", @"\")}[-][/c]{aCommand.paramNames.Aggregate(" ", (S, P) => S + $"<[c][00ff00]{P}[-][/c]> ")}: {aCommand.description}";
         }
 
     }
