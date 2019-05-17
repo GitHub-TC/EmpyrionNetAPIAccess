@@ -60,10 +60,10 @@ namespace EmpyrionNetAPIAccess
 
         static Regex GetCommand = new Regex(@"(?<cmd>(\w|\/|\\|\s)+)");
 
-        public static string MsgString(this ChatCommand aCommand)
+        public static string MsgString(this ChatCommand aCommand, string prefix)
         {
             var CmdString = GetCommand.Match(aCommand.invocationPattern).Groups["cmd"]?.Value ?? aCommand.invocationPattern;
-            return $"[c][ff00ff]{CmdString.Replace(@"\\", @"\")}[-][/c]{aCommand.paramNames.Aggregate(" ", (S, P) => S + $"<[c][00ff00]{P}[-][/c]> ")}: {aCommand.description}";
+            return $"[c][ff00ff]{prefix}{CmdString.Replace(@"\\", @"\")}[-][/c]{aCommand.paramNames.Aggregate(" ", (S, P) => S + $"<[c][00ff00]{P}[-][/c]> ")}: {aCommand.description}";
         }
 
     }

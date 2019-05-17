@@ -24,7 +24,7 @@ namespace EmpyrionNetAPIAccess
             set { Broker.LogLevel = value; }
         }
 
-        private ChatCommandManager ChatCommandManager;
+        public ChatCommandManager ChatCommandManager { get; } = new ChatCommandManager();
 
         public delegate void APIEventHandler(CmdId eventId, ushort seqNr, object data);
 
@@ -97,7 +97,7 @@ namespace EmpyrionNetAPIAccess
             //[c][hexid][-][/c]    [c][019245]test[-][/c].
 
             await ShowDialog(playerId, player, "Commands",
-                "\n" + String.Join("\n", GetChatCommandsForPermissionLevel((PermissionType)player.permission).Select(C => C.MsgString()).ToArray()) +
+                "\n" + String.Join("\n", GetChatCommandsForPermissionLevel((PermissionType)player.permission).Select(C => C.MsgString(ChatCommandManager.CommandPrefix)).ToArray()) +
                 (additionalInfos == null ? "" : "\n\n") + additionalInfos +
                 $"\n\n[c][c0c0c0]{CurrentAssembly.GetAttribute<AssemblyTitleAttribute>()?.Title} by {CurrentAssembly.GetAttribute<AssemblyCompanyAttribute>()?.Company} Version:{CurrentAssembly.GetAttribute<AssemblyFileVersionAttribute>()?.Version}[-][/c]"
                 );
@@ -130,7 +130,7 @@ namespace EmpyrionNetAPIAccess
             Broker.api = dediAPI;
             this.Initialize(dediAPI);
 
-            this.ChatCommandManager = new ChatCommandManager(this.ChatCommands);
+            this.ChatCommandManager.CommandList = ChatCommands;
         }
 
         private async Task ProcessChatCommands(ChatInfo obj)
