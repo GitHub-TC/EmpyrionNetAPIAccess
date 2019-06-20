@@ -125,7 +125,7 @@ namespace EmpyrionNetAPIAccess
         }
         List<ChatCommand> _CommandList;
         /// <summary>
-        /// A simple text all chat commands have to start with wenn the user typed it
+        /// A simple string with chars that all chat commands have to start with wenn the user typed it
         /// </summary>
         public string CommandPrefix { get; set; }
 
@@ -135,8 +135,8 @@ namespace EmpyrionNetAPIAccess
 
             if (!string.IsNullOrEmpty(CommandPrefix))
             {
-                if (!message.StartsWith(CommandPrefix)) return null;
-                match = this.superPattern.pattern.Match(message.Substring(CommandPrefix.Length));
+                if (!CommandPrefix.Contains(message[0])) return null;
+                match = this.superPattern.pattern.Match(message.Substring(1));
             }
             else match = this.superPattern.pattern.Match(message);
 

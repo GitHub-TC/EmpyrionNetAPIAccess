@@ -8,6 +8,38 @@ using EmpyrionNetAPIDefinitions;
 
 namespace EmpyrionNetAPIAccess
 {
+    public enum Timeouts
+    {
+        /// <summary>
+        /// No Timeout waiting for an Response
+        /// </summary>
+        NoResponse  = 0,
+        /// <summary>
+        /// Timeout after 1s
+        /// </summary>
+        Wait1s      = 1,
+        /// <summary>
+        /// Timeout after 10s
+        /// </summary>
+        Wait10s = 10,
+        /// <summary>
+        /// Timeout after 20s
+        /// </summary>
+        Wait20s = 20,
+        /// <summary>
+        /// Timeout after 20s
+        /// </summary>
+        Wait30s = 30,
+        /// <summary>
+        /// Timeout after 1m
+        /// </summary>
+        Wait1m = 60,
+        /// <summary>
+        /// Timeout after 10m
+        /// </summary>
+        Wait10m = 60 * 10
+    }
+
     public abstract partial class EmpyrionModBase : ModInterface
     {
 
@@ -77,27 +109,38 @@ namespace EmpyrionNetAPIAccess
         /// <param name="priority"></param>
         protected void MessagePlayer(int playerId, string message, MessagePriorityType priority = MessagePriorityType.Message)
         {
-            var msg = message.ToIdMsgPrio(playerId, priority);
-            Request_InGameMessage_SinglePlayer(msg).Wait(1000);
+            try{ Request_InGameMessage_SinglePlayer(message.ToIdMsgPrio(playerId, priority)).Wait(1000); }
+            catch{}
         }
 
-        public async System.Threading.Tasks.Task ShowDialog(int aPlayerId, PlayerInfo aPlayer, string aTitle, string aMessage)
+        public async Task ShowDialog(int aPlayerId, PlayerInfo aPlayer, string aTitle, string aMessage)
         {
-            await Request_ShowDialog_SinglePlayer(new DialogBoxData()
+            await Request_ShowDialog_SinglePlayer(Timeouts.NoResponse, new DialogBoxData()
             {
                 Id = aPlayerId,
                 MsgText = $"{aTitle}: [c][ffffff]{aPlayer.playerName}[-][/c] with permission [c][ffffff]{(PermissionType)aPlayer.permission}[-][/c]\n" + aMessage,
             });
         }
 
-        public async System.Threading.Tasks.Task DisplayHelp(int playerId, string additionalInfos)
+        public async Task<IdAndIntValue> ShowDialog(int aPlayerId, PlayerInfo aPlayer, string aTitle, string aMessage, string PosButtonText, string NegButtonText)
+        {
+            return await Request_ShowDialog_SinglePlayer(Timeouts.Wait10m, new DialogBoxData()
+            {
+                Id = aPlayerId,
+                MsgText = $"{aTitle}: [c][ffffff]{aPlayer.playerName}[-][/c] with permission [c][ffffff]{(PermissionType)aPlayer.permission}[-][/c]\n" + aMessage,
+                PosButtonText = PosButtonText,
+                NegButtonText = NegButtonText,
+            });
+        }
+
+        public async Task DisplayHelp(int playerId, string additionalInfos)
         {
             var player = await Request_Player_Info(playerId.ToId());
             var CurrentAssembly = Assembly.GetAssembly(this.GetType());
             //[c][hexid][-][/c]    [c][019245]test[-][/c].
 
             await ShowDialog(playerId, player, "Commands",
-                "\n" + String.Join("\n", GetChatCommandsForPermissionLevel((PermissionType)player.permission).Select(C => C.MsgString(ChatCommandManager.CommandPrefix)).ToArray()) +
+                "\n" + String.Join("\n", GetChatCommandsForPermissionLevel((PermissionType)player.permission).Select(C => C.MsgString(string.IsNullOrEmpty(ChatCommandManager.CommandPrefix) ? null : ChatCommandManager.CommandPrefix[0].ToString())).ToArray()) +
                 (additionalInfos == null ? "" : "\n\n") + additionalInfos +
                 $"\n\n[c][c0c0c0]{CurrentAssembly.GetAttribute<AssemblyTitleAttribute>()?.Title} by {CurrentAssembly.GetAttribute<AssemblyCompanyAttribute>()?.Company} Version:{CurrentAssembly.GetAttribute<AssemblyFileVersionAttribute>()?.Version}[-][/c]"
                 );
@@ -105,19 +148,26 @@ namespace EmpyrionNetAPIAccess
 
         public void Game_Event(CmdId eventId, ushort seqNr, object data)
         {
-            Broker.HandleGameEvent(eventId, seqNr, data);
-            if (eventId == CmdId.Event_ChatMessage)
-                try
-                {
-                    ProcessChatCommands((ChatInfo)data).Wait();
-                }
-                catch (Exception error)
-                {
-                    var c = (ChatInfo)data;
-                    log($"ChatCommand Exception: {c.msg}/{c.playerId} : {error}");
-                }
+            try
+            {
+                Broker.HandleGameEvent(eventId, seqNr, data);
+                if (eventId == CmdId.Event_ChatMessage)
+                    try
+                    {
+                        ProcessChatCommands((ChatInfo)data).Wait();
+                    }
+                    catch (Exception error)
+                    {
+                        var c = (ChatInfo)data;
+                        log($"ChatCommand Exception: {c.msg}/{c.playerId} : {error}");
+                    }
 
-            API_Message_Received?.Invoke(eventId, seqNr, data);
+                API_Message_Received?.Invoke(eventId, seqNr, data);
+            }
+            catch (Exception error)
+            {
+                log($"Game_Event Exception: {eventId}/{seqNr}/{data?.ToString()} : {error.ToString()}");
+            }
         }
 
         public void Game_Exit()

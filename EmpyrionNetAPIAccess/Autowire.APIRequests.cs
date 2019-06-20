@@ -12,7 +12,7 @@ namespace EmpyrionNetAPIAccess
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<PlayfieldList>(CmdId.Request_Playfield_List,null));
     }
 
-    public async Task<PlayfieldList> Request_Playfield_List(int timeoutSeconds){     
+    public async Task<PlayfieldList> Request_Playfield_List(Timeouts timeoutSeconds){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<PlayfieldList>(CmdId.Request_Playfield_List,null));
     }
       		
@@ -20,7 +20,7 @@ namespace EmpyrionNetAPIAccess
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<PlayfieldStats>(CmdId.Request_Playfield_Stats,arg));
     }
 
-    public async Task<PlayfieldStats> Request_Playfield_Stats(int timeoutSeconds, PString arg){     
+    public async Task<PlayfieldStats> Request_Playfield_Stats(Timeouts timeoutSeconds, PString arg){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<PlayfieldStats>(CmdId.Request_Playfield_Stats,arg));
     }
       		
@@ -28,7 +28,7 @@ namespace EmpyrionNetAPIAccess
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<DediStats>(CmdId.Request_Dedi_Stats,null));
     }
 
-    public async Task<DediStats> Request_Dedi_Stats(int timeoutSeconds){     
+    public async Task<DediStats> Request_Dedi_Stats(Timeouts timeoutSeconds){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<DediStats>(CmdId.Request_Dedi_Stats,null));
     }
       		
@@ -36,7 +36,7 @@ namespace EmpyrionNetAPIAccess
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<GlobalStructureList>(CmdId.Request_GlobalStructure_List,null));
     }
 
-    public async Task<GlobalStructureList> Request_GlobalStructure_List(int timeoutSeconds){     
+    public async Task<GlobalStructureList> Request_GlobalStructure_List(Timeouts timeoutSeconds){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<GlobalStructureList>(CmdId.Request_GlobalStructure_List,null));
     }
       		
@@ -44,23 +44,23 @@ namespace EmpyrionNetAPIAccess
       await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest(CmdId.Request_GlobalStructure_Update,arg));
     }
 
-    public async Task Request_GlobalStructure_Update(int timeoutSeconds, PString arg){     
-      await TaskWait.For(timeoutSeconds, Broker.SendRequest(CmdId.Request_GlobalStructure_Update,arg));
+    public async Task Request_GlobalStructure_Update(Timeouts timeoutSeconds, PString arg){     
+      await TaskWait.For((int)timeoutSeconds, Broker.SendRequest(CmdId.Request_GlobalStructure_Update,arg));
     }
       		
     public async Task Request_Structure_Touch(Id arg){     
       await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest(CmdId.Request_Structure_Touch,arg));
     }
 
-    public async Task Request_Structure_Touch(int timeoutSeconds, Id arg){     
-      await TaskWait.For(timeoutSeconds, Broker.SendRequest(CmdId.Request_Structure_Touch,arg));
+    public async Task Request_Structure_Touch(Timeouts timeoutSeconds, Id arg){     
+      await TaskWait.For((int)timeoutSeconds, Broker.SendRequest(CmdId.Request_Structure_Touch,arg));
     }
       		
     public async Task<IdStructureBlockInfo> Request_Structure_BlockStatistics(Id arg){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<IdStructureBlockInfo>(CmdId.Request_Structure_BlockStatistics,arg));
     }
 
-    public async Task<IdStructureBlockInfo> Request_Structure_BlockStatistics(int timeoutSeconds, Id arg){     
+    public async Task<IdStructureBlockInfo> Request_Structure_BlockStatistics(Timeouts timeoutSeconds, Id arg){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<IdStructureBlockInfo>(CmdId.Request_Structure_BlockStatistics,arg));
     }
       		
@@ -68,7 +68,7 @@ namespace EmpyrionNetAPIAccess
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<PlayerInfo>(CmdId.Request_Player_Info,arg));
     }
 
-    public async Task<PlayerInfo> Request_Player_Info(int timeoutSeconds, Id arg){     
+    public async Task<PlayerInfo> Request_Player_Info(Timeouts timeoutSeconds, Id arg){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<PlayerInfo>(CmdId.Request_Player_Info,arg));
     }
       		
@@ -76,7 +76,7 @@ namespace EmpyrionNetAPIAccess
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<IdList>(CmdId.Request_Player_List,null));
     }
 
-    public async Task<IdList> Request_Player_List(int timeoutSeconds){     
+    public async Task<IdList> Request_Player_List(Timeouts timeoutSeconds){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<IdList>(CmdId.Request_Player_List,null));
     }
       		
@@ -84,7 +84,7 @@ namespace EmpyrionNetAPIAccess
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<Inventory>(CmdId.Request_Player_GetInventory,arg));
     }
 
-    public async Task<Inventory> Request_Player_GetInventory(int timeoutSeconds, Id arg){     
+    public async Task<Inventory> Request_Player_GetInventory(Timeouts timeoutSeconds, Id arg){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<Inventory>(CmdId.Request_Player_GetInventory,arg));
     }
       		
@@ -92,7 +92,7 @@ namespace EmpyrionNetAPIAccess
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<Inventory>(CmdId.Request_Player_SetInventory,arg));
     }
 
-    public async Task<Inventory> Request_Player_SetInventory(int timeoutSeconds, Inventory arg){     
+    public async Task<Inventory> Request_Player_SetInventory(Timeouts timeoutSeconds, Inventory arg){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<Inventory>(CmdId.Request_Player_SetInventory,arg));
     }
       		
@@ -100,15 +100,15 @@ namespace EmpyrionNetAPIAccess
       await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest(CmdId.Request_Player_AddItem,arg));
     }
 
-    public async Task Request_Player_AddItem(int timeoutSeconds, IdItemStack arg){     
-      await TaskWait.For(timeoutSeconds, Broker.SendRequest(CmdId.Request_Player_AddItem,arg));
+    public async Task Request_Player_AddItem(Timeouts timeoutSeconds, IdItemStack arg){     
+      await TaskWait.For((int)timeoutSeconds, Broker.SendRequest(CmdId.Request_Player_AddItem,arg));
     }
       		
     public async Task<IdCredits> Request_Player_Credits(Id arg){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<IdCredits>(CmdId.Request_Player_Credits,arg));
     }
 
-    public async Task<IdCredits> Request_Player_Credits(int timeoutSeconds, Id arg){     
+    public async Task<IdCredits> Request_Player_Credits(Timeouts timeoutSeconds, Id arg){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<IdCredits>(CmdId.Request_Player_Credits,arg));
     }
       		
@@ -116,7 +116,7 @@ namespace EmpyrionNetAPIAccess
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<IdCredits>(CmdId.Request_Player_SetCredits,arg));
     }
 
-    public async Task<IdCredits> Request_Player_SetCredits(int timeoutSeconds, IdCredits arg){     
+    public async Task<IdCredits> Request_Player_SetCredits(Timeouts timeoutSeconds, IdCredits arg){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<IdCredits>(CmdId.Request_Player_SetCredits,arg));
     }
       		
@@ -124,7 +124,7 @@ namespace EmpyrionNetAPIAccess
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<IdCredits>(CmdId.Request_Player_AddCredits,arg));
     }
 
-    public async Task<IdCredits> Request_Player_AddCredits(int timeoutSeconds, IdCredits arg){     
+    public async Task<IdCredits> Request_Player_AddCredits(Timeouts timeoutSeconds, IdCredits arg){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<IdCredits>(CmdId.Request_Player_AddCredits,arg));
     }
       		
@@ -132,31 +132,31 @@ namespace EmpyrionNetAPIAccess
       await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest(CmdId.Request_Blueprint_Finish,arg));
     }
 
-    public async Task Request_Blueprint_Finish(int timeoutSeconds, Id arg){     
-      await TaskWait.For(timeoutSeconds, Broker.SendRequest(CmdId.Request_Blueprint_Finish,arg));
+    public async Task Request_Blueprint_Finish(Timeouts timeoutSeconds, Id arg){     
+      await TaskWait.For((int)timeoutSeconds, Broker.SendRequest(CmdId.Request_Blueprint_Finish,arg));
     }
       		
     public async Task Request_Blueprint_Resources(BlueprintResources arg){     
       await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest(CmdId.Request_Blueprint_Resources,arg));
     }
 
-    public async Task Request_Blueprint_Resources(int timeoutSeconds, BlueprintResources arg){     
-      await TaskWait.For(timeoutSeconds, Broker.SendRequest(CmdId.Request_Blueprint_Resources,arg));
+    public async Task Request_Blueprint_Resources(Timeouts timeoutSeconds, BlueprintResources arg){     
+      await TaskWait.For((int)timeoutSeconds, Broker.SendRequest(CmdId.Request_Blueprint_Resources,arg));
     }
       		
     public async Task Request_Player_ChangePlayerfield(IdPlayfieldPositionRotation arg){     
       await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest(CmdId.Request_Player_ChangePlayerfield,arg));
     }
 
-    public async Task Request_Player_ChangePlayerfield(int timeoutSeconds, IdPlayfieldPositionRotation arg){     
-      await TaskWait.For(timeoutSeconds, Broker.SendRequest(CmdId.Request_Player_ChangePlayerfield,arg));
+    public async Task Request_Player_ChangePlayerfield(Timeouts timeoutSeconds, IdPlayfieldPositionRotation arg){     
+      await TaskWait.For((int)timeoutSeconds, Broker.SendRequest(CmdId.Request_Player_ChangePlayerfield,arg));
     }
       		
     public async Task<ItemExchangeInfo> Request_Player_ItemExchange(ItemExchangeInfo arg){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<ItemExchangeInfo>(CmdId.Request_Player_ItemExchange,arg));
     }
 
-    public async Task<ItemExchangeInfo> Request_Player_ItemExchange(int timeoutSeconds, ItemExchangeInfo arg){     
+    public async Task<ItemExchangeInfo> Request_Player_ItemExchange(Timeouts timeoutSeconds, ItemExchangeInfo arg){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<ItemExchangeInfo>(CmdId.Request_Player_ItemExchange,arg));
     }
       		
@@ -164,39 +164,39 @@ namespace EmpyrionNetAPIAccess
       await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest(CmdId.Request_Player_SetPlayerInfo,arg));
     }
 
-    public async Task Request_Player_SetPlayerInfo(int timeoutSeconds, PlayerInfoSet arg){     
-      await TaskWait.For(timeoutSeconds, Broker.SendRequest(CmdId.Request_Player_SetPlayerInfo,arg));
+    public async Task Request_Player_SetPlayerInfo(Timeouts timeoutSeconds, PlayerInfoSet arg){     
+      await TaskWait.For((int)timeoutSeconds, Broker.SendRequest(CmdId.Request_Player_SetPlayerInfo,arg));
     }
       		
     public async Task Request_Entity_Teleport(IdPositionRotation arg){     
       await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest(CmdId.Request_Entity_Teleport,arg));
     }
 
-    public async Task Request_Entity_Teleport(int timeoutSeconds, IdPositionRotation arg){     
-      await TaskWait.For(timeoutSeconds, Broker.SendRequest(CmdId.Request_Entity_Teleport,arg));
+    public async Task Request_Entity_Teleport(Timeouts timeoutSeconds, IdPositionRotation arg){     
+      await TaskWait.For((int)timeoutSeconds, Broker.SendRequest(CmdId.Request_Entity_Teleport,arg));
     }
       		
     public async Task Request_Entity_ChangePlayfield(IdPlayfieldPositionRotation arg){     
       await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest(CmdId.Request_Entity_ChangePlayfield,arg));
     }
 
-    public async Task Request_Entity_ChangePlayfield(int timeoutSeconds, IdPlayfieldPositionRotation arg){     
-      await TaskWait.For(timeoutSeconds, Broker.SendRequest(CmdId.Request_Entity_ChangePlayfield,arg));
+    public async Task Request_Entity_ChangePlayfield(Timeouts timeoutSeconds, IdPlayfieldPositionRotation arg){     
+      await TaskWait.For((int)timeoutSeconds, Broker.SendRequest(CmdId.Request_Entity_ChangePlayfield,arg));
     }
       		
     public async Task Request_Entity_Destroy(Id arg){     
       await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest(CmdId.Request_Entity_Destroy,arg));
     }
 
-    public async Task Request_Entity_Destroy(int timeoutSeconds, Id arg){     
-      await TaskWait.For(timeoutSeconds, Broker.SendRequest(CmdId.Request_Entity_Destroy,arg));
+    public async Task Request_Entity_Destroy(Timeouts timeoutSeconds, Id arg){     
+      await TaskWait.For((int)timeoutSeconds, Broker.SendRequest(CmdId.Request_Entity_Destroy,arg));
     }
       		
     public async Task<IdPositionRotation> Request_Entity_PosAndRot(Id arg){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<IdPositionRotation>(CmdId.Request_Entity_PosAndRot,arg));
     }
 
-    public async Task<IdPositionRotation> Request_Entity_PosAndRot(int timeoutSeconds, Id arg){     
+    public async Task<IdPositionRotation> Request_Entity_PosAndRot(Timeouts timeoutSeconds, Id arg){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<IdPositionRotation>(CmdId.Request_Entity_PosAndRot,arg));
     }
       		
@@ -204,15 +204,15 @@ namespace EmpyrionNetAPIAccess
       await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest(CmdId.Request_Entity_Spawn,arg));
     }
 
-    public async Task Request_Entity_Spawn(int timeoutSeconds, EntitySpawnInfo arg){     
-      await TaskWait.For(timeoutSeconds, Broker.SendRequest(CmdId.Request_Entity_Spawn,arg));
+    public async Task Request_Entity_Spawn(Timeouts timeoutSeconds, EntitySpawnInfo arg){     
+      await TaskWait.For((int)timeoutSeconds, Broker.SendRequest(CmdId.Request_Entity_Spawn,arg));
     }
       		
     public async Task<FactionInfoList> Request_Get_Factions(Id arg){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<FactionInfoList>(CmdId.Request_Get_Factions,arg));
     }
 
-    public async Task<FactionInfoList> Request_Get_Factions(int timeoutSeconds, Id arg){     
+    public async Task<FactionInfoList> Request_Get_Factions(Timeouts timeoutSeconds, Id arg){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<FactionInfoList>(CmdId.Request_Get_Factions,arg));
     }
       		
@@ -220,7 +220,7 @@ namespace EmpyrionNetAPIAccess
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<Id>(CmdId.Request_NewEntityId,null));
     }
 
-    public async Task<Id> Request_NewEntityId(int timeoutSeconds){     
+    public async Task<Id> Request_NewEntityId(Timeouts timeoutSeconds){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<Id>(CmdId.Request_NewEntityId,null));
     }
       		
@@ -228,7 +228,7 @@ namespace EmpyrionNetAPIAccess
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<AlliancesTable>(CmdId.Request_AlliancesAll,null));
     }
 
-    public async Task<AlliancesTable> Request_AlliancesAll(int timeoutSeconds){     
+    public async Task<AlliancesTable> Request_AlliancesAll(Timeouts timeoutSeconds){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<AlliancesTable>(CmdId.Request_AlliancesAll,null));
     }
       		
@@ -236,7 +236,7 @@ namespace EmpyrionNetAPIAccess
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<AlliancesFaction>(CmdId.Request_AlliancesFaction,arg));
     }
 
-    public async Task<AlliancesFaction> Request_AlliancesFaction(int timeoutSeconds, AlliancesFaction arg){     
+    public async Task<AlliancesFaction> Request_AlliancesFaction(Timeouts timeoutSeconds, AlliancesFaction arg){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<AlliancesFaction>(CmdId.Request_AlliancesFaction,arg));
     }
       		
@@ -244,23 +244,23 @@ namespace EmpyrionNetAPIAccess
       await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest(CmdId.Request_Load_Playfield,arg));
     }
 
-    public async Task Request_Load_Playfield(int timeoutSeconds, PlayfieldLoad arg){     
-      await TaskWait.For(timeoutSeconds, Broker.SendRequest(CmdId.Request_Load_Playfield,arg));
+    public async Task Request_Load_Playfield(Timeouts timeoutSeconds, PlayfieldLoad arg){     
+      await TaskWait.For((int)timeoutSeconds, Broker.SendRequest(CmdId.Request_Load_Playfield,arg));
     }
       		
     public async Task Request_ConsoleCommand(PString arg){     
       await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest(CmdId.Request_ConsoleCommand,arg));
     }
 
-    public async Task Request_ConsoleCommand(int timeoutSeconds, PString arg){     
-      await TaskWait.For(timeoutSeconds, Broker.SendRequest(CmdId.Request_ConsoleCommand,arg));
+    public async Task Request_ConsoleCommand(Timeouts timeoutSeconds, PString arg){     
+      await TaskWait.For((int)timeoutSeconds, Broker.SendRequest(CmdId.Request_ConsoleCommand,arg));
     }
       		
     public async Task<IdList> Request_GetBannedPlayers(){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<IdList>(CmdId.Request_GetBannedPlayers,null));
     }
 
-    public async Task<IdList> Request_GetBannedPlayers(int timeoutSeconds){     
+    public async Task<IdList> Request_GetBannedPlayers(Timeouts timeoutSeconds){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<IdList>(CmdId.Request_GetBannedPlayers,null));
     }
       		
@@ -268,31 +268,31 @@ namespace EmpyrionNetAPIAccess
       await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest(CmdId.Request_InGameMessage_SinglePlayer,arg));
     }
 
-    public async Task Request_InGameMessage_SinglePlayer(int timeoutSeconds, IdMsgPrio arg){     
-      await TaskWait.For(timeoutSeconds, Broker.SendRequest(CmdId.Request_InGameMessage_SinglePlayer,arg));
+    public async Task Request_InGameMessage_SinglePlayer(Timeouts timeoutSeconds, IdMsgPrio arg){     
+      await TaskWait.For((int)timeoutSeconds, Broker.SendRequest(CmdId.Request_InGameMessage_SinglePlayer,arg));
     }
       		
     public async Task Request_InGameMessage_AllPlayers(IdMsgPrio arg){     
       await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest(CmdId.Request_InGameMessage_AllPlayers,arg));
     }
 
-    public async Task Request_InGameMessage_AllPlayers(int timeoutSeconds, IdMsgPrio arg){     
-      await TaskWait.For(timeoutSeconds, Broker.SendRequest(CmdId.Request_InGameMessage_AllPlayers,arg));
+    public async Task Request_InGameMessage_AllPlayers(Timeouts timeoutSeconds, IdMsgPrio arg){     
+      await TaskWait.For((int)timeoutSeconds, Broker.SendRequest(CmdId.Request_InGameMessage_AllPlayers,arg));
     }
       		
     public async Task Request_InGameMessage_Faction(IdMsgPrio arg){     
       await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest(CmdId.Request_InGameMessage_Faction,arg));
     }
 
-    public async Task Request_InGameMessage_Faction(int timeoutSeconds, IdMsgPrio arg){     
-      await TaskWait.For(timeoutSeconds, Broker.SendRequest(CmdId.Request_InGameMessage_Faction,arg));
+    public async Task Request_InGameMessage_Faction(Timeouts timeoutSeconds, IdMsgPrio arg){     
+      await TaskWait.For((int)timeoutSeconds, Broker.SendRequest(CmdId.Request_InGameMessage_Faction,arg));
     }
       		
     public async Task<IdAndIntValue> Request_ShowDialog_SinglePlayer(DialogBoxData arg){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<IdAndIntValue>(CmdId.Request_ShowDialog_SinglePlayer,arg));
     }
 
-    public async Task<IdAndIntValue> Request_ShowDialog_SinglePlayer(int timeoutSeconds, DialogBoxData arg){     
+    public async Task<IdAndIntValue> Request_ShowDialog_SinglePlayer(Timeouts timeoutSeconds, DialogBoxData arg){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<IdAndIntValue>(CmdId.Request_ShowDialog_SinglePlayer,arg));
     }
       		
@@ -300,7 +300,7 @@ namespace EmpyrionNetAPIAccess
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<Inventory>(CmdId.Request_Player_GetAndRemoveInventory,arg));
     }
 
-    public async Task<Inventory> Request_Player_GetAndRemoveInventory(int timeoutSeconds, Id arg){     
+    public async Task<Inventory> Request_Player_GetAndRemoveInventory(Timeouts timeoutSeconds, Id arg){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<Inventory>(CmdId.Request_Player_GetAndRemoveInventory,arg));
     }
       		
@@ -308,7 +308,7 @@ namespace EmpyrionNetAPIAccess
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<PlayfieldEntityList>(CmdId.Request_Playfield_Entity_List,arg));
     }
 
-    public async Task<PlayfieldEntityList> Request_Playfield_Entity_List(int timeoutSeconds, PString arg){     
+    public async Task<PlayfieldEntityList> Request_Playfield_Entity_List(Timeouts timeoutSeconds, PString arg){     
       return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<PlayfieldEntityList>(CmdId.Request_Playfield_Entity_List,arg));
     }
       		
@@ -316,24 +316,24 @@ namespace EmpyrionNetAPIAccess
       await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest(CmdId.Request_Entity_Destroy2,arg));
     }
 
-    public async Task Request_Entity_Destroy2(int timeoutSeconds, IdPlayfield arg){     
-      await TaskWait.For(timeoutSeconds, Broker.SendRequest(CmdId.Request_Entity_Destroy2,arg));
+    public async Task Request_Entity_Destroy2(Timeouts timeoutSeconds, IdPlayfield arg){     
+      await TaskWait.For((int)timeoutSeconds, Broker.SendRequest(CmdId.Request_Entity_Destroy2,arg));
     }
       		
     public async Task Request_Entity_Export(EntityExportInfo arg){     
       await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest(CmdId.Request_Entity_Export,arg));
     }
 
-    public async Task Request_Entity_Export(int timeoutSeconds, EntityExportInfo arg){     
-      await TaskWait.For(timeoutSeconds, Broker.SendRequest(CmdId.Request_Entity_Export,arg));
+    public async Task Request_Entity_Export(Timeouts timeoutSeconds, EntityExportInfo arg){     
+      await TaskWait.For((int)timeoutSeconds, Broker.SendRequest(CmdId.Request_Entity_Export,arg));
     }
       		
     public async Task Request_Entity_SetName(IdPlayfieldName arg){     
       await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest(CmdId.Request_Entity_SetName,arg));
     }
 
-    public async Task Request_Entity_SetName(int timeoutSeconds, IdPlayfieldName arg){     
-      await TaskWait.For(timeoutSeconds, Broker.SendRequest(CmdId.Request_Entity_SetName,arg));
+    public async Task Request_Entity_SetName(Timeouts timeoutSeconds, IdPlayfieldName arg){     
+      await TaskWait.For((int)timeoutSeconds, Broker.SendRequest(CmdId.Request_Entity_SetName,arg));
     }
     }
 }

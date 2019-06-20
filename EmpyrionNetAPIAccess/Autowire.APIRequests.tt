@@ -28,7 +28,7 @@ namespace EmpyrionNetAPIAccess
     }
 
     public async <#=signatureTimeout#>{     
-      <#=signature.returnType == null ? "await TaskWait.For(timeoutSeconds, Broker.SendRequest" : "return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<"+signature.returnType+">"#>(CmdId.<#=signature.methodName#>,<#=signature.HasArgWithName("arg") ? "arg" : "null" #>));
+      <#=signature.returnType == null ? "await TaskWait.For((int)timeoutSeconds, Broker.SendRequest" : "return await TaskWait.For(EmpyrionRequestsDefaultTimeout, Broker.SendRequest<"+signature.returnType+">"#>(CmdId.<#=signature.methodName#>,<#=signature.HasArgWithName("arg") ? "arg" : "null" #>));
     }
   <#}#>
   }
@@ -93,7 +93,7 @@ namespace EmpyrionNetAPIAccess
     result.methodName = item.CmdId.ToString();
     var tmpArgList = new List<GenericArg>();
 
-	if(withTimeout) tmpArgList.Add(new GenericArg("int", "timeoutSeconds"));
+	if(withTimeout) tmpArgList.Add(new GenericArg("Timeouts", "timeoutSeconds"));
     
     if (item.ParamType != null){
       tmpArgList.Add(new GenericArg(item.ParamType.Name, "arg"));

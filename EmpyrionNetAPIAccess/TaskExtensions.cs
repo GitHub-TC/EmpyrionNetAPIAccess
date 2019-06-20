@@ -14,6 +14,7 @@ namespace EmpyrionNetAPIAccess
 
         public static async Task<TResult> For<TResult>(TimeSpan timeout, Task<TResult> task)
         {
+            if(timeout.Ticks == 0) return await task;
 
             using (var timeoutCancellationTokenSource = new CancellationTokenSource())
             {
