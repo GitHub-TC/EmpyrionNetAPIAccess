@@ -131,16 +131,18 @@ namespace EmpyrionNetAPIAccess
 
         public ChatCommandMatch MatchCommand(string message)
         {
+            if(string.IsNullOrWhiteSpace(message)) return null;
+
             Match match = null;
 
             if (!string.IsNullOrEmpty(CommandPrefix))
             {
                 if (!CommandPrefix.Contains(message[0])) return null;
-                match = this.superPattern.pattern.Match(message.Substring(1));
+                match = this.superPattern?.pattern?.Match(message.Substring(1));
             }
-            else match = this.superPattern.pattern.Match(message);
+            else match = this.superPattern?.pattern?.Match(message);
 
-            if (!match.Success) return null;
+            if (match == null || !match.Success) return null;
 
             ChatCommand resultCommand;
             Dictionary<string, string> paramDict;
@@ -154,11 +156,13 @@ namespace EmpyrionNetAPIAccess
                 paramDict = new Dictionary<string, string>();
                 foreach (var name in resultCommand.paramNames)
                 {
-                    paramDict[name] = match.Groups[name].Value;
+                    var groupMatch = match.Groups[name];
+                    if(groupMatch != null && groupMatch.Success) paramDict[name] = groupMatch.Value;
                 }
 
                 return new ChatCommandMatch(command, paramDict);
             }
+
             return null;
         }
     }

@@ -151,22 +151,25 @@ namespace EmpyrionNetAPIAccess
             try
             {
                 Broker.HandleGameEvent(eventId, seqNr, data);
-                if (eventId == CmdId.Event_ChatMessage)
-                    try
-                    {
-                        ProcessChatCommands((ChatInfo)data).Wait();
-                    }
-                    catch (Exception error)
-                    {
-                        var c = (ChatInfo)data;
-                        log($"ChatCommand Exception: {c.msg}/{c.playerId} : {error}");
-                    }
+                if (eventId == CmdId.Event_ChatMessage) ProcessChatCommandsSafeCall((ChatInfo)data).Wait();
 
                 API_Message_Received?.Invoke(eventId, seqNr, data);
             }
             catch (Exception error)
             {
                 log($"Game_Event Exception: {eventId}/{seqNr}/{data?.ToString()} : {error.ToString()}");
+            }
+        }
+
+        private async Task ProcessChatCommandsSafeCall(ChatInfo data)
+        {
+            try
+            {
+                await ProcessChatCommands(data);
+            }
+            catch (Exception error)
+            {
+                log($"ChatCommand Exception: {data.msg}/{data.playerId} : {error}");
             }
         }
 
@@ -185,7 +188,7 @@ namespace EmpyrionNetAPIAccess
 
         private async Task ProcessChatCommands(ChatInfo obj)
         {
-            var match = ChatCommandManager.MatchCommand(obj.msg);
+            var match = ChatCommandManager.MatchCommand(obj?.msg);
             if (match == null) return;
             if (match.command.minimumPermissionLevel > EmpyrionNetAPIDefinitions.PermissionType.Player)
             {
