@@ -48,7 +48,7 @@ namespace EmpyrionNetAPIAccess.Tests
         }
 
         [TestMethod]
-        public void testCommandWithArg()
+        public void TestCommandWithArg()
         {
             var pattern = @"test (?<name>\S*) is (?<disposition>\S*)";
             var cc = new ChatCommand(pattern, async (x, y) => await TestDummy());
@@ -66,7 +66,7 @@ namespace EmpyrionNetAPIAccess.Tests
         }
 
         [TestMethod]
-        public void testPatternToString()
+        public void TestPatternToString()
         {
             var pattern = @"test (?<name>\S*) is (?<disposition>\S*)";
 
@@ -76,7 +76,7 @@ namespace EmpyrionNetAPIAccess.Tests
         }
 
         [TestMethod]
-        public void testCommandsToString()
+        public void TestCommandsToString()
         {
 
             var c1 = new ChatCommand(@"test (?<name>\S*) is (?<disposition>\S*)", (_, __) => TestDummy());
@@ -103,7 +103,7 @@ namespace EmpyrionNetAPIAccess.Tests
         }
 
         [TestMethod]
-        public void tesMatchCompetition()
+        public void TesMatchCompetition()
         {
 
             var c1 = new ChatCommand(@"test (?<name>\S*) is (?<disposition>\S*)", (_, __) => TestDummy());
@@ -124,7 +124,7 @@ namespace EmpyrionNetAPIAccess.Tests
         }
 
         [TestMethod]
-        public void tesMatchCompetitionPrefix()
+        public void TesMatchCompetitionPrefix()
         {
 
             var c1 = new ChatCommand(@"test (?<name>\S*) is (?<disposition>\S*)", (_, __) => TestDummy());

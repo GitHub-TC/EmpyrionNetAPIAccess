@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="ILMergeOrder.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ILMergeOrder.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ILMerge" Version="3.0.29" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <ILMergeConsolePath>C:\Users\brcaswell\.nuget\packages\ilmerge\3.0.29\tools\net452\ILMerge.exe</ILMergeConsolePath>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EmpyrionNetAPIAccess\EmpyrionNetAPIAccess.csproj" />
+    <ProjectReference Include="..\EmpyrionNetAPIDefinitions\EmpyrionNetAPIDefinitions.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Mif">
+      <HintPath>..\dependencies\Mif.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <PropertyGroup>
+    <Copyright>Copyright © 2019</Copyright>
+    <PackageId>ExampleModFramework</PackageId>
+    <Company>ASTIC/TC</Company>
+    <Authors>ASTIC</Authors>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+</Project>

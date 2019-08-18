@@ -17,7 +17,7 @@ namespace EmpyrionNetAPIAccess
         /// <summary>
         /// Timeout after 1s
         /// </summary>
-        Wait1s      = 1,
+        Wait1s  = 1,
         /// <summary>
         /// Timeout after 10s
         /// </summary>
@@ -37,7 +37,7 @@ namespace EmpyrionNetAPIAccess
         /// <summary>
         /// Timeout after 10m
         /// </summary>
-        Wait10m = 60 * 10
+        Wait10m = 600
     }
 
     public abstract partial class EmpyrionModBase : ModInterface
@@ -118,7 +118,7 @@ namespace EmpyrionNetAPIAccess
             await Request_ShowDialog_SinglePlayer(Timeouts.NoResponse, new DialogBoxData()
             {
                 Id = aPlayerId,
-                MsgText = $"{aTitle}: [c][ffffff]{aPlayer.playerName}[-][/c] with permission [c][ffffff]{(PermissionType)aPlayer.permission}[-][/c]\n" + aMessage,
+                MsgText = $"{aTitle}: [c][ffffff]{aPlayer.playerName}[-][/c] with permission [c][ffffff]{(PermissionType)aPlayer.permission}[-][/c]\n{aMessage}"
             });
         }
 
@@ -157,7 +157,7 @@ namespace EmpyrionNetAPIAccess
             }
             catch (Exception error)
             {
-                log($"Game_Event Exception: {eventId}/{seqNr}/{data?.ToString()} : {error.ToString()}");
+                Log($"Game_Event Exception: {eventId}/{seqNr}/{data?.ToString()} : {error.ToString()}");
             }
         }
 
@@ -169,7 +169,7 @@ namespace EmpyrionNetAPIAccess
             }
             catch (Exception error)
             {
-                log($"ChatCommand Exception: {data.msg}/{data.playerId} : {error}");
+                Log($"ChatCommand Exception: {data.msg}/{data.playerId} : {error}");
             }
         }
 
@@ -206,22 +206,22 @@ namespace EmpyrionNetAPIAccess
             Update_Received?.Invoke(Broker.api.Game_GetTickTime());
         }
 
-        public void log(string msg)
+        public void Log(string msg)
         {
             Broker.log(msg);
         }
 
-        public void log(string msg, LogLevel aLevel)
+        public void Log(string msg, LogLevel aLevel)
         {
             Broker.log(msg, aLevel);
         }
 
-        public void log(Func<string> msg)
+        public void Log(Func<string> msg)
         {
             Broker.log(msg);
         }
 
-        public void log(Func<string> msg, LogLevel aLevel)
+        public void Log(Func<string> msg, LogLevel aLevel)
         {
             Broker.log(msg, aLevel);
         }
