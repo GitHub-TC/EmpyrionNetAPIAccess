@@ -5,6 +5,7 @@
     "KeyFile": null,
     "AlternativeILMergePath": null,
     "InputAssemblies": [
+      "EmpyrionNetAPITools.dll",
       "EmpyrionNetAPIDefinitions.dll",
       "EmpyrionNetAPIAccess.dll"
     ]
