@@ -5,19 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="ILMergeOrder.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="ILMergeOrder.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="ILMerge" Version="3.0.29" />
-    <PackageReference Include="MSBuild.ILMerge.Task" Version="1.0.5" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\EmpyrionNetAPIAccess\EmpyrionNetAPIAccess.csproj" />
     <ProjectReference Include="..\EmpyrionNetAPIDefinitions\EmpyrionNetAPIDefinitions.csproj" />
   </ItemGroup>

@@ -62,20 +62,21 @@
     <NuspecBasePath>$(ProjectPath)</NuspecBasePath>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ILMerge" Version="3.0.29" />
-    <PackageReference Include="MSBuild.ILMerge.Task" Version="1.0.5" />
     <PackageReference Include="NuGet.CommandLine" Version="5.1.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-  
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+    <PackageReference Include="ILMerge" Version="3.0.29" />
+    <PackageReference Include="ILMerge.MSBuild.Task" Version="1.0.7" />
+  </ItemGroup>
   <PropertyGroup>
     <Copyright>Copyright © 2019</Copyright>
     <PackageId>EmpyrionNetAPI</PackageId>
     <Company>ASTIC/TC</Company>
     <Authors>ASTIC</Authors>
-    <Version>1.0.1.1</Version>
+    <Version>1.0.1.2</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 </Project>

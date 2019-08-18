@@ -3,23 +3,10 @@
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
-    <None Remove="ILMergeOrder.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="ILMergeOrder.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="EmpyrionNetAPI" Version="1.0.1.2" />
     <PackageReference Include="ILMerge" Version="3.0.29" />
     <PackageReference Include="ILMerge.MSBuild.Task" Version="1.0.7" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\EmpyrionNetAPIAccess\EmpyrionNetAPIAccess.csproj" />
-    <ProjectReference Include="..\EmpyrionNetAPIDefinitions\EmpyrionNetAPIDefinitions.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Mif">
