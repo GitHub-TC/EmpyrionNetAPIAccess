@@ -14,11 +14,9 @@
 
   <ItemGroup>
     <PackageReference Include="ILMerge" Version="3.0.29" />
+    <PackageReference Include="ILMerge.MSBuild.Task" Version="1.0.7" />
   </ItemGroup>
 
-  <PropertyGroup>
-    <ILMergeConsolePath>C:\Users\brcaswell\.nuget\packages\ilmerge\3.0.29\tools\net452\ILMerge.exe</ILMergeConsolePath>
-  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\EmpyrionNetAPIAccess\EmpyrionNetAPIAccess.csproj" />
     <ProjectReference Include="..\EmpyrionNetAPIDefinitions\EmpyrionNetAPIDefinitions.csproj" />
