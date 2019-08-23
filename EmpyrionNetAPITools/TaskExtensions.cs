@@ -5,25 +5,43 @@ namespace EmpyrionNetAPITools.Extensions
 {
     public static class TaskTools
     {
+        public static Action<string> Log { get; set; } = Console.WriteLine;
 
         public static ManualResetEvent Intervall(int aMillisecondsIntervall, Action aAction)
         {
+            return Intervall(aMillisecondsIntervall, aAction, null);
+        }
+
+        public static ManualResetEvent Intervall(int aMillisecondsIntervall, Action aAction, string name)
+        {
             var localExit = new ManualResetEvent(false);
-            new Thread(() => {
-                bool isLocalExit = false;
-                while (!isLocalExit)
+            try
+            {
+                new Thread(() =>
                 {
-                    try
+                    bool isLocalExit = false;
+                    while (!isLocalExit)
                     {
-                        aAction();
+                        try
+                        {
+                            aAction();
+                        }
+                        catch (Exception Error)
+                        {
+                            Log(Error.ToString());
+                        }
+                        isLocalExit = localExit.WaitOne(aMillisecondsIntervall);
                     }
-                    catch (Exception Error)
-                    {
-                        Console.WriteLine(Error);
-                    }
-                    isLocalExit = localExit.WaitOne(aMillisecondsIntervall);
-                }
-            }).Start();
+                })
+                {
+                    IsBackground = true,
+                    Name = name
+                }.Start();
+            }
+            catch (Exception ThreadError)
+            {
+                Log(ThreadError.ToString());
+            }
             return localExit;
         }
 
@@ -34,18 +52,35 @@ namespace EmpyrionNetAPITools.Extensions
 
         public static ManualResetEvent Delay(TimeSpan aExecAfterTimeout, Action aAction)
         {
+            return Delay(aExecAfterTimeout, aAction, null);
+        }
+
+        public static ManualResetEvent Delay(TimeSpan aExecAfterTimeout, Action aAction, string name)
+        {
             var localExit = new ManualResetEvent(false);
-            new Thread(() => {
-                try
+            try
+            {
+                new Thread(() =>
                 {
-                    localExit.WaitOne(aExecAfterTimeout);
-                    aAction();
-                }
-                catch (Exception Error)
+                    try
+                    {
+                        localExit.WaitOne(aExecAfterTimeout);
+                        aAction();
+                    }
+                    catch (Exception Error)
+                    {
+                        Log(Error.ToString());
+                    }
+                })
                 {
-                    Console.WriteLine(Error);
-                }
-            }).Start();
+                    IsBackground = true,
+                    Name = name
+                }.Start();
+            }
+            catch (Exception ThreadError)
+            {
+                Log(ThreadError.ToString());
+            }
             return localExit;
         }
 
