@@ -99,7 +99,9 @@ namespace EmpyrionNetAPITools
                 {
                     default:
                     case ConfigurationFileFormat.JSON:
-                        File.WriteAllText(ConfigFilename, JsonConvert.SerializeObject(Current, Newtonsoft.Json.Formatting.Indented));
+                        var data = JsonConvert.SerializeObject(Current, Newtonsoft.Json.Formatting.Indented);
+                        if (!File.Exists(ConfigFilename) || File.ReadAllText(ConfigFilename) != data) File.WriteAllText(ConfigFilename, data);
+                        else                                                                          Log?.Invoke($"ConfigurationManager no change '{ConfigFilename}'");
                         break;
                     case ConfigurationFileFormat.XML:
                         var serializer = new XmlSerializer(typeof(T));
