@@ -87,7 +87,7 @@ namespace ExampleMod
 
     private void PlayerDied_Event_Statistics(StatisticsParam obj)
     {
-      Log("***************event statistics!!!");
+      log("***************event statistics!!!");
       var container = StatisticsContainer.FromStatisticsParam(obj);
 
       switch (container)
@@ -97,7 +97,7 @@ namespace ExampleMod
           {
             msg = $"Player {deathStats.PlayerId.id} was killed by {deathStats.KillerId.id}"
           };
-          Log(msg.msg);
+          log(msg.msg);
           this.Request_InGameMessage_AllPlayers(msg).Wait();
           break;
         default:
@@ -107,7 +107,7 @@ namespace ExampleMod
 
     private void ExampleMod_Event_GameEvent(GameEventData obj)
     {
-      Log("*****************OMG it's a game event!!!");
+      log("*****************OMG it's a game event!!!");
       var eventMessage = new IdMsgPrio
       {
         msg = $@"A game event occured, name:{obj.Name}, type:{obj.Type}, eventType:{obj.EventType}"
@@ -118,7 +118,7 @@ namespace ExampleMod
 
     private void ExampleMod_Event_HandleLottoChatMessage(ChatInfo obj)
     {
-      Log("lotto check");
+      log("lotto check");
       if (obj.msg != "lottery") return;
 
       //this.Request_Player_List(list =>

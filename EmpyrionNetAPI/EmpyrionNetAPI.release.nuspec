@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>EmpyrionNetAPI</id>
-    <version>1.0.1.5</version>
+    <version>5.0.0</version>
     <title>EmpyrionNetAPI</title>
     <authors>ASTIC/TC</authors>
     <owners>ASTIC/TC</owners>
@@ -37,6 +37,6 @@
     <file src="bin\Release\netcoreapp2.2\EmpyrionNetApiTools.dll" target="lib\netcoreapp2.2\EmpyrionNetApiTools.dll" />
     <file src="bin\Release\netcoreapp2.2\EmpyrionNetApiDefinitions.dll" target="lib\netcoreapp2.2\EmpyrionNetApiDefinitions.dll" />
     <file src="bin\Release\netcoreapp2.2\EmpyrionNetApiAccess.dll" target="lib\netcoreapp2.2\EmpyrionNetApiAccess.dll" />
-    <file src="bin\Release\netcoreapp2.0\EmpyrionNetApi.dll" target="lib\netcoreapp2.2\EmpyrionNetApi.dll" />
+    <file src="bin\Release\netcoreapp2.2\EmpyrionNetApi.dll" target="lib\netcoreapp2.2\EmpyrionNetApi.dll" />
   </files>
 </package>
