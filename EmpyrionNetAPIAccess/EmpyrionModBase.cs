@@ -1,10 +1,12 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Eleon.Modding;
 using EmpyrionNetAPIDefinitions;
+using EmpyrionNetAPITools;
 
 namespace EmpyrionNetAPIAccess
 {
@@ -73,6 +75,26 @@ namespace EmpyrionNetAPIAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
         public event UpdateHandler Update_Received;
 
+        static bool copyMissingDlls = CopyMissingDlls();
+
+        /// <summary>
+        /// Hier werden DLLs des .NEt Frameworks kopiert die zwar im PlayfieldServer nicht aber im Dedicated vorhanden sind :-(
+        /// </summary>
+        /// <returns></returns>
+        private static bool CopyMissingDlls()
+        {
+            try
+            {
+                if (File.Exists(Path.Combine(EmpyrionConfiguration.ProgramPath, @"DedicatedServer\EmpyrionDedicated_Data\Managed\System.Runtime.Serialization.dll"))) return true;
+
+                File.Copy(
+                    Path.Combine(EmpyrionConfiguration.ProgramPath, @"PlayfieldServer\EmpyrionPlayfieldServer_Data\Managed\System.Runtime.Serialization.dll"),
+                    Path.Combine(EmpyrionConfiguration.ProgramPath, @"DedicatedServer\EmpyrionDedicated_Data\Managed\System.Runtime.Serialization.dll"), false);
+            }
+            catch { }
+
+            return true;
+        }
 
         protected List<ChatCommand> GetChatCommandsForPermissionLevel(PermissionType permission)
         {
@@ -180,10 +202,26 @@ namespace EmpyrionNetAPIAccess
 
         public void Game_Start(ModGameAPI dediAPI)
         {
-            Broker.api = dediAPI;
-            this.Initialize(dediAPI);
+            if (dediAPI == null) return;
 
-            this.ChatCommandManager.CommandList = ChatCommands;
+            try
+            {
+                Broker.api = dediAPI;
+                this.Initialize(dediAPI);
+            }
+            catch (Exception error)
+            {
+                Log($"Game_Start: {error}", LogLevel.Error);
+            }
+
+            try
+            {
+                this.ChatCommandManager.CommandList = ChatCommands;
+            }
+            catch (Exception error)
+            {
+                Log($"Game_Start: CommandList: {error}", LogLevel.Error);
+            }
         }
 
         private async Task ProcessChatCommands(ChatInfo obj)
