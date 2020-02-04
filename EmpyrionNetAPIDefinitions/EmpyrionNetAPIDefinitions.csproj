@@ -36,6 +36,10 @@
       <HintPath>..\dependencies\Mif.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="ModApi">
+      <HintPath>..\dependencies\ModApi.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
