@@ -208,22 +208,22 @@ namespace EmpyrionNetAPIAccess
 
         public void Log(string msg)
         {
-            Broker.log(msg);
+            Broker.Log(msg);
         }
 
         public void Log(string msg, LogLevel aLevel)
         {
-            Broker.log(msg, aLevel);
+            Broker.Log(msg, aLevel);
         }
 
         public void Log(Func<string> msg)
         {
-            Broker.log(msg);
+            Broker.Log(msg);
         }
 
         public void Log(Func<string> msg, LogLevel aLevel)
         {
-            Broker.log(msg, aLevel);
+            Broker.Log(msg, aLevel);
         }
     }
 }

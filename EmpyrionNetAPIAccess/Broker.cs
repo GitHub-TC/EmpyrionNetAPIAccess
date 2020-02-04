@@ -12,23 +12,36 @@ namespace EmpyrionNetAPIAccess
         public LogLevel LogLevel { get; set; } = LogLevel.Message;
 
         private RequestTracker _requestTracker = new RequestTracker();
-
-        public Task<T> SendRequest<T>(Eleon.Modding.CmdId cmdID, object data)
-        {
-            var result = _requestTracker.GetNewTaskCompletionSource<T>();
+        
+        public async Task<TResult> SendRequestAsync<TArg, TResult>(CmdId cmdID, TArg data)
+            where TArg : class, new()
+            where TResult : class, new()
+        { 
+            var result = await _requestTracker.GetNewTaskCompletionSourceAsync<TResult>();
 
             api.Game_Request(cmdID, result.Item1, data);
 
-            return result.Item2;
+            return await result.Item2;
         }
 
-        public Task SendRequest(Eleon.Modding.CmdId cmdID, object data)
+        public async Task<TResult> SendRequestAsync<TResult>(CmdId cmdID)
+            where TResult : class, new()
         {
-            var result = _requestTracker.GetNewTaskCompletionSource<object>();
+            var result = await _requestTracker.GetNewTaskCompletionSourceAsync<TResult>();
 
-            api.Game_Request(cmdID, result.Item1, data);
+            api.Game_Request(cmdID, result.Item1, null);
 
-            return result.Item2;
+            return await result.Item2;
+        }
+
+        public async Task SendRequestAsync(CmdId cmdID, object data)
+        {
+            await SendRequestAsync<object, object>(cmdID, data);
+        }
+
+        public async Task SendRequestAsync(CmdId cmdID)
+        {
+            await SendRequestAsync<object>(cmdID);
         }
 
         public bool HandleGameEvent(CmdId eventId, ushort seqNr, object data)
@@ -41,29 +54,29 @@ namespace EmpyrionNetAPIAccess
                 }
                 catch (Exception Error)
                 {
-                    log($"HandleGameEvent: CmdId:{eventId} seqNr:{seqNr} data:{data} => {Error}");
+                    Log($"HandleGameEvent: CmdId:{eventId} seqNr:{seqNr} data:{data} => {Error}");
                 }
             }
 
             return _requestTracker.TryHandleEvent(eventId, seqNr, data);
         }
 
-        public void log(string message)
+        public void Log(string message)
         {
-            log(message, LogLevel.Message);
+            Log(message, LogLevel.Message);
         }
 
-        public void log(string message, LogLevel aLevel)
+        public void Log(string message, LogLevel aLevel)
         {
             if (LogLevel <= aLevel) api.Console_Write(message);
         }
 
-        public void log(System.Func<string> message)
+        public void Log(Func<string> message)
         {
-            log(message, LogLevel.Debug);
+            Log(message, LogLevel.Debug);
         }
 
-        public void log(System.Func<string> message, LogLevel aLevel)
+        public void Log(System.Func<string> message, LogLevel aLevel)
         {
             if (LogLevel <= aLevel) api.Console_Write(message());
         }

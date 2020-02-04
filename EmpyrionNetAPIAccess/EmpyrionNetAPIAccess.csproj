@@ -40,16 +40,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Autowire.APIRequests.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Autowire.APIRequests.cs</LastGenOutput>
-    </Content>
-    <Content Include="Autowire.APIEvents.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Autowire.APIEvents.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +50,28 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Autowire.APIEvents.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Autowire.APIEvents.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Autowire.APIRequests.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Autowire.APIRequests.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Autowire.APIEvents.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Autowire.APIEvents.cs</LastGenOutput>
+    </None>
+    <None Update="Autowire.APIRequests.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Autowire.APIRequests.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <Authors>ASTIC</Authors>
