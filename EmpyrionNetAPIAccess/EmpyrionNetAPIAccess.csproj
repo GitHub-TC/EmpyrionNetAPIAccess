@@ -77,7 +77,7 @@
     <Authors>ASTIC</Authors>
     <Company>ASTIC/TC</Company>
     <Product>EmpyrionNetAPIAccess</Product>
-    <Version>1.2.1.1</Version>
+    <Version>5.0.4.1</Version>
     <Copyright>Copyright © 2018</Copyright>
     <PackageId>EmpyrionNetAPIAccess</PackageId>
   </PropertyGroup>

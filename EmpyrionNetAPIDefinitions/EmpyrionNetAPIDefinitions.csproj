@@ -50,7 +50,7 @@
     <Company>ASTIC/TC</Company>
     <Authors>ASTIC</Authors>
     <Copyright>Copyright © 2019</Copyright>
-    <Version>1.0.0.1</Version>
+    <Version>5.0.4.1</Version>
     <PackageId>EmpyrionNetAPITools</PackageId>
     <Product>EmpyrionNetAPITools</Product>
   </PropertyGroup>
