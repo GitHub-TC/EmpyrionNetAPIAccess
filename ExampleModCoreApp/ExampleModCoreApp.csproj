@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EmpyrionNetAPI" Version="1.0.1.5" />
+    <PackageReference Include="EmpyrionNetAPI" Version="5.0.4.1" />
   </ItemGroup>
 
   <ItemGroup>
