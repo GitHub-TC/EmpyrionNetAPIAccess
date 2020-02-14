@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EmpyrionNetAPIAccess</RootNamespace>
     <AssemblyName>EmpyrionNetAPIAccess</AssemblyName>
-    <TargetFrameworks>netstandard2.0;netcoreapp2.2;net461</TargetFrameworks>
+    <TargetFrameworks>net461</TargetFrameworks>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -80,8 +80,8 @@
     <Authors>ASTIC</Authors>
     <Company>ASTIC/TC</Company>
     <Product>EmpyrionNetAPIAccess</Product>
-    <Version>5.0.4.1</Version>
-    <Copyright>Copyright © 2018</Copyright>
+    <Version>5.0.5</Version>
+    <Copyright>Copyright © 2020</Copyright>
     <PackageId>EmpyrionNetAPIAccess</PackageId>
   </PropertyGroup>
 </Project>
