@@ -30,6 +30,7 @@ namespace EmpyrionNetAPITools
         public T Current { get; set; }
 
         public static Action<string> Log { get; set; }
+        public Action<T> CreateDefaults { get; set; }
         public ConfigurationFileFormat FileFormat { get; set; } = ConfigurationFileFormat.Default;
         public ConfigurationFileFormat SelectFileFormat
         {
@@ -66,6 +67,15 @@ namespace EmpyrionNetAPITools
             try
             {
                 Log?.Invoke($"ConfigurationManager load '{ConfigFilename}'");
+
+                if (!File.Exists(ConfigFilename))
+                {
+                    Log?.Invoke($"ConfigurationManager file not found '{ConfigFilename}' create defaults");
+                    Current = (T)Activator.CreateInstance(typeof(T));
+                    CreateDefaults?.Invoke(Current);
+                    return;
+                }
+
                 switch (SelectFileFormat)
                 {
                     default:
