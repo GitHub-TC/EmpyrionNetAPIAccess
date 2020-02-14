@@ -8,28 +8,46 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Text.RegularExpressions" #>
 <#@ import namespace="Eleon.Modding" #>
-<#@ output extension=".cs" #> 
+<#@ output extension=".cs" #>
+using System;
 using Eleon.Modding;
+using System.Threading;
 using System.Threading.Tasks;
 
 //this file was auto-generated
 
 namespace EmpyrionNetAPIAccess
 {
-	public partial class EmpyrionModBase 
-	{<# foreach(var item in APIManifest.RequestManifest) {
-		var expectedResponse = APIManifest.APIRequestResponseTable[item.CmdId];
-		var signature        = generateMethodSignature(false, item);
-		var signatureTimeout = generateMethodSignature(true,  item);
+	public static class ModGameAPIBrokerExtension 
+	{
+        /// <summary>
+        /// Default Timeout for Empyrion Requests (10s)
+        /// </summary>
+        public static TimeSpan EmpyrionRequestsDefaultTimeout { get; set; } = new TimeSpan(0, 0, 0, 10);
+		
+		<# foreach(var item in APIManifest.RequestManifest) {
+		var expectedResponse   = APIManifest.APIRequestResponseTable[item.CmdId];
+		var signature          = generateMethodSignature(false, false, item);
+		var signatureCT        = generateMethodSignature(false, true, item);
+		var signatureTimeout   = generateMethodSignature(true, false, item);
+		var signatureTimeoutCT = generateMethodSignature(true, true, item);
 
 		#>
 
-		public async <#= signature #> {
+		public async static <#= signature #> {
 			<#= signature.GetMethodBodyTemplate() #>
 		}
+
+		public async static <#= signatureCT #> {
+			<#= signatureCT.GetMethodBodyTemplate() #>
+		}
 		
-		public async <#= signatureTimeout #> {
+		public async static <#= signatureTimeout #> {
 			<#= signatureTimeout.GetMethodBodyTemplate() #>
+		}
+
+		public async static <#= signatureTimeoutCT #> {
+			<#= signatureTimeoutCT.GetMethodBodyTemplate() #>
 		}
 	<# } #>}
 }
@@ -99,13 +117,31 @@ namespace EmpyrionNetAPIAccess
 		public string GetMethodBodyTemplate()
 		{
 			var sendRequestTemplate = GetSendRequestTemplateInfo("arg");
-			var timeoutTemplate = HasArgWithName("timeoutSeconds")
-				? "(int)timeoutSeconds"
-				: "EmpyrionRequestsDefaultTimeout";
+			var timeoutTemplate = "EmpyrionRequestsDefaultTimeout";
+			var ctokenTimeoutTemplate = "EmpyrionRequestsDefaultTimeout.Milliseconds";
+			
+			if (HasArgWithName("timeoutSeconds"))			
+			{
+				timeoutTemplate = "(int)timeoutSeconds";
+				ctokenTimeoutTemplate = "(int)timeoutSeconds * 1000";
+			}
 
-			return (returnType == null)
-				? string.Format("await TaskWait.For({0}, Broker.SendRequestAsync({1}));", timeoutTemplate, sendRequestTemplate.ParametersTemplate)
-				: string.Format("return await TaskWait.For({0}, Broker.SendRequestAsync<{1}>({2}));", timeoutTemplate, sendRequestTemplate.GenericsTemplate, sendRequestTemplate.ParametersTemplate);
+			if (HasArgWithName("ct"))
+			{
+				return (returnType == null)
+						? string.Format("	return await broker.SendRequestAsync({1}, ct);", timeoutTemplate, sendRequestTemplate.ParametersTemplate)
+						: string.Format("	return await broker.SendRequestAsync<{1}>({2}, ct);", timeoutTemplate, sendRequestTemplate.GenericsTemplate, sendRequestTemplate.ParametersTemplate);
+			} 
+			else 
+			{				
+				return string.Join(string.Concat(Environment.NewLine, "			"), 
+					string.Format("using (var source = new CancellationTokenSource({0}))", ctokenTimeoutTemplate), 
+					"{",
+					(returnType == null)
+						? string.Format("	return await broker.SendRequestAsync({1}, source.Token);", timeoutTemplate, sendRequestTemplate.ParametersTemplate)
+						: string.Format("	return await broker.SendRequestAsync<{1}>({2}, source.Token);", timeoutTemplate, sendRequestTemplate.GenericsTemplate, sendRequestTemplate.ParametersTemplate),
+					"}");
+			}
 		}
 
 		public string GetSubTypeForArg(string argName)
@@ -119,23 +155,29 @@ namespace EmpyrionNetAPIAccess
 
 		public override string ToString()
 		{			
-			return string.Format("{0} {1}({2})", returnType == null ? "Task" : $"Task<{returnType}>", methodName, string.Join(", ", this.args));
+			return string.Format("{0} {1}({2})", returnType == null ? "Task<bool>" : $"Task<{returnType}>", methodName, string.Join(", ", this.args));
 		}
 	}
 
-	public static GenericMethodSignature generateMethodSignature(bool withTimeout, APIRequest item)
+	public static GenericMethodSignature generateMethodSignature(bool withTimeout, bool withCancellationToken, APIRequest item)
 	{
 		var expectedResponse = APIManifest.APIRequestResponseTable[item.CmdId];
 		var result = new GenericMethodSignature();
 		result.methodName = item.CmdId.ToString();
 
 		var tmpArgList = new List<GenericArg>();
+		
+			tmpArgList.Add(new GenericArg("broker", "this Broker"));
 
 		if (withTimeout) 
 			tmpArgList.Add(new GenericArg("timeoutSeconds", "Timeouts"));
     
 		if (item.ParamType != null)
-			tmpArgList.Add(new GenericArg("arg", item.ParamType.Name));			
+			tmpArgList.Add(new GenericArg("arg", item.ParamType.Name));	
+			
+		if (withCancellationToken)
+			tmpArgList.Add(new GenericArg("ct", "CancellationToken"));
+
 
 		result.returnType = expectedResponse.ParamType?.Name;
 		result.args = tmpArgList;

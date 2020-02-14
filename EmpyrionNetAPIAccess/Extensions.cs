@@ -52,19 +52,5 @@ namespace EmpyrionNetAPIAccess
         }
 
         public static string String(this PVector3 aVector) => $"{aVector.x:F1},{aVector.y:F1},{aVector.z:F1}";
-
-        public static T GetAttribute<T>(this Assembly aAssembly)
-        {
-            return aAssembly.GetCustomAttributes(typeof(T), false).OfType<T>().FirstOrDefault();
-        }
-
-        static Regex GetCommand = new Regex(@"(?<cmd>(\w|\/|\\|\s)+)");
-
-        public static string MsgString(this ChatCommand aCommand, string prefix)
-        {
-            var CmdString = GetCommand.Match(aCommand.invocationPattern).Groups["cmd"]?.Value ?? aCommand.invocationPattern;
-            return $"[c][ff00ff]{prefix}{CmdString.Replace(@"\\", @"\")}[-][/c]{aCommand.paramNames.Aggregate(" ", (S, P) => S + $"<[c][00ff00]{P}[-][/c]> ")}: {aCommand.description}";
-        }
-
     }
 }

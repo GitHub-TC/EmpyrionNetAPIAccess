@@ -46,23 +46,4 @@ namespace EmpyrionNetAPIAccess
 			}
 		}
     <#  } #>}
-
-	public abstract partial class EmpyrionModBase 
-	{
-		<#  foreach(var item in APIManifest.EventManifest)
-		{
-			var handlerType = item.ParamType == null ? "Action" : $"Action<{item.ParamType.Name}>";
-		#>
-    
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
-		public event <#=handlerType#> <#=item.CmdId#>
-		{
-			add {
-				Broker.<#=item.CmdId#> += value;
-			}
-			remove {
-				Broker.<#=item.CmdId#> -= value;
-			}
-		}
-	<#  } #>}
 }
