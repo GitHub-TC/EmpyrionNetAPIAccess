@@ -1,7 +1,7 @@
 ﻿<#@ template debug="true" hostspecific="true" language="C#" #>
 <#@ assembly name="System.Core" #>
 <#@ assembly name="$(SolutionDir)\dependencies\Mif.dll"  #>
-<#@ assembly name="$(SolutionDir)EmpyrionNetAPIDefinitions\bin\$(Configuration)\net461\EmpyrionNetAPIDefinitions.dll" #>
+<#@ assembly name="$(SolutionDir)\EmpyrionNetAPIDefinitions\bin\$(Configuration)\$(TargetFramework)\EmpyrionNetAPIDefinitions.dll" #>
 <#@ import namespace="EmpyrionNetAPIDefinitions" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>

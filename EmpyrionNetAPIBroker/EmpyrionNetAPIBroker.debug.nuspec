@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>EmpyrionNetAPIBroker</id>
+    <version>1.0.0.0</version>
+    <title>EmpyrionNetAPI EmpyrionBroker</title>
+    <authors>ASTIC/TC</authors>
+    <owners>ASTIC/TC</owners>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/GitHub-TC/EmpyrionNetAPIAccess</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Introduces the EmpyironBroker Type that encapsulates ModGameApi and defines SendRequest method (as well as definition defined, generated helper methods) with RequestTracker mechaism to coordinate GameEvents to Requests; adds async-await task support with concurrency. Empyrion &gt;=A10</description>
+    <copyright>Copyright 2020</copyright>
+    <dependencies>
+      <group targetFramework=".NETFramework4.6.1">
+        <dependency id="YamlDotNet" version="6.1.2" />
+        <dependency id="Newtonsoft.Json" version="12.0.2" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>    
+    <file src="bin\Debug\net461\ILMerge\EmpyrionNetAPIBroker.dll" target="lib\net461\EmpyrionNetAPIBroker.dll" />
+  </files>
+</package>

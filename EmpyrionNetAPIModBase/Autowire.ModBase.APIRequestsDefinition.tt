@@ -1,0 +1,187 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="$(SolutionDir)\dependencies\Mif.dll"  #>
+<#@ assembly name="$(SolutionDir)\EmpyrionNetAPIDefinitions\bin\$(Configuration)\$(TargetFramework)\EmpyrionNetAPIDefinitions.dll" #>
+<#@ import namespace="EmpyrionNetAPIDefinitions" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ import namespace="Eleon.Modding" #>
+<#@ output extension=".cs" #>
+using System;
+using Eleon.Modding;
+using System.Threading;
+using System.Threading.Tasks;
+
+//this file was auto-generated
+
+namespace EmpyrionNetAPIAccess
+{
+	public abstract partial class EmpyrionModBase 
+	{
+        /// <summary>
+        /// Default Timeout for Empyrion Requests (10s)
+        /// </summary>
+        public static TimeSpan EmpyrionRequestsDefaultTimeout { get; set; } = new TimeSpan(0, 0, 0, 10);
+		
+		<# foreach(var item in APIManifest.RequestManifest) {
+		var expectedResponse   = APIManifest.APIRequestResponseTable[item.CmdId];
+		var signature          = generateMethodSignature(false, false, item);
+		var signatureCT        = generateMethodSignature(false, true, item);
+		var signatureTimeout   = generateMethodSignature(true, false, item);
+		var signatureTimeoutCT = generateMethodSignature(true, true, item);
+
+		#>
+
+		public async <#= signature #> {
+			<#= signature.GetMethodBodyTemplate() #>
+		}
+
+		public async <#= signatureCT #> {
+			<#= signatureCT.GetMethodBodyTemplate() #>
+		}
+		
+		public async <#= signatureTimeout #> {
+			<#= signatureTimeout.GetMethodBodyTemplate() #>
+		}
+
+		public async <#= signatureTimeoutCT #> {
+			<#= signatureTimeoutCT.GetMethodBodyTemplate() #>
+		}
+	<# } #>}
+}
+
+<#+
+
+	public class GenericArg 
+	{
+		public string argName;
+		public string argType;
+		public string defaultVal;
+
+		public GenericArg(string argName, string argType) : this(argName, argType, null){  }
+
+		public GenericArg(string argName, string argType, string defaultVal)
+		{
+			this.argName = argName;
+			this.argType = argType;
+			this.defaultVal = defaultVal;
+		}
+
+		public override string ToString() 
+		{
+			return string.Format("{0} {1}{2}", this.argType, this.argName, (defaultVal == null) ? string.Empty : $" = {this.defaultVal}");
+		}
+	}
+
+	public class SendRequestAsyncTemplate
+	{
+		public string ParametersTemplate {get;set;}
+		public string GenericsTemplate {get;set;}
+	}
+
+	public class GenericMethodSignature 
+	{
+		public string methodName;
+		public string returnType;
+    
+		public List<GenericArg> args = new List<GenericArg>();
+		private static Regex actionTypePattern = new Regex(@"Action<(.*)>");
+
+		public bool HasArgWithName(string argName)
+		{
+			return this.args.Any(x=>x.argName == argName);
+		}
+
+		public string GetTypeForArg(string argName)
+		{
+			return (this.args.FirstOrDefault(x => x.argName==argName))?.argType;
+		}
+
+		public SendRequestAsyncTemplate GetSendRequestTemplateInfo(string argName)
+		{
+			return HasArgWithName(argName)
+				? new SendRequestAsyncTemplate() 
+				{
+					ParametersTemplate = string.Format("CmdId.{0}, arg", methodName),
+					GenericsTemplate = string.Format("{0}, {1}", GetTypeForArg("arg"), returnType)
+				}
+				: new SendRequestAsyncTemplate() 
+				{
+					ParametersTemplate = string.Format("CmdId.{0}", methodName),
+					GenericsTemplate = string.Format("{0}", returnType)
+				};
+		}
+
+		public string GetMethodBodyTemplate()
+		{
+			var sendRequestTemplate = GetSendRequestTemplateInfo("arg");
+			var timeoutTemplate = "EmpyrionRequestsDefaultTimeout";
+			var ctokenTimeoutTemplate = "EmpyrionRequestsDefaultTimeout.Milliseconds";
+			
+			if (HasArgWithName("timeoutSeconds"))			
+			{
+				timeoutTemplate = "(int)timeoutSeconds";
+				ctokenTimeoutTemplate = "(int)timeoutSeconds * 1000";
+			}
+
+			if (HasArgWithName("ct"))
+			{
+				return (returnType == null)
+						? string.Format("return await Broker.SendRequestAsync({1}, ct);", timeoutTemplate, sendRequestTemplate.ParametersTemplate)
+						: string.Format("return await Broker.SendRequestAsync<{1}>({2}, ct);", timeoutTemplate, sendRequestTemplate.GenericsTemplate, sendRequestTemplate.ParametersTemplate);
+			} 
+			else 
+			{				
+				return string.Join(string.Concat(Environment.NewLine, "			"), 
+					string.Format("using (var source = new CancellationTokenSource({0}))", ctokenTimeoutTemplate), 
+					"{",
+					(returnType == null)
+						? string.Format("	return await Broker.SendRequestAsync({1}, source.Token);", timeoutTemplate, sendRequestTemplate.ParametersTemplate)
+						: string.Format("	return await Broker.SendRequestAsync<{1}>({2}, source.Token);", timeoutTemplate, sendRequestTemplate.GenericsTemplate, sendRequestTemplate.ParametersTemplate),
+					"}");
+			}
+		}
+
+		public string GetSubTypeForArg(string argName)
+		{
+			var baseType = this.GetTypeForArg(argName);
+			if (baseType == null) return null;
+			var match = actionTypePattern.Match(baseType);
+			if (!match.Success) return null;
+			return match.Groups[1].Value;
+		}
+
+		public override string ToString()
+		{			
+			return string.Format("{0} {1}({2})", returnType == null ? "Task<bool>" : $"Task<{returnType}>", methodName, string.Join(", ", this.args));
+		}
+	}
+
+	public static GenericMethodSignature generateMethodSignature(bool withTimeout, bool withCancellationToken, APIRequest item)
+	{
+		var expectedResponse = APIManifest.APIRequestResponseTable[item.CmdId];
+		var result = new GenericMethodSignature();
+		result.methodName = item.CmdId.ToString();
+
+		var tmpArgList = new List<GenericArg>();		
+
+		if (withTimeout) 
+			tmpArgList.Add(new GenericArg("timeoutSeconds", "Timeouts"));
+    
+		if (item.ParamType != null)
+			tmpArgList.Add(new GenericArg("arg", item.ParamType.Name));	
+			
+		if (withCancellationToken)
+			tmpArgList.Add(new GenericArg("ct", "CancellationToken"));
+
+
+		result.returnType = expectedResponse.ParamType?.Name;
+		result.args = tmpArgList;
+
+		return result;
+	}
+
+ #>
+

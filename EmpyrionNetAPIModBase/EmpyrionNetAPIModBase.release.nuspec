@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>EmpyrionNetAPIModBase</id>
+    <version>1.0.0.1</version>
+    <title>EmpyrionNetAPI EmpyrionModBase</title>
+    <authors>ASTIC/TC</authors>
+    <owners>ASTIC/TC</owners>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/GitHub-TC/EmpyrionNetAPIAccess</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Introduces the EmpyironModBase Type as an inheritable type for Empyrion Mods. Empyrion &gt;=A10</description>
+    <copyright>Copyright 2020</copyright>
+    <dependencies>
+      <group targetFramework=".NETFramework4.6.1">
+        <dependency id="YamlDotNet" version="6.1.2" />
+        <dependency id="Newtonsoft.Json" version="12.0.2" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\net461\ILMerge\EmpyrionNetAPIModBase.dll" target="lib\net461\EmpyrionNetAPIModBase.dll" />
+  </files>
+</package>

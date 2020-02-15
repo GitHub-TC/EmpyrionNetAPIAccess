@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace EmpyrionNetAPIAccess
 {
-    public static class Extensions
+    public static class EmpyrionBrokerExtensions
     {
 
         /// <summary>

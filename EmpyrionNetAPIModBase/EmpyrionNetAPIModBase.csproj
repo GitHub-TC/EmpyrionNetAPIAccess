@@ -3,17 +3,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BE4D8DE4-F6A8-4B3D-84E3-DCAE109EC09A}</ProjectGuid>
+    <ProjectGuid>e9dffc67-c5cd-4e9c-9f9d-924d3985ec4a</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EmpyrionNetAPI</RootNamespace>
-    <AssemblyName>EmpyrionNetAPI</AssemblyName>
+    <RootNamespace>EmpyrionNetAPIAccess</RootNamespace>
+    <AssemblyName>EmpyrionNetAPIModBase</AssemblyName>
     <TargetFrameworks>net461</TargetFrameworks>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <NuspecFile>EmpyrionNetAPI.debug.nuspec</NuspecFile>
+    <NuspecFile>EmpyrionNetAPIModBase.debug.nuspec</NuspecFile>
     <NuspecBasePath>$(ProjectPath)</NuspecBasePath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -24,7 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <NuspecFile>EmpyrionNetAPI.debug.nuspec</NuspecFile>
+    <NuspecFile>EmpyrionNetAPIModBase.debug.nuspec</NuspecFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,39 +33,71 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <NuspecFile>EmpyrionNetAPI.release.nuspec</NuspecFile>
+    <NuspecFile>EmpyrionNetAPIModBase.release.nuspec</NuspecFile>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Mif">
-      <HintPath>..\dependencies\Mif.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-  </ItemGroup>
   <Target Name="CopyPackage" AfterTargets="Pack">
     <Copy SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="E:\NuGet.Local\Debug\$(PackageId).$(PackageVersion)\" />
     <Copy SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="E:\NuGet.Local\Release\$(PackageId).$(PackageVersion)\" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
   </Target>
   <ItemGroup>
-    <PackageReference Include="EmpyrionNetAPIModBase" Version="1.0.0.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="NuGet.CommandLine" Version="5.1.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="YamlDotNet" Version="6.1.2" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
     <PackageReference Include="ILMerge" Version="3.0.29" />
     <PackageReference Include="ILMerge.MSBuild.Task" Version="1.0.7" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EmpyrionNetAPIBroker\EmpyrionNetAPIBroker.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Mif">
+      <HintPath>..\dependencies\Mif.dll</HintPath>
+    </Reference>
+    <Reference Include="ModApi">
+      <HintPath>..\dependencies\ModApi.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Autowire.ModBase.APIEventsDefinition.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Autowire.ModBase.APIEventsDefinition.cs</LastGenOutput>
+    </None>
+    <None Update="Autowire.ModBase.APIRequestsDefinition.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Autowire.ModBase.APIRequestsDefinition.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Autowire.ModBase.APIEventsDefinition.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Autowire.ModBase.APIEventsDefinition.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Autowire.ModBase.APIRequestsDefinition.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Autowire.ModBase.APIRequestsDefinition.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
   <PropertyGroup>
     <Copyright>Copyright © 2020</Copyright>
-    <PackageId>EmpyrionNetAPI</PackageId>
+    <PackageId>EmpyrionNetAPIModBase</PackageId>
     <Company>ASTIC/TC</Company>
     <Authors>ASTIC</Authors>
-    <Version>5.0.5</Version>
+    <Version>1.0.0.1</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>5.0.5.0</AssemblyVersion>
-    <FileVersion>5.0.5.0</FileVersion>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
+    <Product>EmpyrionNetAPIModBase</Product>
   </PropertyGroup>
 </Project>
+    

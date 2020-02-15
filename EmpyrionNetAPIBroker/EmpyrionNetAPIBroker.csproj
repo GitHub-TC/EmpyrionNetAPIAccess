@@ -7,11 +7,13 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EmpyrionNetAPIAccess</RootNamespace>
-    <AssemblyName>EmpyrionNetAPIAccess</AssemblyName>
+    <AssemblyName>EmpyrionNetAPIBroker</AssemblyName>
     <TargetFrameworks>net461</TargetFrameworks>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <NuspecFile>EmpyrionNetAPIBroker.debug.nuspec</NuspecFile>
+    <NuspecBasePath>$(ProjectPath)</NuspecBasePath>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -23,6 +25,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <NuspecFile>EmpyrionNetAPIBroker.debug.nuspec</NuspecFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -32,10 +35,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <NuspecFile>EmpyrionNetAPIBroker.release.nuspec</NuspecFile>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Remove="GlobalSuppressions.cs" />
-  </ItemGroup>
+  <Target Name="CopyPackage" AfterTargets="Pack">
+    <Copy SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="E:\NuGet.Local\Debug\$(PackageId).$(PackageVersion)\" />
+    <Copy SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="E:\NuGet.Local\Release\$(PackageId).$(PackageVersion)\" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
+  </Target>
   <ItemGroup>
     <Reference Include="Mif">
       <HintPath>..\dependencies\Mif.dll</HintPath>
@@ -55,34 +60,47 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+    <PackageReference Include="ILMerge" Version="3.0.29" />
+    <PackageReference Include="ILMerge.MSBuild.Task" Version="1.0.7" />
+  </ItemGroup>
   <ItemGroup>
-    <Compile Update="Autowire.APIEvents.cs">
+    <PackageReference Include="NuGet.CommandLine" Version="5.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Autowire.Broker.APIEventsDefinition.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Autowire.APIEvents.tt</DependentUpon>
+      <DependentUpon>Autowire.Broker.APIEventsDefinition.tt</DependentUpon>
     </Compile>
-    <Compile Update="Autowire.APIRequests.cs">
+    <Compile Update="Autowire.Broker.APIRequestsDefinition.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Autowire.APIRequests.tt</DependentUpon>
+      <DependentUpon>Autowire.Broker.APIRequestsDefinition.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Update="Autowire.APIEvents.tt">
+    <None Update="Autowire.Broker.APIEventsDefinition.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Autowire.APIEvents.cs</LastGenOutput>
+      <LastGenOutput>Autowire.Broker.APIEventsDefinition.cs</LastGenOutput>
     </None>
-    <None Update="Autowire.APIRequests.tt">
+    <None Update="Autowire.Broker.APIRequestsDefinition.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Autowire.APIRequests.cs</LastGenOutput>
+      <LastGenOutput>Autowire.Broker.APIRequestsDefinition.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <PropertyGroup>
     <Authors>ASTIC</Authors>
     <Company>ASTIC/TC</Company>
-    <Product>EmpyrionNetAPIAccess</Product>
-    <Version>5.0.5</Version>
+    <Product>EmpyrionNetAPIBroker</Product>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
     <Copyright>Copyright © 2020</Copyright>
-    <PackageId>EmpyrionNetAPIAccess</PackageId>
+    <PackageId>EmpyrionNetAPIBroker</PackageId>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 </Project>
