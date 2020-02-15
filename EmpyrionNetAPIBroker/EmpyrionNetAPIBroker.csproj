@@ -38,8 +38,8 @@
     <NuspecFile>EmpyrionNetAPIBroker.release.nuspec</NuspecFile>
   </PropertyGroup>
   <Target Name="CopyPackage" AfterTargets="Pack">
-    <Copy SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="E:\NuGet.Local\Debug\$(PackageId).$(PackageVersion)\" />
-    <Copy SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="E:\NuGet.Local\Release\$(PackageId).$(PackageVersion)\" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
+    <Copy SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="F:\NuGet.Local\Debug\$(PackageId).$(PackageVersion)\" />
+    <Copy SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="F:\NuGet.Local\Release\$(PackageId).$(PackageVersion)\" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
   </Target>
   <ItemGroup>
     <Reference Include="Mif">
