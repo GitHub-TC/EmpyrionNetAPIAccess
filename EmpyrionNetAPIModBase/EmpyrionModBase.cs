@@ -2,6 +2,7 @@
 using EmpyrionNetAPIDefinitions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -9,6 +10,8 @@ using System.Threading.Tasks;
 
 namespace EmpyrionNetAPIAccess
 {
+    using EmpyrionNetAPITools;
+
     public abstract partial class EmpyrionModBase : ModInterface
     {
         public Broker Broker { get; set; } = new Broker();
@@ -144,12 +147,49 @@ namespace EmpyrionNetAPIAccess
             async Task<bool> HasPermissionAsync(PermissionType minimumPermissionLevel, Func<Task<PlayerInfo>> GetPlayerInfoAsync) => minimumPermissionLevel == PermissionType.Player || (await GetPlayerInfoAsync()).permission >= (int)minimumPermissionLevel;
         }
 
-        public void Game_Start(ModGameAPI dediAPI)
-        {
-            Broker.api = dediAPI;
-            Initialize(dediAPI);
+        static bool copyMissingDlls = CopyMissingDlls();
 
-            ChatCommandManager.CommandList = ChatCommands;
+        /// <summary>
+        /// Hier werden DLLs des .NEt Frameworks kopiert die zwar im PlayfieldServer nicht aber im Dedicated vorhanden sind :-(
+        /// </summary>
+        /// <returns></returns>
+        private static bool CopyMissingDlls()
+        {
+            try
+            {
+                if (File.Exists(Path.Combine(EmpyrionConfiguration.ProgramPath, @"DedicatedServer\EmpyrionDedicated_Data\Managed\System.Runtime.Serialization.dll"))) return true;
+
+                File.Copy(
+                    Path.Combine(EmpyrionConfiguration.ProgramPath, @"PlayfieldServer\EmpyrionPlayfieldServer_Data\Managed\System.Runtime.Serialization.dll"),
+                    Path.Combine(EmpyrionConfiguration.ProgramPath, @"DedicatedServer\EmpyrionDedicated_Data\Managed\System.Runtime.Serialization.dll"), false);
+            }
+            catch { }
+
+            return true;
+        }
+
+        public void Game_Start(ModGameAPI dediAPI)
+        {            
+            if (dediAPI == null) return;
+
+            try
+            {
+                Broker.api = dediAPI;
+                Initialize(dediAPI);
+            }
+            catch (Exception error)
+            {
+                Log($"Game_Start: {error}", LogLevel.Error);
+            }
+
+            try
+            {
+                ChatCommandManager.CommandList = ChatCommands;
+            }
+            catch (Exception error)
+            {
+                Log($"Game_Start: CommandList: {error}", LogLevel.Error);
+            }
         }
 
         public void Game_Exit() => API_Exit?.Invoke();

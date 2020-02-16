@@ -35,28 +35,30 @@
     <WarningLevel>4</WarningLevel>
     <NuspecFile>EmpyrionNetAPI.release.nuspec</NuspecFile>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Mif">
-      <HintPath>..\dependencies\Mif.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-  </ItemGroup>
   <Target Name="CopyPackage" AfterTargets="Pack">
     <Copy SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="F:\NuGet.Local\Debug\$(PackageId).$(PackageVersion)\" />
     <Copy SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="F:\NuGet.Local\Release\$(PackageId).$(PackageVersion)\" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
   </Target>
   <ItemGroup>
-    <PackageReference Include="EmpyrionNetAPIModBase" Version="1.0.0.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="NuGet.CommandLine" Version="5.1.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="YamlDotNet" Version="6.1.2" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
     <PackageReference Include="ILMerge" Version="3.0.29" />
     <PackageReference Include="ILMerge.MSBuild.Task" Version="1.0.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EmpyrionNetAPIBroker\EmpyrionNetAPIBroker.csproj" />
+    <ProjectReference Include="..\EmpyrionNetAPIDefinitions\EmpyrionNetAPIDefinitions.csproj" />
+    <ProjectReference Include="..\EmpyrionNetAPIModBase\EmpyrionNetAPIModBase.csproj" />
+    <ProjectReference Include="..\EmpyrionNetAPITools\EmpyrionNetAPITools.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Mif">
+      <HintPath>..\dependencies\Mif.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup>
     <Copyright>Copyright © 2020</Copyright>

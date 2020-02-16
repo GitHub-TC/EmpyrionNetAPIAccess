@@ -12,9 +12,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmpyrionNetAPITools", "EmpyrionNetAPITools\EmpyrionNetAPITools.csproj", "{8EF00A6C-A10A-4A4A-BF60-C83178D6A093}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmpyrionNetAPI", "EmpyrionNetAPI\EmpyrionNetAPI.csproj", "{BE4D8DE4-F6A8-4B3D-84E3-DCAE109EC09A}"
-	ProjectSection(ProjectDependencies) = postProject
-		{E9DFFC67-C5CD-4E9C-9F9D-924D3985EC4A} = {E9DFFC67-C5CD-4E9C-9F9D-924D3985EC4A}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleModFramework", "ExampleModFramework\ExampleModFramework.csproj", "{A722068A-2AFB-4625-AA5E-BAEEC9DF5E2D}"
 EndProject

@@ -54,6 +54,12 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EmpyrionNetAPIBroker\EmpyrionNetAPIBroker.csproj" />
+    <ProjectReference Include="..\EmpyrionNetAPIDefinitions\EmpyrionNetAPIDefinitions.csproj">
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\EmpyrionNetAPITools\EmpyrionNetAPITools.csproj">
+      <Private>false</Private>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Mif">
@@ -61,6 +67,7 @@
     </Reference>
     <Reference Include="ModApi">
       <HintPath>..\dependencies\ModApi.dll</HintPath>
+      <Private>false</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -93,10 +100,10 @@
     <PackageId>EmpyrionNetAPIModBase</PackageId>
     <Company>ASTIC/TC</Company>
     <Authors>ASTIC</Authors>
-    <Version>1.0.0.1</Version>
+    <Version>1.0.0.2</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>1.0.0.1</AssemblyVersion>
-    <FileVersion>1.0.0.1</FileVersion>
+    <AssemblyVersion>1.0.0.2</AssemblyVersion>
+    <FileVersion>1.0.0.2</FileVersion>
     <Product>EmpyrionNetAPIModBase</Product>
   </PropertyGroup>
 </Project>
