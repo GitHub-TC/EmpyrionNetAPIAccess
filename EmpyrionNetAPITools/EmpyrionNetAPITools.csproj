@@ -41,8 +41,8 @@
     </PostBuildEvent>
     <Company>ASTIC/TC</Company>
     <Authors>ASTIC</Authors>
-    <Copyright>Copyright © 2019</Copyright>
-    <Version>5.0.4.1</Version>
+    <Copyright>Copyright © 2020</Copyright>
+    <Version>5.0.5.0</Version>
     <PackageId>EmpyrionNetAPITools</PackageId>
     <Product>EmpyrionNetAPITools</Product>
   </PropertyGroup>

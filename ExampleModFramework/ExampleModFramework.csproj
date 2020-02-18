@@ -4,7 +4,7 @@
     <TargetFramework>net461</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="EmpyrionNetAPIBroker" Version="1.0.0" />
+    <PackageReference Include="EmpyrionNetAPIBroker" Version="1.0.0.1" />
     <PackageReference Include="ILMerge" Version="3.0.29" />
     <PackageReference Include="ILMerge.MSBuild.Task" Version="1.0.7" />
     <PackageReference Include="NLog" Version="4.6.8" />

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>EmpyrionNetAPIBroker</id>
-    <version>1.0.0.0</version>
+    <version>1.0.0.1</version>
     <title>EmpyrionNetAPI EmpyrionBroker</title>
     <authors>ASTIC/TC</authors>
     <owners>ASTIC/TC</owners>
@@ -16,9 +16,25 @@
         <dependency id="YamlDotNet" version="6.1.2" />
         <dependency id="Newtonsoft.Json" version="12.0.2" />
       </group>
+      <group targetFramework=".NETCoreApp2.2">
+        <dependency id="YamlDotNet" version="6.1.2" />
+        <dependency id="Newtonsoft.Json" version="12.0.2" />
+      </group>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="YamlDotNet" version="6.1.2" />
+        <dependency id="Newtonsoft.Json" version="12.0.2" />
+      </group>
     </dependencies>
   </metadata>
   <files>
     <file src="bin\Release\net461\ILMerge\EmpyrionNetAPIBroker.dll" target="lib\net461\EmpyrionNetAPIBroker.dll" />
+
+    <file src="bin\Release\netstandard2.0\EmpyrionNetApiTools.dll" target="lib\netstandard2.0\EmpyrionNetApiTools.dll" />
+    <file src="bin\Release\netstandard2.0\EmpyrionNetApiDefinitions.dll" target="lib\netstandard2.0\EmpyrionNetApiDefinitions.dll" />
+    <file src="bin\Release\netstandard2.0\EmpyrionNetAPIBroker.dll" target="lib\netstandard2.0\EmpyrionNetAPIBroker.dll" />
+
+    <file src="bin\Release\netcoreapp2.2\EmpyrionNetApiTools.dll" target="lib\netcoreapp2.2\EmpyrionNetApiTools.dll" />
+    <file src="bin\Release\netcoreapp2.2\EmpyrionNetApiDefinitions.dll" target="lib\netcoreapp2.2\EmpyrionNetApiDefinitions.dll" />
+    <file src="bin\Release\netcoreapp2.2\EmpyrionNetAPIBroker.dll" target="lib\netcoreapp2.2\EmpyrionNetAPIBroker.dll" />
   </files>
 </package>
