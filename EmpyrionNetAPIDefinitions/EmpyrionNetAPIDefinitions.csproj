@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EmpyrionNetAPIDefinitions</RootNamespace>
     <AssemblyName>EmpyrionNetAPIDefinitions</AssemblyName>
-    <TargetFrameworks>net461</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netcoreapp2.2;net461</TargetFrameworks>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -49,8 +49,8 @@
     </PostBuildEvent>
     <Company>ASTIC/TC</Company>
     <Authors>ASTIC</Authors>
-    <Copyright>Copyright © 2020</Copyright>
-    <Version>5.0.5</Version>
+    <Copyright>Copyright © 2019</Copyright>
+    <Version>5.0.4.1</Version>
     <PackageId>EmpyrionNetAPITools</PackageId>
     <Product>EmpyrionNetAPITools</Product>
   </PropertyGroup>
