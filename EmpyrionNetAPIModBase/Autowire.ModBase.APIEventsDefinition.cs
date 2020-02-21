@@ -1,13 +1,12 @@
-﻿ 
+﻿
 using Eleon.Modding;
 using System;
-using System.Collections.Generic;
 
 //this file was auto-generatedx
 
 namespace EmpyrionNetAPIAccess
 {
-	public abstract partial class EmpyrionModBase 
+    public abstract partial class EmpyrionModBase 
 	{
 		
     

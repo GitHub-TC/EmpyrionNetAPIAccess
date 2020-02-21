@@ -54,12 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EmpyrionNetAPIBroker\EmpyrionNetAPIBroker.csproj" />
-    <ProjectReference Include="..\EmpyrionNetAPIDefinitions\EmpyrionNetAPIDefinitions.csproj">
-      <Private>false</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\EmpyrionNetAPITools\EmpyrionNetAPITools.csproj">
-      <Private>false</Private>
-    </ProjectReference>
+    <ProjectReference Include="..\EmpyrionNetAPIDefinitions\EmpyrionNetAPIDefinitions.csproj"/>
+    <ProjectReference Include="..\EmpyrionNetAPITools\EmpyrionNetAPITools.csproj"/>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Mif">

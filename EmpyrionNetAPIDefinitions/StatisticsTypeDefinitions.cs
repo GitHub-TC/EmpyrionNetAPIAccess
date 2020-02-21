@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Eleon.Modding;
 
 namespace EmpyrionNetAPIDefinitions
 {
 
 
-  public class StatisticsContainer
+    public class StatisticsContainer
   {
     public StatisticsParam stats;
 
