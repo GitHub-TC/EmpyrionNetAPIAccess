@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D1C387FF-FFFE-4B64-AD9E-571BA7B87AB8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EmpyrionNetAPIAccess</RootNamespace>
+    <AssemblyName>EmpyrionNetAPIBroker</AssemblyName>
+    <TargetFrameworks>netstandard2.0;netcoreapp2.2;net461</TargetFrameworks>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <NuspecFile>EmpyrionNetAPIBroker.debug.nuspec</NuspecFile>
+    <NuspecBasePath>$(ProjectPath)</NuspecBasePath>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <NuspecFile>EmpyrionNetAPIBroker.debug.nuspec</NuspecFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <NuspecFile>EmpyrionNetAPIBroker.release.nuspec</NuspecFile>
+  </PropertyGroup>
+  <Target Name="CopyPackage" AfterTargets="Pack">
+    <Copy SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="F:\NuGet.Local\Debug\$(PackageId).$(PackageVersion)\" />
+    <Copy SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="F:\NuGet.Local\Release\$(PackageId).$(PackageVersion)\" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
+  </Target>
+  <ItemGroup>
+    <Reference Include="Mif">
+      <HintPath>..\dependencies\Mif.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EmpyrionNetAPIDefinitions\EmpyrionNetAPIDefinitions.csproj">
+      <Project>{b46dea32-daca-4633-95fd-a20d45a3e77a}</Project>
+      <Name>EmpyrionNetAPIDefinitions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EmpyrionNetAPITools\EmpyrionNetAPITools.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+    <PackageReference Include="ILMerge" Version="3.0.29" />
+    <PackageReference Include="ILMerge.MSBuild.Task" Version="1.0.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NuGet.CommandLine" Version="5.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Autowire.Broker.APIEventsDefinition.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Autowire.Broker.APIEventsDefinition.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Autowire.Broker.APIRequestsDefinition.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Autowire.Broker.APIRequestsDefinition.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Autowire.Broker.APIEventsDefinition.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Autowire.Broker.APIEventsDefinition.cs</LastGenOutput>
+    </None>
+    <None Update="Autowire.Broker.APIRequestsDefinition.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Autowire.Broker.APIRequestsDefinition.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <PropertyGroup>
+    <Authors>ASTIC</Authors>
+    <Company>ASTIC/TC</Company>
+    <Product>EmpyrionNetAPIBroker</Product>
+    <Version>1.0.0.1</Version>
+    <Copyright>Copyright © 2020</Copyright>
+    <PackageId>EmpyrionNetAPIBroker</PackageId>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+</Project>

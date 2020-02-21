@@ -36,6 +36,10 @@
       <HintPath>..\dependencies\Mif.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="ModApi">
+      <HintPath>..\dependencies\ModApi.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
@@ -45,8 +49,8 @@
     </PostBuildEvent>
     <Company>ASTIC/TC</Company>
     <Authors>ASTIC</Authors>
-    <Copyright>Copyright © 2019</Copyright>
-    <Version>1.0.0.1</Version>
+    <Copyright>Copyright © 2020</Copyright>
+    <Version>5.0.5.0</Version>
     <PackageId>EmpyrionNetAPITools</PackageId>
     <Product>EmpyrionNetAPITools</Product>
   </PropertyGroup>

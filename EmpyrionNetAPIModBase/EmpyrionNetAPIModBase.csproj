@@ -3,17 +3,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BE4D8DE4-F6A8-4B3D-84E3-DCAE109EC09A}</ProjectGuid>
+    <ProjectGuid>e9dffc67-c5cd-4e9c-9f9d-924d3985ec4a</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EmpyrionNetAPI</RootNamespace>
-    <AssemblyName>EmpyrionNetAPI</AssemblyName>
+    <RootNamespace>EmpyrionNetAPIAccess</RootNamespace>
+    <AssemblyName>EmpyrionNetAPIModBase</AssemblyName>
     <TargetFrameworks>netstandard2.0;netcoreapp2.2;net461</TargetFrameworks>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <NuspecFile>EmpyrionNetAPI.debug.nuspec</NuspecFile>
+    <NuspecFile>EmpyrionNetAPIModBase.debug.nuspec</NuspecFile>
     <NuspecBasePath>$(ProjectPath)</NuspecBasePath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -24,7 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <NuspecFile>EmpyrionNetAPI.debug.nuspec</NuspecFile>
+    <NuspecFile>EmpyrionNetAPIModBase.debug.nuspec</NuspecFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,7 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <NuspecFile>EmpyrionNetAPI.release.nuspec</NuspecFile>
+    <NuspecFile>EmpyrionNetAPIModBase.release.nuspec</NuspecFile>
   </PropertyGroup>
   <Target Name="CopyPackage" AfterTargets="Pack">
     <Copy SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="F:\NuGet.Local\Debug\$(PackageId).$(PackageVersion)\" />
@@ -50,22 +50,59 @@
     <PackageReference Include="ILMerge.MSBuild.Task" Version="1.0.7" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\EmpyrionNetAPIBroker\EmpyrionNetAPIBroker.csproj" />
-    <ProjectReference Include="..\EmpyrionNetAPIDefinitions\EmpyrionNetAPIDefinitions.csproj" />
-    <ProjectReference Include="..\EmpyrionNetAPIModBase\EmpyrionNetAPIModBase.csproj" />
-    <ProjectReference Include="..\EmpyrionNetAPITools\EmpyrionNetAPITools.csproj" />
+    <ProjectReference Include="..\EmpyrionNetAPIDefinitions\EmpyrionNetAPIDefinitions.csproj">
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\EmpyrionNetAPITools\EmpyrionNetAPITools.csproj">
+      <Private>false</Private>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Mif">
       <HintPath>..\dependencies\Mif.dll</HintPath>
     </Reference>
+    <Reference Include="ModApi">
+      <HintPath>..\dependencies\ModApi.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Autowire.ModBase.APIEventsDefinition.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Autowire.ModBase.APIEventsDefinition.cs</LastGenOutput>
+    </None>
+    <None Update="Autowire.ModBase.APIRequestsDefinition.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Autowire.ModBase.APIRequestsDefinition.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Autowire.ModBase.APIEventsDefinition.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Autowire.ModBase.APIEventsDefinition.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Autowire.ModBase.APIRequestsDefinition.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Autowire.ModBase.APIRequestsDefinition.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
   <PropertyGroup>
-    <Copyright>Copyright © 2019</Copyright>
-    <PackageId>EmpyrionNetAPI</PackageId>
+    <Copyright>Copyright © 2020</Copyright>
+    <PackageId>EmpyrionNetAPIModBase</PackageId>
     <Company>ASTIC/TC</Company>
     <Authors>ASTIC</Authors>
-    <Version>5.0.5</Version>
+    <Version>1.0.0.3</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Product>EmpyrionNetAPIModBase</Product>
   </PropertyGroup>
 </Project>
+    

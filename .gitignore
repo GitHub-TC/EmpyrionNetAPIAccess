@@ -266,3 +266,6 @@ Autowire.APIRequests.cs
 
 # build.debug
 !build.debug/*.pdb
+
+# mergetool diff files
+*.orig

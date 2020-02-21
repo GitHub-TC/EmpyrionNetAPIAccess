@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>EmpyrionNetAPI</id>
-    <version>5.0.5.0</version>
-    <title>EmpyrionNetAPI</title>
+    <id>EmpyrionNetAPIBroker</id>
+    <version>1.0.0.1</version>
+    <title>EmpyrionNetAPI EmpyrionBroker</title>
     <authors>ASTIC/TC</authors>
     <owners>ASTIC/TC</owners>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/GitHub-TC/EmpyrionNetAPIAccess</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A simple framework for building Empyrions mods with .NET for the EWA EmpyrionWebAccess or the ModLoader. Empyrion &gt;=A10</description>
+    <description>Introduces the EmpyironBroker Type that encapsulates ModGameApi and defines SendRequest method (as well as definition defined, generated helper methods) with RequestTracker mechaism to coordinate GameEvents to Requests; adds async-await task support with concurrency. Empyrion &gt;=A10</description>
     <copyright>Copyright 2020</copyright>
     <dependencies>
       <group targetFramework=".NETFramework4.6.1">
@@ -27,18 +27,14 @@
     </dependencies>
   </metadata>
   <files>    
-    <file src="bin\Debug\net461\ILMerge\EmpyrionNetApi.dll" target="lib\net461\EmpyrionNetApi.dll" />
+    <file src="bin\Debug\net461\ILMerge\EmpyrionNetAPIBroker.dll" target="lib\net461\EmpyrionNetAPIBroker.dll" />
 
     <file src="bin\Debug\netstandard2.0\EmpyrionNetApiTools.dll" target="lib\netstandard2.0\EmpyrionNetApiTools.dll" />
     <file src="bin\Debug\netstandard2.0\EmpyrionNetApiDefinitions.dll" target="lib\netstandard2.0\EmpyrionNetApiDefinitions.dll" />
-    <file src="bin\Debug\netstandard2.0\EmpyrionNetApiBroker.dll" target="lib\netstandard2.0\EmpyrionNetApiBroker.dll" />
-    <file src="bin\Debug\netstandard2.0\EmpyrionNetApiModBase.dll" target="lib\netstandard2.0\EmpyrionNetApiModBase.dll" />
-    <file src="bin\Debug\netstandard2.0\EmpyrionNetApi.dll" target="lib\netstandard2.0\EmpyrionNetApi.dll" />
+    <file src="bin\Debug\netstandard2.0\EmpyrionNetAPIBroker.dll" target="lib\netstandard2.0\EmpyrionNetAPIBroker.dll" />
 
     <file src="bin\Debug\netcoreapp2.2\EmpyrionNetApiTools.dll" target="lib\netcoreapp2.2\EmpyrionNetApiTools.dll" />
     <file src="bin\Debug\netcoreapp2.2\EmpyrionNetApiDefinitions.dll" target="lib\netcoreapp2.2\EmpyrionNetApiDefinitions.dll" />
-    <file src="bin\Debug\netcoreapp2.2\EmpyrionNetApiBroker.dll" target="lib\netcoreapp2.2\EmpyrionNetApiBroker.dll" />
-    <file src="bin\Debug\netcoreapp2.2\EmpyrionNetApiModBase.dll" target="lib\netcoreapp2.2\EmpyrionNetApiModBase.dll" />
-    <file src="bin\Debug\netcoreapp2.2\EmpyrionNetApi.dll" target="lib\netcoreapp2.2\EmpyrionNetApi.dll" />
+    <file src="bin\Debug\netcoreapp2.2\EmpyrionNetAPIBroker.dll" target="lib\netcoreapp2.2\EmpyrionNetAPIBroker.dll" />
   </files>
 </package>

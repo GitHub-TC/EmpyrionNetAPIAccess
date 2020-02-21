@@ -5,7 +5,8 @@
     "KeyFile": null,
     "AlternativeILMergePath": null,
     "InputAssemblies": [
-      "EmpyrionNetAPIModBase.dll"
+      "EmpyrionNetAPITools.dll",
+      "EmpyrionNetAPIDefinitions.dll"
     ]
   },
   "Advanced": {
