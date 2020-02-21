@@ -1,11 +1,38 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace EmpyrionNetAPITools.Extensions
 {
     public static class TaskTools
     {
         public static Action<string> Log { get; set; } = Console.WriteLine;
+
+        public static async Task<TResult> For<TResult>(TimeSpan timeout, Task<TResult> task)
+        {
+            using (var timeoutCancellationTokenSource = new CancellationTokenSource())
+            {
+                try
+                {
+                    var completedTask = await Task.WhenAny(task, Task.Delay(timeout.Ticks == 0 ? new TimeSpan(0, 0, 1) : timeout, timeoutCancellationTokenSource.Token));
+                    if (completedTask == task)
+                    {
+                        timeoutCancellationTokenSource.Cancel();
+                        return await task;  // Very important in order to propagate exceptions
+                    }
+                    else
+                    {
+                        if (timeout.Ticks == 0) return await Task.FromResult(default(TResult));
+                        throw new TimeoutException("The operation has timed out.");
+                    }
+                }
+                catch (TimeoutException)
+                {
+                    if (timeout.Ticks > 0) throw;
+                    return await Task.FromResult(default(TResult));
+                }
+            }
+        }
 
         public static ManualResetEvent Intervall(int aMillisecondsIntervall, Action aAction)
         {
