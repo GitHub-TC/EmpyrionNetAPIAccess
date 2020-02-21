@@ -41,14 +41,6 @@ namespace EmpyrionNetAPIAccess
 		public async <#= signatureCT #> {
 			<#= signatureCT.GetMethodBodyTemplate() #>
 		}
-		
-		public async <#= signatureTimeout #> {
-			<#= signatureTimeout.GetMethodBodyTemplate() #>
-		}
-
-		public async <#= signatureTimeoutCT #> {
-			<#= signatureTimeoutCT.GetMethodBodyTemplate() #>
-		}
 	<# } #>}
 }
 
@@ -117,30 +109,18 @@ namespace EmpyrionNetAPIAccess
 		public string GetMethodBodyTemplate()
 		{
 			var sendRequestTemplate = GetSendRequestTemplateInfo("arg");
-			var timeoutTemplate = "EmpyrionRequestsDefaultTimeout";
-			var ctokenTimeoutTemplate = "EmpyrionRequestsDefaultTimeout.Milliseconds";
-			
-			if (HasArgWithName("timeoutSeconds"))			
-			{
-				timeoutTemplate = "(int)timeoutSeconds";
-				ctokenTimeoutTemplate = "(int)timeoutSeconds * 1000";
-			}
 
 			if (HasArgWithName("ct"))
 			{
 				return (returnType == null)
-						? string.Format("return await Broker.SendRequestAsync({1}, ct);", timeoutTemplate, sendRequestTemplate.ParametersTemplate)
-						: string.Format("return await Broker.SendRequestAsync<{1}>({2}, ct);", timeoutTemplate, sendRequestTemplate.GenericsTemplate, sendRequestTemplate.ParametersTemplate);
+						? string.Format("return await Broker.SendRequestAsync({0}, ct);", sendRequestTemplate.ParametersTemplate)
+						: string.Format("return await Broker.SendRequestAsync<{0}>({1}, ct);", sendRequestTemplate.GenericsTemplate, sendRequestTemplate.ParametersTemplate);
 			} 
 			else 
 			{				
-				return string.Join(string.Concat(Environment.NewLine, "			"), 
-					string.Format("using (var source = new CancellationTokenSource({0}))", ctokenTimeoutTemplate), 
-					"{",
-					(returnType == null)
-						? string.Format("	return await Broker.SendRequestAsync({1}, source.Token);", timeoutTemplate, sendRequestTemplate.ParametersTemplate)
-						: string.Format("	return await Broker.SendRequestAsync<{1}>({2}, source.Token);", timeoutTemplate, sendRequestTemplate.GenericsTemplate, sendRequestTemplate.ParametersTemplate),
-					"}");
+				return (returnType == null)
+						? string.Format("return await Broker.SendRequestAsync({0});", sendRequestTemplate.ParametersTemplate)
+						: string.Format("return await Broker.SendRequestAsync<{0}>({1});", sendRequestTemplate.GenericsTemplate, sendRequestTemplate.ParametersTemplate);
 			}
 		}
 
@@ -166,9 +146,6 @@ namespace EmpyrionNetAPIAccess
 		result.methodName = item.CmdId.ToString();
 
 		var tmpArgList = new List<GenericArg>();		
-
-		if (withTimeout) 
-			tmpArgList.Add(new GenericArg("timeoutSeconds", "Timeouts"));
     
 		if (item.ParamType != null)
 			tmpArgList.Add(new GenericArg("arg", item.ParamType.Name));	
