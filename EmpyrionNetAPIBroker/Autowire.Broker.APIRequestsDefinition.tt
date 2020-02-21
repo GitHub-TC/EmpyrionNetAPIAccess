@@ -117,29 +117,35 @@ namespace EmpyrionNetAPIAccess
 		public string GetMethodBodyTemplate()
 		{
 			var sendRequestTemplate = GetSendRequestTemplateInfo("arg");
-			var timeoutTemplate = "EmpyrionRequestsDefaultTimeout";
 			var ctokenTimeoutTemplate = "EmpyrionRequestsDefaultTimeout.Milliseconds";
 			
 			if (HasArgWithName("timeoutSeconds"))			
 			{
-				timeoutTemplate = "(int)timeoutSeconds";
 				ctokenTimeoutTemplate = "(int)timeoutSeconds * 1000";
 			}
 
 			if (HasArgWithName("ct"))
 			{
 				return (returnType == null)
-						? string.Format("	return await broker.SendRequestAsync({1}, ct);", timeoutTemplate, sendRequestTemplate.ParametersTemplate)
-						: string.Format("	return await broker.SendRequestAsync<{1}>({2}, ct);", timeoutTemplate, sendRequestTemplate.GenericsTemplate, sendRequestTemplate.ParametersTemplate);
+						? string.Format("return await broker.SendRequestAsync({0}, ct);", sendRequestTemplate.ParametersTemplate)
+						: string.Format("return await broker.SendRequestAsync<{0}>({1}, ct);", sendRequestTemplate.GenericsTemplate, sendRequestTemplate.ParametersTemplate);
 			} 
 			else 
 			{				
 				return string.Join(string.Concat(Environment.NewLine, "			"), 
 					string.Format("using (var source = new CancellationTokenSource({0}))", ctokenTimeoutTemplate), 
 					"{",
-					(returnType == null)
-						? string.Format("	return await broker.SendRequestAsync({1}, source.Token);", timeoutTemplate, sendRequestTemplate.ParametersTemplate)
-						: string.Format("	return await broker.SendRequestAsync<{1}>({2}, source.Token);", timeoutTemplate, sendRequestTemplate.GenericsTemplate, sendRequestTemplate.ParametersTemplate),
+					string.Join(string.Concat(Environment.NewLine, "				"),
+						"	try",
+						"{",
+						(returnType == null)
+							? string.Format("	return await broker.SendRequestAsync({0}, source.Token);", sendRequestTemplate.ParametersTemplate)
+							: string.Format("	return await broker.SendRequestAsync<{0}>({1}, source.Token);", sendRequestTemplate.GenericsTemplate, sendRequestTemplate.ParametersTemplate),
+						"}",
+						"catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)",
+						"{",
+						string.Format("	return default({0});", returnType ?? "bool"), 
+						"}"),
 					"}");
 			}
 		}
