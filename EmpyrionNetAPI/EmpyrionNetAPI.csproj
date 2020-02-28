@@ -45,10 +45,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
-    <PackageReference Include="ILMerge" Version="3.0.29" />
-    <PackageReference Include="ILMerge.MSBuild.Task" Version="1.0.7" />
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EmpyrionNetAPIBroker\EmpyrionNetAPIBroker.csproj" />
     <ProjectReference Include="..\EmpyrionNetAPIDefinitions\EmpyrionNetAPIDefinitions.csproj" />

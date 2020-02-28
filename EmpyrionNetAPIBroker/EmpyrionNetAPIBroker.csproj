@@ -8,7 +8,8 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EmpyrionNetAPIAccess</RootNamespace>
     <AssemblyName>EmpyrionNetAPIBroker</AssemblyName>
-    <TargetFrameworks>netstandard2.0;netcoreapp2.2;net461</TargetFrameworks>
+    <TargetFrameworks>net461</TargetFrameworks>
+    <!--<TargetFrameworks>netstandard2.0;netcoreapp2.2;net461</TargetFrameworks>-->
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -58,10 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
-    <PackageReference Include="ILMerge" Version="3.0.29" />
-    <PackageReference Include="ILMerge.MSBuild.Task" Version="1.0.7" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NuGet.CommandLine" Version="5.1.0">

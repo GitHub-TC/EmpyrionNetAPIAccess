@@ -1,15 +1,15 @@
-﻿
+﻿ 
 using Eleon.Modding;
 using System;
+using System.Collections.Generic;
 
 //this file was auto-generatedx
 
 namespace EmpyrionNetAPIAccess
 {
-    public abstract partial class EmpyrionModBase 
+	public abstract partial class EmpyrionModBase 
 	{
-		
-    
+		    
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<PlayfieldLoad> Event_Playfield_Loaded
 		{
@@ -20,8 +20,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_Playfield_Loaded -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<PlayfieldLoad> Event_Playfield_Unloaded
 		{
@@ -32,8 +31,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_Playfield_Unloaded -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<Id> Event_Player_Connected
 		{
@@ -44,8 +42,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_Player_Connected -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<Id> Event_Player_Disconnected
 		{
@@ -56,8 +53,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_Player_Disconnected -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<IdPlayfield> Event_Player_ChangedPlayfield
 		{
@@ -68,8 +64,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_Player_ChangedPlayfield -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<Id> Event_Player_DisconnectedWaiting
 		{
@@ -80,8 +75,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_Player_DisconnectedWaiting -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<FactionChangeInfo> Event_Faction_Changed
 		{
@@ -92,8 +86,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_Faction_Changed -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<StatisticsParam> Event_Statistics
 		{
@@ -104,8 +97,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_Statistics -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<ChatInfo> Event_ChatMessage
 		{
@@ -116,8 +108,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_ChatMessage -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<TraderNPCItemSoldInfo> Event_TraderNPCItemSold
 		{
@@ -128,8 +119,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_TraderNPCItemSold -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<ConsoleCommandInfo> Event_ConsoleCommand
 		{
@@ -140,8 +130,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_ConsoleCommand -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<PdaStateInfo> Event_PdaStateChange
 		{
@@ -152,8 +141,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_PdaStateChange -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<GameEventData> Event_GameEvent
 		{
@@ -164,8 +152,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_GameEvent -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<AlliancesTable> Event_AlliancesAll
 		{
@@ -176,8 +163,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_AlliancesAll -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<AlliancesFaction> Event_AlliancesFaction
 		{
@@ -188,8 +174,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_AlliancesFaction -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<IdList> Event_BannedPlayers
 		{
@@ -200,8 +185,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_BannedPlayers -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<DediStats> Event_Dedi_Stats
 		{
@@ -212,8 +196,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_Dedi_Stats -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<IdPositionRotation> Event_Entity_PosAndRot
 		{
@@ -224,8 +207,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_Entity_PosAndRot -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<FactionInfoList> Event_Get_Factions
 		{
@@ -236,8 +218,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_Get_Factions -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<GlobalStructureList> Event_GlobalStructure_List
 		{
@@ -248,8 +229,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_GlobalStructure_List -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<Id> Event_NewEntityId
 		{
@@ -260,8 +240,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_NewEntityId -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action Event_Ok
 		{
@@ -272,8 +251,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_Ok -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<IdCredits> Event_Player_Credits
 		{
@@ -284,8 +262,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_Player_Credits -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<Inventory> Event_Player_GetAndRemoveInventory
 		{
@@ -296,8 +273,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_Player_GetAndRemoveInventory -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<PlayerInfo> Event_Player_Info
 		{
@@ -308,8 +284,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_Player_Info -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<Inventory> Event_Player_Inventory
 		{
@@ -320,8 +295,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_Player_Inventory -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<ItemExchangeInfo> Event_Player_ItemExchange
 		{
@@ -332,8 +306,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_Player_ItemExchange -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<IdList> Event_Player_List
 		{
@@ -344,8 +317,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_Player_List -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<PlayfieldEntityList> Event_Playfield_Entity_List
 		{
@@ -356,8 +328,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_Playfield_Entity_List -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<PlayfieldList> Event_Playfield_List
 		{
@@ -368,8 +339,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_Playfield_List -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<PlayfieldStats> Event_Playfield_Stats
 		{
@@ -380,8 +350,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_Playfield_Stats -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<IdStructureBlockInfo> Event_Structure_BlockStatistics
 		{
@@ -392,8 +361,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_Structure_BlockStatistics -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<IdAndIntValue> Event_DialogButtonIndex
 		{
@@ -404,8 +372,7 @@ namespace EmpyrionNetAPIAccess
 				Broker.Event_DialogButtonIndex -= value;
 			}
 		}
-    
-    
+        
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
 		public event Action<ChatMsgData> Event_ChatMessageEx
 		{

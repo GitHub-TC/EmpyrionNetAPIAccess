@@ -8,6 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EmpyrionNetAPIAccess</RootNamespace>
     <AssemblyName>EmpyrionNetAPIModBase</AssemblyName>
+    <TargetFrameworks>net461</TargetFrameworks>
     <TargetFrameworks>netstandard2.0;netcoreapp2.2;net461</TargetFrameworks>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -45,17 +46,13 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
-    <PackageReference Include="ILMerge" Version="3.0.29" />
-    <PackageReference Include="ILMerge.MSBuild.Task" Version="1.0.7" />
-  </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EmpyrionNetAPIBroker\EmpyrionNetAPIBroker.csproj" />
-    <ProjectReference Include="..\EmpyrionNetAPIDefinitions\EmpyrionNetAPIDefinitions.csproj"/>
-    <ProjectReference Include="..\EmpyrionNetAPITools\EmpyrionNetAPITools.csproj"/>
+    <ProjectReference Include="..\EmpyrionNetAPIDefinitions\EmpyrionNetAPIDefinitions.csproj" />
+    <ProjectReference Include="..\EmpyrionNetAPITools\EmpyrionNetAPITools.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Mif">
@@ -75,8 +72,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Autowire.ModBase.APIRequestsDefinition.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="Autowire.ModBase.APIEventsDefinition.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

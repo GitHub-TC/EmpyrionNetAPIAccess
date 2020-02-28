@@ -11,7 +11,6 @@
 <#@ output extension=".cs" #>
 using System;
 using Eleon.Modding;
-using System.Threading;
 using System.Threading.Tasks;
 
 //this file was auto-generated
@@ -27,10 +26,8 @@ namespace EmpyrionNetAPIAccess
 		
 		<# foreach(var item in APIManifest.RequestManifest) {
 		var expectedResponse   = APIManifest.APIRequestResponseTable[item.CmdId];
-		var signature          = generateMethodSignature(false, false, item);
-		var signatureCT        = generateMethodSignature(false, true, item);
-		var signatureTimeout   = generateMethodSignature(true, false, item);
-		var signatureTimeoutCT = generateMethodSignature(true, true, item);
+		var signature          = generateMethodSignature(false, item);
+		var signatureTimeout   = generateMethodSignature(true, item);
 
 		#>
 
@@ -38,9 +35,10 @@ namespace EmpyrionNetAPIAccess
 			<#= signature.GetMethodBodyTemplate() #>
 		}
 
-		public async <#= signatureCT #> {
-			<#= signatureCT.GetMethodBodyTemplate() #>
+		public async <#= signatureTimeout #> {
+			<#= signatureTimeout.GetMethodBodyTemplate() #>
 		}
+
 	<# } #>}
 }
 
@@ -108,20 +106,10 @@ namespace EmpyrionNetAPIAccess
 
 		public string GetMethodBodyTemplate()
 		{
-			var sendRequestTemplate = GetSendRequestTemplateInfo("arg");
-
-			if (HasArgWithName("ct"))
-			{
-				return (returnType == null)
-						? string.Format("return await Broker.SendRequestAsync({0}, ct);", sendRequestTemplate.ParametersTemplate)
-						: string.Format("return await Broker.SendRequestAsync<{0}>({1}, ct);", sendRequestTemplate.GenericsTemplate, sendRequestTemplate.ParametersTemplate);
-			} 
-			else 
-			{				
-				return (returnType == null)
-						? string.Format("return await Broker.SendRequestAsync({0});", sendRequestTemplate.ParametersTemplate)
-						: string.Format("return await Broker.SendRequestAsync<{0}>({1});", sendRequestTemplate.GenericsTemplate, sendRequestTemplate.ParametersTemplate);
-			}
+			return string.Format("return await Broker.{0}({1});", 
+				methodName, 
+				args.Aggregate((string)null, (s,a) => {return s == null ? a.argName : s + ", " + a.argName;})
+			);
 		}
 
 		public string GetSubTypeForArg(string argName)
@@ -139,7 +127,7 @@ namespace EmpyrionNetAPIAccess
 		}
 	}
 
-	public static GenericMethodSignature generateMethodSignature(bool withTimeout, bool withCancellationToken, APIRequest item)
+	public static GenericMethodSignature generateMethodSignature(bool withTimeout, APIRequest item)
 	{
 		var expectedResponse = APIManifest.APIRequestResponseTable[item.CmdId];
 		var result = new GenericMethodSignature();
@@ -147,13 +135,9 @@ namespace EmpyrionNetAPIAccess
 
 		var tmpArgList = new List<GenericArg>();		
     
-		if (item.ParamType != null)
-			tmpArgList.Add(new GenericArg("arg", item.ParamType.Name));	
+		if (withTimeout)			tmpArgList.Add(new GenericArg("timeoutSeconds", "Timeouts"));
+		if (item.ParamType != null) tmpArgList.Add(new GenericArg("arg", item.ParamType.Name));	
 			
-		if (withCancellationToken)
-			tmpArgList.Add(new GenericArg("ct", "CancellationToken"));
-
-
 		result.returnType = expectedResponse.ParamType?.Name;
 		result.args = tmpArgList;
 

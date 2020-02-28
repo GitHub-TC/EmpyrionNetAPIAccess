@@ -2,1494 +2,347 @@
 using Eleon.Modding;
 using System.Threading;
 using System.Threading.Tasks;
+using EmpyrionNetAPITools.Extensions;
 
 //this file was auto-generated
 
 namespace EmpyrionNetAPIAccess
 {
-	public static class ModGameAPIBrokerExtension 
+	public partial class Broker
 	{
         /// <summary>
         /// Default Timeout for Empyrion Requests (10s)
         /// </summary>
         public static TimeSpan EmpyrionRequestsDefaultTimeout { get; set; } = new TimeSpan(0, 0, 0, 10);
 		
-		
-		public async static Task<PlayfieldList> Request_Playfield_List(this Broker broker) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<PlayfieldList>(CmdId.Request_Playfield_List, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(PlayfieldList);
-				}
-			}
-		}
-
-		public async static Task<PlayfieldList> Request_Playfield_List(this Broker broker, CancellationToken ct) {
-			return await broker.SendRequestAsync<PlayfieldList>(CmdId.Request_Playfield_List, ct);
-		}
-		
-		public async static Task<PlayfieldList> Request_Playfield_List(this Broker broker, Timeouts timeoutSeconds) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<PlayfieldList>(CmdId.Request_Playfield_List, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(PlayfieldList);
-				}
-			}
-		}
-
-		public async static Task<PlayfieldList> Request_Playfield_List(this Broker broker, Timeouts timeoutSeconds, CancellationToken ct) {
-			return await broker.SendRequestAsync<PlayfieldList>(CmdId.Request_Playfield_List, ct);
-		}
-	
-		public async static Task<PlayfieldStats> Request_Playfield_Stats(this Broker broker, PString arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<PString, PlayfieldStats>(CmdId.Request_Playfield_Stats, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(PlayfieldStats);
-				}
-			}
-		}
-
-		public async static Task<PlayfieldStats> Request_Playfield_Stats(this Broker broker, PString arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<PString, PlayfieldStats>(CmdId.Request_Playfield_Stats, arg, ct);
-		}
-		
-		public async static Task<PlayfieldStats> Request_Playfield_Stats(this Broker broker, Timeouts timeoutSeconds, PString arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<PString, PlayfieldStats>(CmdId.Request_Playfield_Stats, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(PlayfieldStats);
-				}
-			}
-		}
-
-		public async static Task<PlayfieldStats> Request_Playfield_Stats(this Broker broker, Timeouts timeoutSeconds, PString arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<PString, PlayfieldStats>(CmdId.Request_Playfield_Stats, arg, ct);
-		}
-	
-		public async static Task<DediStats> Request_Dedi_Stats(this Broker broker) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<DediStats>(CmdId.Request_Dedi_Stats, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(DediStats);
-				}
-			}
-		}
-
-		public async static Task<DediStats> Request_Dedi_Stats(this Broker broker, CancellationToken ct) {
-			return await broker.SendRequestAsync<DediStats>(CmdId.Request_Dedi_Stats, ct);
-		}
-		
-		public async static Task<DediStats> Request_Dedi_Stats(this Broker broker, Timeouts timeoutSeconds) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<DediStats>(CmdId.Request_Dedi_Stats, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(DediStats);
-				}
-			}
-		}
-
-		public async static Task<DediStats> Request_Dedi_Stats(this Broker broker, Timeouts timeoutSeconds, CancellationToken ct) {
-			return await broker.SendRequestAsync<DediStats>(CmdId.Request_Dedi_Stats, ct);
-		}
-	
-		public async static Task<GlobalStructureList> Request_GlobalStructure_List(this Broker broker) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<GlobalStructureList>(CmdId.Request_GlobalStructure_List, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(GlobalStructureList);
-				}
-			}
-		}
-
-		public async static Task<GlobalStructureList> Request_GlobalStructure_List(this Broker broker, CancellationToken ct) {
-			return await broker.SendRequestAsync<GlobalStructureList>(CmdId.Request_GlobalStructure_List, ct);
-		}
-		
-		public async static Task<GlobalStructureList> Request_GlobalStructure_List(this Broker broker, Timeouts timeoutSeconds) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<GlobalStructureList>(CmdId.Request_GlobalStructure_List, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(GlobalStructureList);
-				}
-			}
-		}
-
-		public async static Task<GlobalStructureList> Request_GlobalStructure_List(this Broker broker, Timeouts timeoutSeconds, CancellationToken ct) {
-			return await broker.SendRequestAsync<GlobalStructureList>(CmdId.Request_GlobalStructure_List, ct);
-		}
-	
-		public async static Task<bool> Request_GlobalStructure_Update(this Broker broker, PString arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_GlobalStructure_Update, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_GlobalStructure_Update(this Broker broker, PString arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_GlobalStructure_Update, arg, ct);
-		}
-		
-		public async static Task<bool> Request_GlobalStructure_Update(this Broker broker, Timeouts timeoutSeconds, PString arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_GlobalStructure_Update, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_GlobalStructure_Update(this Broker broker, Timeouts timeoutSeconds, PString arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_GlobalStructure_Update, arg, ct);
-		}
-	
-		public async static Task<bool> Request_Structure_Touch(this Broker broker, Id arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Structure_Touch, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Structure_Touch(this Broker broker, Id arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Structure_Touch, arg, ct);
-		}
-		
-		public async static Task<bool> Request_Structure_Touch(this Broker broker, Timeouts timeoutSeconds, Id arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Structure_Touch, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Structure_Touch(this Broker broker, Timeouts timeoutSeconds, Id arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Structure_Touch, arg, ct);
-		}
-	
-		public async static Task<IdStructureBlockInfo> Request_Structure_BlockStatistics(this Broker broker, Id arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<Id, IdStructureBlockInfo>(CmdId.Request_Structure_BlockStatistics, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(IdStructureBlockInfo);
-				}
-			}
-		}
-
-		public async static Task<IdStructureBlockInfo> Request_Structure_BlockStatistics(this Broker broker, Id arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<Id, IdStructureBlockInfo>(CmdId.Request_Structure_BlockStatistics, arg, ct);
-		}
-		
-		public async static Task<IdStructureBlockInfo> Request_Structure_BlockStatistics(this Broker broker, Timeouts timeoutSeconds, Id arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<Id, IdStructureBlockInfo>(CmdId.Request_Structure_BlockStatistics, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(IdStructureBlockInfo);
-				}
-			}
-		}
-
-		public async static Task<IdStructureBlockInfo> Request_Structure_BlockStatistics(this Broker broker, Timeouts timeoutSeconds, Id arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<Id, IdStructureBlockInfo>(CmdId.Request_Structure_BlockStatistics, arg, ct);
-		}
-	
-		public async static Task<PlayerInfo> Request_Player_Info(this Broker broker, Id arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<Id, PlayerInfo>(CmdId.Request_Player_Info, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(PlayerInfo);
-				}
-			}
-		}
-
-		public async static Task<PlayerInfo> Request_Player_Info(this Broker broker, Id arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<Id, PlayerInfo>(CmdId.Request_Player_Info, arg, ct);
-		}
-		
-		public async static Task<PlayerInfo> Request_Player_Info(this Broker broker, Timeouts timeoutSeconds, Id arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<Id, PlayerInfo>(CmdId.Request_Player_Info, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(PlayerInfo);
-				}
-			}
-		}
-
-		public async static Task<PlayerInfo> Request_Player_Info(this Broker broker, Timeouts timeoutSeconds, Id arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<Id, PlayerInfo>(CmdId.Request_Player_Info, arg, ct);
-		}
-	
-		public async static Task<IdList> Request_Player_List(this Broker broker) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<IdList>(CmdId.Request_Player_List, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(IdList);
-				}
-			}
-		}
-
-		public async static Task<IdList> Request_Player_List(this Broker broker, CancellationToken ct) {
-			return await broker.SendRequestAsync<IdList>(CmdId.Request_Player_List, ct);
-		}
-		
-		public async static Task<IdList> Request_Player_List(this Broker broker, Timeouts timeoutSeconds) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<IdList>(CmdId.Request_Player_List, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(IdList);
-				}
-			}
-		}
-
-		public async static Task<IdList> Request_Player_List(this Broker broker, Timeouts timeoutSeconds, CancellationToken ct) {
-			return await broker.SendRequestAsync<IdList>(CmdId.Request_Player_List, ct);
-		}
-	
-		public async static Task<Inventory> Request_Player_GetInventory(this Broker broker, Id arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<Id, Inventory>(CmdId.Request_Player_GetInventory, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(Inventory);
-				}
-			}
-		}
-
-		public async static Task<Inventory> Request_Player_GetInventory(this Broker broker, Id arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<Id, Inventory>(CmdId.Request_Player_GetInventory, arg, ct);
-		}
-		
-		public async static Task<Inventory> Request_Player_GetInventory(this Broker broker, Timeouts timeoutSeconds, Id arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<Id, Inventory>(CmdId.Request_Player_GetInventory, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(Inventory);
-				}
-			}
-		}
-
-		public async static Task<Inventory> Request_Player_GetInventory(this Broker broker, Timeouts timeoutSeconds, Id arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<Id, Inventory>(CmdId.Request_Player_GetInventory, arg, ct);
-		}
-	
-		public async static Task<Inventory> Request_Player_SetInventory(this Broker broker, Inventory arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<Inventory, Inventory>(CmdId.Request_Player_SetInventory, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(Inventory);
-				}
-			}
-		}
-
-		public async static Task<Inventory> Request_Player_SetInventory(this Broker broker, Inventory arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<Inventory, Inventory>(CmdId.Request_Player_SetInventory, arg, ct);
-		}
-		
-		public async static Task<Inventory> Request_Player_SetInventory(this Broker broker, Timeouts timeoutSeconds, Inventory arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<Inventory, Inventory>(CmdId.Request_Player_SetInventory, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(Inventory);
-				}
-			}
-		}
-
-		public async static Task<Inventory> Request_Player_SetInventory(this Broker broker, Timeouts timeoutSeconds, Inventory arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<Inventory, Inventory>(CmdId.Request_Player_SetInventory, arg, ct);
-		}
-	
-		public async static Task<bool> Request_Player_AddItem(this Broker broker, IdItemStack arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Player_AddItem, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Player_AddItem(this Broker broker, IdItemStack arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Player_AddItem, arg, ct);
-		}
-		
-		public async static Task<bool> Request_Player_AddItem(this Broker broker, Timeouts timeoutSeconds, IdItemStack arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Player_AddItem, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Player_AddItem(this Broker broker, Timeouts timeoutSeconds, IdItemStack arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Player_AddItem, arg, ct);
-		}
-	
-		public async static Task<IdCredits> Request_Player_Credits(this Broker broker, Id arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<Id, IdCredits>(CmdId.Request_Player_Credits, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(IdCredits);
-				}
-			}
-		}
-
-		public async static Task<IdCredits> Request_Player_Credits(this Broker broker, Id arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<Id, IdCredits>(CmdId.Request_Player_Credits, arg, ct);
-		}
-		
-		public async static Task<IdCredits> Request_Player_Credits(this Broker broker, Timeouts timeoutSeconds, Id arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<Id, IdCredits>(CmdId.Request_Player_Credits, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(IdCredits);
-				}
-			}
-		}
-
-		public async static Task<IdCredits> Request_Player_Credits(this Broker broker, Timeouts timeoutSeconds, Id arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<Id, IdCredits>(CmdId.Request_Player_Credits, arg, ct);
-		}
-	
-		public async static Task<IdCredits> Request_Player_SetCredits(this Broker broker, IdCredits arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<IdCredits, IdCredits>(CmdId.Request_Player_SetCredits, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(IdCredits);
-				}
-			}
-		}
-
-		public async static Task<IdCredits> Request_Player_SetCredits(this Broker broker, IdCredits arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<IdCredits, IdCredits>(CmdId.Request_Player_SetCredits, arg, ct);
-		}
-		
-		public async static Task<IdCredits> Request_Player_SetCredits(this Broker broker, Timeouts timeoutSeconds, IdCredits arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<IdCredits, IdCredits>(CmdId.Request_Player_SetCredits, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(IdCredits);
-				}
-			}
-		}
-
-		public async static Task<IdCredits> Request_Player_SetCredits(this Broker broker, Timeouts timeoutSeconds, IdCredits arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<IdCredits, IdCredits>(CmdId.Request_Player_SetCredits, arg, ct);
-		}
-	
-		public async static Task<IdCredits> Request_Player_AddCredits(this Broker broker, IdCredits arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<IdCredits, IdCredits>(CmdId.Request_Player_AddCredits, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(IdCredits);
-				}
-			}
-		}
-
-		public async static Task<IdCredits> Request_Player_AddCredits(this Broker broker, IdCredits arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<IdCredits, IdCredits>(CmdId.Request_Player_AddCredits, arg, ct);
-		}
-		
-		public async static Task<IdCredits> Request_Player_AddCredits(this Broker broker, Timeouts timeoutSeconds, IdCredits arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<IdCredits, IdCredits>(CmdId.Request_Player_AddCredits, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(IdCredits);
-				}
-			}
-		}
-
-		public async static Task<IdCredits> Request_Player_AddCredits(this Broker broker, Timeouts timeoutSeconds, IdCredits arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<IdCredits, IdCredits>(CmdId.Request_Player_AddCredits, arg, ct);
-		}
-	
-		public async static Task<bool> Request_Blueprint_Finish(this Broker broker, Id arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Blueprint_Finish, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Blueprint_Finish(this Broker broker, Id arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Blueprint_Finish, arg, ct);
-		}
-		
-		public async static Task<bool> Request_Blueprint_Finish(this Broker broker, Timeouts timeoutSeconds, Id arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Blueprint_Finish, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Blueprint_Finish(this Broker broker, Timeouts timeoutSeconds, Id arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Blueprint_Finish, arg, ct);
-		}
-	
-		public async static Task<bool> Request_Blueprint_Resources(this Broker broker, BlueprintResources arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Blueprint_Resources, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Blueprint_Resources(this Broker broker, BlueprintResources arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Blueprint_Resources, arg, ct);
-		}
-		
-		public async static Task<bool> Request_Blueprint_Resources(this Broker broker, Timeouts timeoutSeconds, BlueprintResources arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Blueprint_Resources, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Blueprint_Resources(this Broker broker, Timeouts timeoutSeconds, BlueprintResources arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Blueprint_Resources, arg, ct);
-		}
-	
-		public async static Task<bool> Request_Player_ChangePlayerfield(this Broker broker, IdPlayfieldPositionRotation arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Player_ChangePlayerfield, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Player_ChangePlayerfield(this Broker broker, IdPlayfieldPositionRotation arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Player_ChangePlayerfield, arg, ct);
-		}
-		
-		public async static Task<bool> Request_Player_ChangePlayerfield(this Broker broker, Timeouts timeoutSeconds, IdPlayfieldPositionRotation arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Player_ChangePlayerfield, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Player_ChangePlayerfield(this Broker broker, Timeouts timeoutSeconds, IdPlayfieldPositionRotation arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Player_ChangePlayerfield, arg, ct);
-		}
-	
-		public async static Task<ItemExchangeInfo> Request_Player_ItemExchange(this Broker broker, ItemExchangeInfo arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<ItemExchangeInfo, ItemExchangeInfo>(CmdId.Request_Player_ItemExchange, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(ItemExchangeInfo);
-				}
-			}
-		}
-
-		public async static Task<ItemExchangeInfo> Request_Player_ItemExchange(this Broker broker, ItemExchangeInfo arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<ItemExchangeInfo, ItemExchangeInfo>(CmdId.Request_Player_ItemExchange, arg, ct);
-		}
-		
-		public async static Task<ItemExchangeInfo> Request_Player_ItemExchange(this Broker broker, Timeouts timeoutSeconds, ItemExchangeInfo arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<ItemExchangeInfo, ItemExchangeInfo>(CmdId.Request_Player_ItemExchange, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(ItemExchangeInfo);
-				}
-			}
-		}
-
-		public async static Task<ItemExchangeInfo> Request_Player_ItemExchange(this Broker broker, Timeouts timeoutSeconds, ItemExchangeInfo arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<ItemExchangeInfo, ItemExchangeInfo>(CmdId.Request_Player_ItemExchange, arg, ct);
-		}
-	
-		public async static Task<bool> Request_Player_SetPlayerInfo(this Broker broker, PlayerInfoSet arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Player_SetPlayerInfo, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Player_SetPlayerInfo(this Broker broker, PlayerInfoSet arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Player_SetPlayerInfo, arg, ct);
-		}
-		
-		public async static Task<bool> Request_Player_SetPlayerInfo(this Broker broker, Timeouts timeoutSeconds, PlayerInfoSet arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Player_SetPlayerInfo, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Player_SetPlayerInfo(this Broker broker, Timeouts timeoutSeconds, PlayerInfoSet arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Player_SetPlayerInfo, arg, ct);
-		}
-	
-		public async static Task<bool> Request_Entity_Teleport(this Broker broker, IdPositionRotation arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Entity_Teleport, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Entity_Teleport(this Broker broker, IdPositionRotation arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Entity_Teleport, arg, ct);
-		}
-		
-		public async static Task<bool> Request_Entity_Teleport(this Broker broker, Timeouts timeoutSeconds, IdPositionRotation arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Entity_Teleport, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Entity_Teleport(this Broker broker, Timeouts timeoutSeconds, IdPositionRotation arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Entity_Teleport, arg, ct);
-		}
-	
-		public async static Task<bool> Request_Entity_ChangePlayfield(this Broker broker, IdPlayfieldPositionRotation arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Entity_ChangePlayfield, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Entity_ChangePlayfield(this Broker broker, IdPlayfieldPositionRotation arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Entity_ChangePlayfield, arg, ct);
-		}
-		
-		public async static Task<bool> Request_Entity_ChangePlayfield(this Broker broker, Timeouts timeoutSeconds, IdPlayfieldPositionRotation arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Entity_ChangePlayfield, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Entity_ChangePlayfield(this Broker broker, Timeouts timeoutSeconds, IdPlayfieldPositionRotation arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Entity_ChangePlayfield, arg, ct);
-		}
-	
-		public async static Task<bool> Request_Entity_Destroy(this Broker broker, Id arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Entity_Destroy, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Entity_Destroy(this Broker broker, Id arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Entity_Destroy, arg, ct);
-		}
-		
-		public async static Task<bool> Request_Entity_Destroy(this Broker broker, Timeouts timeoutSeconds, Id arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Entity_Destroy, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Entity_Destroy(this Broker broker, Timeouts timeoutSeconds, Id arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Entity_Destroy, arg, ct);
-		}
-	
-		public async static Task<IdPositionRotation> Request_Entity_PosAndRot(this Broker broker, Id arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<Id, IdPositionRotation>(CmdId.Request_Entity_PosAndRot, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(IdPositionRotation);
-				}
-			}
-		}
-
-		public async static Task<IdPositionRotation> Request_Entity_PosAndRot(this Broker broker, Id arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<Id, IdPositionRotation>(CmdId.Request_Entity_PosAndRot, arg, ct);
-		}
-		
-		public async static Task<IdPositionRotation> Request_Entity_PosAndRot(this Broker broker, Timeouts timeoutSeconds, Id arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<Id, IdPositionRotation>(CmdId.Request_Entity_PosAndRot, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(IdPositionRotation);
-				}
-			}
-		}
-
-		public async static Task<IdPositionRotation> Request_Entity_PosAndRot(this Broker broker, Timeouts timeoutSeconds, Id arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<Id, IdPositionRotation>(CmdId.Request_Entity_PosAndRot, arg, ct);
-		}
-	
-		public async static Task<bool> Request_Entity_Spawn(this Broker broker, EntitySpawnInfo arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Entity_Spawn, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Entity_Spawn(this Broker broker, EntitySpawnInfo arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Entity_Spawn, arg, ct);
-		}
-		
-		public async static Task<bool> Request_Entity_Spawn(this Broker broker, Timeouts timeoutSeconds, EntitySpawnInfo arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Entity_Spawn, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Entity_Spawn(this Broker broker, Timeouts timeoutSeconds, EntitySpawnInfo arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Entity_Spawn, arg, ct);
-		}
-	
-		public async static Task<FactionInfoList> Request_Get_Factions(this Broker broker, Id arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<Id, FactionInfoList>(CmdId.Request_Get_Factions, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(FactionInfoList);
-				}
-			}
-		}
-
-		public async static Task<FactionInfoList> Request_Get_Factions(this Broker broker, Id arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<Id, FactionInfoList>(CmdId.Request_Get_Factions, arg, ct);
-		}
-		
-		public async static Task<FactionInfoList> Request_Get_Factions(this Broker broker, Timeouts timeoutSeconds, Id arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<Id, FactionInfoList>(CmdId.Request_Get_Factions, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(FactionInfoList);
-				}
-			}
-		}
-
-		public async static Task<FactionInfoList> Request_Get_Factions(this Broker broker, Timeouts timeoutSeconds, Id arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<Id, FactionInfoList>(CmdId.Request_Get_Factions, arg, ct);
-		}
-	
-		public async static Task<Id> Request_NewEntityId(this Broker broker) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<Id>(CmdId.Request_NewEntityId, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(Id);
-				}
-			}
-		}
-
-		public async static Task<Id> Request_NewEntityId(this Broker broker, CancellationToken ct) {
-			return await broker.SendRequestAsync<Id>(CmdId.Request_NewEntityId, ct);
-		}
-		
-		public async static Task<Id> Request_NewEntityId(this Broker broker, Timeouts timeoutSeconds) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<Id>(CmdId.Request_NewEntityId, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(Id);
-				}
-			}
-		}
-
-		public async static Task<Id> Request_NewEntityId(this Broker broker, Timeouts timeoutSeconds, CancellationToken ct) {
-			return await broker.SendRequestAsync<Id>(CmdId.Request_NewEntityId, ct);
-		}
-	
-		public async static Task<AlliancesTable> Request_AlliancesAll(this Broker broker) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<AlliancesTable>(CmdId.Request_AlliancesAll, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(AlliancesTable);
-				}
-			}
-		}
-
-		public async static Task<AlliancesTable> Request_AlliancesAll(this Broker broker, CancellationToken ct) {
-			return await broker.SendRequestAsync<AlliancesTable>(CmdId.Request_AlliancesAll, ct);
-		}
-		
-		public async static Task<AlliancesTable> Request_AlliancesAll(this Broker broker, Timeouts timeoutSeconds) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<AlliancesTable>(CmdId.Request_AlliancesAll, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(AlliancesTable);
-				}
-			}
-		}
-
-		public async static Task<AlliancesTable> Request_AlliancesAll(this Broker broker, Timeouts timeoutSeconds, CancellationToken ct) {
-			return await broker.SendRequestAsync<AlliancesTable>(CmdId.Request_AlliancesAll, ct);
-		}
-	
-		public async static Task<AlliancesFaction> Request_AlliancesFaction(this Broker broker, AlliancesFaction arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<AlliancesFaction, AlliancesFaction>(CmdId.Request_AlliancesFaction, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(AlliancesFaction);
-				}
-			}
-		}
-
-		public async static Task<AlliancesFaction> Request_AlliancesFaction(this Broker broker, AlliancesFaction arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<AlliancesFaction, AlliancesFaction>(CmdId.Request_AlliancesFaction, arg, ct);
-		}
-		
-		public async static Task<AlliancesFaction> Request_AlliancesFaction(this Broker broker, Timeouts timeoutSeconds, AlliancesFaction arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<AlliancesFaction, AlliancesFaction>(CmdId.Request_AlliancesFaction, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(AlliancesFaction);
-				}
-			}
-		}
-
-		public async static Task<AlliancesFaction> Request_AlliancesFaction(this Broker broker, Timeouts timeoutSeconds, AlliancesFaction arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<AlliancesFaction, AlliancesFaction>(CmdId.Request_AlliancesFaction, arg, ct);
-		}
-	
-		public async static Task<bool> Request_Load_Playfield(this Broker broker, PlayfieldLoad arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Load_Playfield, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Load_Playfield(this Broker broker, PlayfieldLoad arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Load_Playfield, arg, ct);
-		}
-		
-		public async static Task<bool> Request_Load_Playfield(this Broker broker, Timeouts timeoutSeconds, PlayfieldLoad arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Load_Playfield, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Load_Playfield(this Broker broker, Timeouts timeoutSeconds, PlayfieldLoad arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Load_Playfield, arg, ct);
-		}
-	
-		public async static Task<bool> Request_ConsoleCommand(this Broker broker, PString arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_ConsoleCommand, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_ConsoleCommand(this Broker broker, PString arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_ConsoleCommand, arg, ct);
-		}
-		
-		public async static Task<bool> Request_ConsoleCommand(this Broker broker, Timeouts timeoutSeconds, PString arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_ConsoleCommand, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_ConsoleCommand(this Broker broker, Timeouts timeoutSeconds, PString arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_ConsoleCommand, arg, ct);
-		}
-	
-		public async static Task<IdList> Request_GetBannedPlayers(this Broker broker) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<IdList>(CmdId.Request_GetBannedPlayers, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(IdList);
-				}
-			}
-		}
-
-		public async static Task<IdList> Request_GetBannedPlayers(this Broker broker, CancellationToken ct) {
-			return await broker.SendRequestAsync<IdList>(CmdId.Request_GetBannedPlayers, ct);
-		}
-		
-		public async static Task<IdList> Request_GetBannedPlayers(this Broker broker, Timeouts timeoutSeconds) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<IdList>(CmdId.Request_GetBannedPlayers, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(IdList);
-				}
-			}
-		}
-
-		public async static Task<IdList> Request_GetBannedPlayers(this Broker broker, Timeouts timeoutSeconds, CancellationToken ct) {
-			return await broker.SendRequestAsync<IdList>(CmdId.Request_GetBannedPlayers, ct);
-		}
-	
-		public async static Task<bool> Request_InGameMessage_SinglePlayer(this Broker broker, IdMsgPrio arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_InGameMessage_SinglePlayer, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_InGameMessage_SinglePlayer(this Broker broker, IdMsgPrio arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_InGameMessage_SinglePlayer, arg, ct);
-		}
-		
-		public async static Task<bool> Request_InGameMessage_SinglePlayer(this Broker broker, Timeouts timeoutSeconds, IdMsgPrio arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_InGameMessage_SinglePlayer, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_InGameMessage_SinglePlayer(this Broker broker, Timeouts timeoutSeconds, IdMsgPrio arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_InGameMessage_SinglePlayer, arg, ct);
-		}
-	
-		public async static Task<bool> Request_InGameMessage_AllPlayers(this Broker broker, IdMsgPrio arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_InGameMessage_AllPlayers, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_InGameMessage_AllPlayers(this Broker broker, IdMsgPrio arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_InGameMessage_AllPlayers, arg, ct);
-		}
-		
-		public async static Task<bool> Request_InGameMessage_AllPlayers(this Broker broker, Timeouts timeoutSeconds, IdMsgPrio arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_InGameMessage_AllPlayers, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_InGameMessage_AllPlayers(this Broker broker, Timeouts timeoutSeconds, IdMsgPrio arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_InGameMessage_AllPlayers, arg, ct);
-		}
-	
-		public async static Task<bool> Request_InGameMessage_Faction(this Broker broker, IdMsgPrio arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_InGameMessage_Faction, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_InGameMessage_Faction(this Broker broker, IdMsgPrio arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_InGameMessage_Faction, arg, ct);
-		}
-		
-		public async static Task<bool> Request_InGameMessage_Faction(this Broker broker, Timeouts timeoutSeconds, IdMsgPrio arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_InGameMessage_Faction, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_InGameMessage_Faction(this Broker broker, Timeouts timeoutSeconds, IdMsgPrio arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_InGameMessage_Faction, arg, ct);
-		}
-	
-		public async static Task<IdAndIntValue> Request_ShowDialog_SinglePlayer(this Broker broker, DialogBoxData arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<DialogBoxData, IdAndIntValue>(CmdId.Request_ShowDialog_SinglePlayer, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(IdAndIntValue);
-				}
-			}
-		}
-
-		public async static Task<IdAndIntValue> Request_ShowDialog_SinglePlayer(this Broker broker, DialogBoxData arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<DialogBoxData, IdAndIntValue>(CmdId.Request_ShowDialog_SinglePlayer, arg, ct);
-		}
-		
-		public async static Task<IdAndIntValue> Request_ShowDialog_SinglePlayer(this Broker broker, Timeouts timeoutSeconds, DialogBoxData arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<DialogBoxData, IdAndIntValue>(CmdId.Request_ShowDialog_SinglePlayer, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(IdAndIntValue);
-				}
-			}
-		}
-
-		public async static Task<IdAndIntValue> Request_ShowDialog_SinglePlayer(this Broker broker, Timeouts timeoutSeconds, DialogBoxData arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<DialogBoxData, IdAndIntValue>(CmdId.Request_ShowDialog_SinglePlayer, arg, ct);
-		}
-	
-		public async static Task<Inventory> Request_Player_GetAndRemoveInventory(this Broker broker, Id arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<Id, Inventory>(CmdId.Request_Player_GetAndRemoveInventory, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(Inventory);
-				}
-			}
-		}
-
-		public async static Task<Inventory> Request_Player_GetAndRemoveInventory(this Broker broker, Id arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<Id, Inventory>(CmdId.Request_Player_GetAndRemoveInventory, arg, ct);
-		}
-		
-		public async static Task<Inventory> Request_Player_GetAndRemoveInventory(this Broker broker, Timeouts timeoutSeconds, Id arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<Id, Inventory>(CmdId.Request_Player_GetAndRemoveInventory, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(Inventory);
-				}
-			}
-		}
-
-		public async static Task<Inventory> Request_Player_GetAndRemoveInventory(this Broker broker, Timeouts timeoutSeconds, Id arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<Id, Inventory>(CmdId.Request_Player_GetAndRemoveInventory, arg, ct);
-		}
-	
-		public async static Task<PlayfieldEntityList> Request_Playfield_Entity_List(this Broker broker, PString arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<PString, PlayfieldEntityList>(CmdId.Request_Playfield_Entity_List, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(PlayfieldEntityList);
-				}
-			}
-		}
-
-		public async static Task<PlayfieldEntityList> Request_Playfield_Entity_List(this Broker broker, PString arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<PString, PlayfieldEntityList>(CmdId.Request_Playfield_Entity_List, arg, ct);
-		}
-		
-		public async static Task<PlayfieldEntityList> Request_Playfield_Entity_List(this Broker broker, Timeouts timeoutSeconds, PString arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync<PString, PlayfieldEntityList>(CmdId.Request_Playfield_Entity_List, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(PlayfieldEntityList);
-				}
-			}
-		}
-
-		public async static Task<PlayfieldEntityList> Request_Playfield_Entity_List(this Broker broker, Timeouts timeoutSeconds, PString arg, CancellationToken ct) {
-			return await broker.SendRequestAsync<PString, PlayfieldEntityList>(CmdId.Request_Playfield_Entity_List, arg, ct);
-		}
-	
-		public async static Task<bool> Request_Entity_Destroy2(this Broker broker, IdPlayfield arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Entity_Destroy2, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Entity_Destroy2(this Broker broker, IdPlayfield arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Entity_Destroy2, arg, ct);
-		}
-		
-		public async static Task<bool> Request_Entity_Destroy2(this Broker broker, Timeouts timeoutSeconds, IdPlayfield arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Entity_Destroy2, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Entity_Destroy2(this Broker broker, Timeouts timeoutSeconds, IdPlayfield arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Entity_Destroy2, arg, ct);
-		}
-	
-		public async static Task<bool> Request_Entity_Export(this Broker broker, EntityExportInfo arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Entity_Export, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Entity_Export(this Broker broker, EntityExportInfo arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Entity_Export, arg, ct);
-		}
-		
-		public async static Task<bool> Request_Entity_Export(this Broker broker, Timeouts timeoutSeconds, EntityExportInfo arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Entity_Export, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Entity_Export(this Broker broker, Timeouts timeoutSeconds, EntityExportInfo arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Entity_Export, arg, ct);
-		}
-	
-		public async static Task<bool> Request_Entity_SetName(this Broker broker, IdPlayfieldName arg) {
-			using (var source = new CancellationTokenSource(EmpyrionRequestsDefaultTimeout.Milliseconds))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Entity_SetName, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Entity_SetName(this Broker broker, IdPlayfieldName arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Entity_SetName, arg, ct);
-		}
-		
-		public async static Task<bool> Request_Entity_SetName(this Broker broker, Timeouts timeoutSeconds, IdPlayfieldName arg) {
-			using (var source = new CancellationTokenSource((int)timeoutSeconds * 1000))
-			{
-				try
-				{
-					return await broker.SendRequestAsync(CmdId.Request_Entity_SetName, arg, source.Token);
-				}
-				catch (Exception ex) when (ex is OperationCanceledException || ex is TaskCanceledException)
-				{
-					return default(bool);
-				}
-			}
-		}
-
-		public async static Task<bool> Request_Entity_SetName(this Broker broker, Timeouts timeoutSeconds, IdPlayfieldName arg, CancellationToken ct) {
-			return await broker.SendRequestAsync(CmdId.Request_Entity_SetName, arg, ct);
-		}
-	}
+          		
+        public async Task<PlayfieldList> Request_Playfield_List(){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<PlayfieldList>(CmdId.Request_Playfield_List,null));
+        }
+
+        public async Task<PlayfieldList> Request_Playfield_List(Timeouts timeoutSeconds){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<PlayfieldList>(CmdId.Request_Playfield_List,null));
+        }
+          		
+        public async Task<PlayfieldStats> Request_Playfield_Stats(PString arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<PlayfieldStats>(CmdId.Request_Playfield_Stats,arg));
+        }
+
+        public async Task<PlayfieldStats> Request_Playfield_Stats(Timeouts timeoutSeconds, PString arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<PlayfieldStats>(CmdId.Request_Playfield_Stats,arg));
+        }
+          		
+        public async Task<DediStats> Request_Dedi_Stats(){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<DediStats>(CmdId.Request_Dedi_Stats,null));
+        }
+
+        public async Task<DediStats> Request_Dedi_Stats(Timeouts timeoutSeconds){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<DediStats>(CmdId.Request_Dedi_Stats,null));
+        }
+          		
+        public async Task<GlobalStructureList> Request_GlobalStructure_List(){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<GlobalStructureList>(CmdId.Request_GlobalStructure_List,null));
+        }
+
+        public async Task<GlobalStructureList> Request_GlobalStructure_List(Timeouts timeoutSeconds){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<GlobalStructureList>(CmdId.Request_GlobalStructure_List,null));
+        }
+          		
+        public async Task<bool> Request_GlobalStructure_Update(PString arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_GlobalStructure_Update,arg));
+        }
+
+        public async Task<bool> Request_GlobalStructure_Update(Timeouts timeoutSeconds, PString arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_GlobalStructure_Update,arg));
+        }
+          		
+        public async Task<bool> Request_Structure_Touch(Id arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Structure_Touch,arg));
+        }
+
+        public async Task<bool> Request_Structure_Touch(Timeouts timeoutSeconds, Id arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Structure_Touch,arg));
+        }
+          		
+        public async Task<IdStructureBlockInfo> Request_Structure_BlockStatistics(Id arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<IdStructureBlockInfo>(CmdId.Request_Structure_BlockStatistics,arg));
+        }
+
+        public async Task<IdStructureBlockInfo> Request_Structure_BlockStatistics(Timeouts timeoutSeconds, Id arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<IdStructureBlockInfo>(CmdId.Request_Structure_BlockStatistics,arg));
+        }
+          		
+        public async Task<PlayerInfo> Request_Player_Info(Id arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<PlayerInfo>(CmdId.Request_Player_Info,arg));
+        }
+
+        public async Task<PlayerInfo> Request_Player_Info(Timeouts timeoutSeconds, Id arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<PlayerInfo>(CmdId.Request_Player_Info,arg));
+        }
+          		
+        public async Task<IdList> Request_Player_List(){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<IdList>(CmdId.Request_Player_List,null));
+        }
+
+        public async Task<IdList> Request_Player_List(Timeouts timeoutSeconds){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<IdList>(CmdId.Request_Player_List,null));
+        }
+          		
+        public async Task<Inventory> Request_Player_GetInventory(Id arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<Inventory>(CmdId.Request_Player_GetInventory,arg));
+        }
+
+        public async Task<Inventory> Request_Player_GetInventory(Timeouts timeoutSeconds, Id arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<Inventory>(CmdId.Request_Player_GetInventory,arg));
+        }
+          		
+        public async Task<Inventory> Request_Player_SetInventory(Inventory arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<Inventory>(CmdId.Request_Player_SetInventory,arg));
+        }
+
+        public async Task<Inventory> Request_Player_SetInventory(Timeouts timeoutSeconds, Inventory arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<Inventory>(CmdId.Request_Player_SetInventory,arg));
+        }
+          		
+        public async Task<bool> Request_Player_AddItem(IdItemStack arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Player_AddItem,arg));
+        }
+
+        public async Task<bool> Request_Player_AddItem(Timeouts timeoutSeconds, IdItemStack arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Player_AddItem,arg));
+        }
+          		
+        public async Task<IdCredits> Request_Player_Credits(Id arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<IdCredits>(CmdId.Request_Player_Credits,arg));
+        }
+
+        public async Task<IdCredits> Request_Player_Credits(Timeouts timeoutSeconds, Id arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<IdCredits>(CmdId.Request_Player_Credits,arg));
+        }
+          		
+        public async Task<IdCredits> Request_Player_SetCredits(IdCredits arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<IdCredits>(CmdId.Request_Player_SetCredits,arg));
+        }
+
+        public async Task<IdCredits> Request_Player_SetCredits(Timeouts timeoutSeconds, IdCredits arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<IdCredits>(CmdId.Request_Player_SetCredits,arg));
+        }
+          		
+        public async Task<IdCredits> Request_Player_AddCredits(IdCredits arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<IdCredits>(CmdId.Request_Player_AddCredits,arg));
+        }
+
+        public async Task<IdCredits> Request_Player_AddCredits(Timeouts timeoutSeconds, IdCredits arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<IdCredits>(CmdId.Request_Player_AddCredits,arg));
+        }
+          		
+        public async Task<bool> Request_Blueprint_Finish(Id arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Blueprint_Finish,arg));
+        }
+
+        public async Task<bool> Request_Blueprint_Finish(Timeouts timeoutSeconds, Id arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Blueprint_Finish,arg));
+        }
+          		
+        public async Task<bool> Request_Blueprint_Resources(BlueprintResources arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Blueprint_Resources,arg));
+        }
+
+        public async Task<bool> Request_Blueprint_Resources(Timeouts timeoutSeconds, BlueprintResources arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Blueprint_Resources,arg));
+        }
+          		
+        public async Task<bool> Request_Player_ChangePlayerfield(IdPlayfieldPositionRotation arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Player_ChangePlayerfield,arg));
+        }
+
+        public async Task<bool> Request_Player_ChangePlayerfield(Timeouts timeoutSeconds, IdPlayfieldPositionRotation arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Player_ChangePlayerfield,arg));
+        }
+          		
+        public async Task<ItemExchangeInfo> Request_Player_ItemExchange(ItemExchangeInfo arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<ItemExchangeInfo>(CmdId.Request_Player_ItemExchange,arg));
+        }
+
+        public async Task<ItemExchangeInfo> Request_Player_ItemExchange(Timeouts timeoutSeconds, ItemExchangeInfo arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<ItemExchangeInfo>(CmdId.Request_Player_ItemExchange,arg));
+        }
+          		
+        public async Task<bool> Request_Player_SetPlayerInfo(PlayerInfoSet arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Player_SetPlayerInfo,arg));
+        }
+
+        public async Task<bool> Request_Player_SetPlayerInfo(Timeouts timeoutSeconds, PlayerInfoSet arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Player_SetPlayerInfo,arg));
+        }
+          		
+        public async Task<bool> Request_Entity_Teleport(IdPositionRotation arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Entity_Teleport,arg));
+        }
+
+        public async Task<bool> Request_Entity_Teleport(Timeouts timeoutSeconds, IdPositionRotation arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Entity_Teleport,arg));
+        }
+          		
+        public async Task<bool> Request_Entity_ChangePlayfield(IdPlayfieldPositionRotation arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Entity_ChangePlayfield,arg));
+        }
+
+        public async Task<bool> Request_Entity_ChangePlayfield(Timeouts timeoutSeconds, IdPlayfieldPositionRotation arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Entity_ChangePlayfield,arg));
+        }
+          		
+        public async Task<bool> Request_Entity_Destroy(Id arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Entity_Destroy,arg));
+        }
+
+        public async Task<bool> Request_Entity_Destroy(Timeouts timeoutSeconds, Id arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Entity_Destroy,arg));
+        }
+          		
+        public async Task<IdPositionRotation> Request_Entity_PosAndRot(Id arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<IdPositionRotation>(CmdId.Request_Entity_PosAndRot,arg));
+        }
+
+        public async Task<IdPositionRotation> Request_Entity_PosAndRot(Timeouts timeoutSeconds, Id arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<IdPositionRotation>(CmdId.Request_Entity_PosAndRot,arg));
+        }
+          		
+        public async Task<bool> Request_Entity_Spawn(EntitySpawnInfo arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Entity_Spawn,arg));
+        }
+
+        public async Task<bool> Request_Entity_Spawn(Timeouts timeoutSeconds, EntitySpawnInfo arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Entity_Spawn,arg));
+        }
+          		
+        public async Task<FactionInfoList> Request_Get_Factions(Id arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<FactionInfoList>(CmdId.Request_Get_Factions,arg));
+        }
+
+        public async Task<FactionInfoList> Request_Get_Factions(Timeouts timeoutSeconds, Id arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<FactionInfoList>(CmdId.Request_Get_Factions,arg));
+        }
+          		
+        public async Task<Id> Request_NewEntityId(){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<Id>(CmdId.Request_NewEntityId,null));
+        }
+
+        public async Task<Id> Request_NewEntityId(Timeouts timeoutSeconds){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<Id>(CmdId.Request_NewEntityId,null));
+        }
+          		
+        public async Task<AlliancesTable> Request_AlliancesAll(){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<AlliancesTable>(CmdId.Request_AlliancesAll,null));
+        }
+
+        public async Task<AlliancesTable> Request_AlliancesAll(Timeouts timeoutSeconds){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<AlliancesTable>(CmdId.Request_AlliancesAll,null));
+        }
+          		
+        public async Task<AlliancesFaction> Request_AlliancesFaction(AlliancesFaction arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<AlliancesFaction>(CmdId.Request_AlliancesFaction,arg));
+        }
+
+        public async Task<AlliancesFaction> Request_AlliancesFaction(Timeouts timeoutSeconds, AlliancesFaction arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<AlliancesFaction>(CmdId.Request_AlliancesFaction,arg));
+        }
+          		
+        public async Task<bool> Request_Load_Playfield(PlayfieldLoad arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Load_Playfield,arg));
+        }
+
+        public async Task<bool> Request_Load_Playfield(Timeouts timeoutSeconds, PlayfieldLoad arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Load_Playfield,arg));
+        }
+          		
+        public async Task<bool> Request_ConsoleCommand(PString arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_ConsoleCommand,arg));
+        }
+
+        public async Task<bool> Request_ConsoleCommand(Timeouts timeoutSeconds, PString arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_ConsoleCommand,arg));
+        }
+          		
+        public async Task<IdList> Request_GetBannedPlayers(){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<IdList>(CmdId.Request_GetBannedPlayers,null));
+        }
+
+        public async Task<IdList> Request_GetBannedPlayers(Timeouts timeoutSeconds){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<IdList>(CmdId.Request_GetBannedPlayers,null));
+        }
+          		
+        public async Task<bool> Request_InGameMessage_SinglePlayer(IdMsgPrio arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_InGameMessage_SinglePlayer,arg));
+        }
+
+        public async Task<bool> Request_InGameMessage_SinglePlayer(Timeouts timeoutSeconds, IdMsgPrio arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_InGameMessage_SinglePlayer,arg));
+        }
+          		
+        public async Task<bool> Request_InGameMessage_AllPlayers(IdMsgPrio arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_InGameMessage_AllPlayers,arg));
+        }
+
+        public async Task<bool> Request_InGameMessage_AllPlayers(Timeouts timeoutSeconds, IdMsgPrio arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_InGameMessage_AllPlayers,arg));
+        }
+          		
+        public async Task<bool> Request_InGameMessage_Faction(IdMsgPrio arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_InGameMessage_Faction,arg));
+        }
+
+        public async Task<bool> Request_InGameMessage_Faction(Timeouts timeoutSeconds, IdMsgPrio arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_InGameMessage_Faction,arg));
+        }
+          		
+        public async Task<IdAndIntValue> Request_ShowDialog_SinglePlayer(DialogBoxData arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<IdAndIntValue>(CmdId.Request_ShowDialog_SinglePlayer,arg));
+        }
+
+        public async Task<IdAndIntValue> Request_ShowDialog_SinglePlayer(Timeouts timeoutSeconds, DialogBoxData arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<IdAndIntValue>(CmdId.Request_ShowDialog_SinglePlayer,arg));
+        }
+          		
+        public async Task<Inventory> Request_Player_GetAndRemoveInventory(Id arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<Inventory>(CmdId.Request_Player_GetAndRemoveInventory,arg));
+        }
+
+        public async Task<Inventory> Request_Player_GetAndRemoveInventory(Timeouts timeoutSeconds, Id arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<Inventory>(CmdId.Request_Player_GetAndRemoveInventory,arg));
+        }
+          		
+        public async Task<PlayfieldEntityList> Request_Playfield_Entity_List(PString arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<PlayfieldEntityList>(CmdId.Request_Playfield_Entity_List,arg));
+        }
+
+        public async Task<PlayfieldEntityList> Request_Playfield_Entity_List(Timeouts timeoutSeconds, PString arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<PlayfieldEntityList>(CmdId.Request_Playfield_Entity_List,arg));
+        }
+          		
+        public async Task<bool> Request_Entity_Destroy2(IdPlayfield arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Entity_Destroy2,arg));
+        }
+
+        public async Task<bool> Request_Entity_Destroy2(Timeouts timeoutSeconds, IdPlayfield arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Entity_Destroy2,arg));
+        }
+          		
+        public async Task<bool> Request_Entity_Export(EntityExportInfo arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Entity_Export,arg));
+        }
+
+        public async Task<bool> Request_Entity_Export(Timeouts timeoutSeconds, EntityExportInfo arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Entity_Export,arg));
+        }
+          		
+        public async Task<bool> Request_Entity_SetName(IdPlayfieldName arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Entity_SetName,arg));
+        }
+
+        public async Task<bool> Request_Entity_SetName(Timeouts timeoutSeconds, IdPlayfieldName arg){     
+          return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<bool>(CmdId.Request_Entity_SetName,arg));
+        }
+          }
 }
 

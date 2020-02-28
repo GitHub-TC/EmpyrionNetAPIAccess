@@ -11,38 +11,9 @@ namespace EmpyrionNetAPIAccess
         private static int _nextAvailableSequenceNumber = new Random().Next(10000);
         private ConcurrentDictionary<ushort, object/*TaskCompletionSource<T>*/> _taskCompletionSourcesById = new ConcurrentDictionary<ushort, object>();
 
-        /// <summary>
-        /// There is no expected GameEvent to handle these Requests
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="fn"></param>
-        /// <param name="ct"></param>
-        /// <returns></returns>
-        internal async Task<T> GetNewTaskCompletionSourceAsync<T>(Func<ushort, T> fn, CancellationToken ct = default(CancellationToken))        
+        internal Tuple<ushort, Task<T>> GetNewTaskCompletionSource<T>()
         {
-            var tcs1 = new TaskCompletionSource<T>(ct);
-            var tuple = GetNewTaskCompletionSource(tcs1);
-
-#pragma warning disable CS4014
-            Task.Factory.StartNew(() => tcs1.SetResult(fn(tuple.Item1)), ct);
-#pragma warning restore CS4014
-
-            return await tuple.Item2;
-        }
-
-        /// <summary>
-        /// The TaskCompletionSource will ultimately be completed in the scope of TryHandleEvent as the Mod handles the raised GameEvent 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="ct"></param>
-        /// <returns></returns>
-        internal async Task<Tuple<ushort, Task<T>>> GetNewTaskCompletionSourceAsync<T>(CancellationToken ct = default(CancellationToken))
-        {
-            return await Task.Factory.StartNew(() => GetNewTaskCompletionSource(new TaskCompletionSource<T>(ct)), ct);
-        }
-
-        internal Tuple<ushort, Task<T>> GetNewTaskCompletionSource<T>(TaskCompletionSource<T> taskCompletionSource)
-        {
+            var taskCompletionSource = new TaskCompletionSource<T>();
             AddTaskCompletionSourceToConcurrentDictionary(taskCompletionSource, out ushort newSequenceNumber);
             return new Tuple<ushort, Task<T>>(newSequenceNumber, taskCompletionSource.Task);
         }
@@ -50,8 +21,9 @@ namespace EmpyrionNetAPIAccess
         private void AddTaskCompletionSourceToConcurrentDictionary<T>(TaskCompletionSource<T> source, out ushort newSequenceNumber)
         {
             if (_nextAvailableSequenceNumber == ushort.MaxValue)
-                lock (_nextAvailableSequenceNumberLock)
-                    _nextAvailableSequenceNumber = 12340;
+            {
+                lock (_nextAvailableSequenceNumberLock) _nextAvailableSequenceNumber = 12340;
+            }
 
             newSequenceNumber = (ushort)Interlocked.Increment(ref _nextAvailableSequenceNumber);
             while (!_taskCompletionSourcesById.TryAdd(newSequenceNumber, source))
