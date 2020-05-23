@@ -32,6 +32,8 @@ namespace EmpyrionNetAPITools
         public static Action<string> Log { get; set; }
         public Action<T> CreateDefaults { get; set; }
         public ConfigurationFileFormat FileFormat { get; set; } = ConfigurationFileFormat.Default;
+        public event EventHandler ConfigFileLoaded;
+
         public ConfigurationFileFormat SelectFileFormat
         {
             get {
@@ -90,6 +92,8 @@ namespace EmpyrionNetAPITools
                         }
                         break;
                 }
+
+                ConfigFileLoaded?.Invoke(this, EventArgs.Empty);
             }
             catch (Exception Error)
             {
