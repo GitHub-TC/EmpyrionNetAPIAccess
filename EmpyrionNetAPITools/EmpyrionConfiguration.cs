@@ -50,10 +50,11 @@ namespace EmpyrionNetAPITools
             get {
                 try
                 {
-                    return File.ReadAllLines(Path.Combine(ProgramPath, "BuildNumber.txt"))
-                        .Skip(1).FirstOrDefault()?
-                        .Replace("\"", "").Replace(";", "")
-                        .Trim();
+                    var lines = File.ReadAllLines(Path.Combine(ProgramPath, "BuildNumber.txt"));
+                    var version = lines.Skip(1).FirstOrDefault()?.Trim();
+                    var versionStart = version.IndexOf("\"");
+                    var versionEnd = version.IndexOf("\"", versionStart + 1);
+                    return versionEnd == -1 ? version : version.Substring(versionStart + 1, versionEnd - versionStart - 1).Trim();
                 }
                 catch
                 {

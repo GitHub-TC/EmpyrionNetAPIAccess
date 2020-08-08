@@ -51,6 +51,8 @@ namespace EmpyrionNetAPITools
             }
         }
 
+        public Exception LoadException { get; private set; }
+
         private void ActivateFileChangeWatcher()
         {
             if (mConfigFileChangedWatcher != null) mConfigFileChangedWatcher.EnableRaisingEvents = false;
@@ -69,6 +71,7 @@ namespace EmpyrionNetAPITools
             try
             {
                 Log?.Invoke($"ConfigurationManager load '{ConfigFilename}'");
+                LoadException = null;
 
                 if (!File.Exists(ConfigFilename))
                 {
@@ -97,6 +100,7 @@ namespace EmpyrionNetAPITools
             }
             catch (Exception Error)
             {
+                LoadException = Error;
                 Log?.Invoke($"ConfigurationManager load '{ConfigFilename}' error {Error}");
                 Current = (T)Activator.CreateInstance(typeof(T));
             }
