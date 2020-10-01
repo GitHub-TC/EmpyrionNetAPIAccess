@@ -15,7 +15,10 @@ namespace EmpyrionNetAPITools
         public static string ModPath { get; private set; } = Path.Combine(ProgramPath, @"Content\Mods");
         public static string DedicatedFilename { get; private set; } = Environment.GetCommandLineArgs().Contains("-dedicated")
                                                                             ? Environment.GetCommandLineArgs().SkipWhile(A => string.Compare(A, "-dedicated", StringComparison.InvariantCultureIgnoreCase) != 0).Skip(1).FirstOrDefault()
-                                                                            : "dedicated.yaml";
+                                                                            : (Environment.GetCommandLineArgs().Any(A => A.Contains("configFile="))
+                                                                                ? Environment.GetCommandLineArgs().SkipWhile(A => !A.Contains("configFile=")).FirstOrDefault()?.Substring("configFile=".Length)
+                                                                                : "dedicated.yaml"
+                                                                                );
 
         public static string GetDirWith(string aTestDir, string aTestFile)
         {
