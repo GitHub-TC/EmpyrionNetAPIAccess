@@ -1,5 +1,6 @@
 ﻿using EmpyrionNetAPITools.Extensions;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,6 +20,31 @@ namespace EmpyrionNetAPITools
                                                                                 ? Environment.GetCommandLineArgs().SkipWhile(A => !A.Contains("configFile=")).FirstOrDefault()?.Substring("configFile=".Length)
                                                                                 : "dedicated.yaml"
                                                                                 );
+
+        public static IReadOnlyDictionary<string, int> BlockNameIdMapping
+        {
+            get {
+                if (_BlockNameIdMapping == null) 
+                    try{ _BlockNameIdMapping = ReadBlockMapping(Path.Combine(SaveGamePath, @"blocksmap.dat")); }
+                    catch (Exception error) { Console.WriteLine(error); } 
+
+                return _BlockNameIdMapping;
+            }
+        }
+        static IReadOnlyDictionary<string, int> _BlockNameIdMapping;
+
+        public static IReadOnlyDictionary<int, string> BlockIdNameMapping
+        {
+            get {
+                if (_BlockIdNameMapping == null)
+                    try { _BlockIdNameMapping = BlockNameIdMapping.ToDictionary(b => b.Value, b => b.Key); }
+                    catch (Exception error) { Console.WriteLine(error); }
+                
+                return _BlockIdNameMapping;
+            }
+        }
+        static IReadOnlyDictionary<int, string> _BlockIdNameMapping;
+
 
         public static string GetDirWith(string aTestDir, string aTestFile)
         {
@@ -81,6 +107,28 @@ namespace EmpyrionNetAPITools
                 }
             }
         }
+
+        public static IReadOnlyDictionary<string, int> ReadBlockMapping(string filename)
+        {
+            if (!File.Exists(filename)) return null;
+
+            var result = new ConcurrentDictionary<string, int>();
+
+            var fileContent = File.ReadAllBytes(filename);
+            for (var currentOffset = 9; currentOffset < fileContent.Length;)
+            {
+                var len = fileContent[currentOffset++];
+                var name = System.Text.Encoding.ASCII.GetString(fileContent, currentOffset, len);
+                currentOffset += len;
+
+                var id = fileContent[currentOffset++] | fileContent[currentOffset++] << 8;
+
+                result.AddOrUpdate(name, id, (s, i) => id);
+            }
+
+            return result;
+        }
+
 
         public class DedicatedYamlStruct
         {

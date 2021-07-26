@@ -91,7 +91,7 @@
     <PackageId>EmpyrionNetAPIModBase</PackageId>
     <Company>ASTIC/TC</Company>
     <Authors>ASTIC</Authors>
-    <Version>1.0.0.3</Version>
+    <Version>1.0.1.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Product>EmpyrionNetAPIModBase</Product>
   </PropertyGroup>

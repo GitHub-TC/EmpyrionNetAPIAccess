@@ -2,15 +2,15 @@
 <package >
   <metadata>
     <id>EmpyrionNetAPI</id>
-    <version>5.4.2.0</version>
+    <version>5.5.0.0</version>
     <title>EmpyrionNetAPI</title>
     <authors>ASTIC/TC</authors>
     <owners>ASTIC/TC</owners>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/GitHub-TC/EmpyrionNetAPIAccess</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A simple framework for building Empyrions mods with .NET for the EWA EmpyrionWebAccess or the ModLoader. Empyrion &gt;=A10</description>
-    <copyright>Copyright 2020</copyright>
+    <description>A simple framework for building Empyrions mods with .NET for the EWA EmpyrionWebAccess or the ModLoader. Empyrion &gt;=1.5</description>
+    <copyright>Copyright 2021</copyright>
     <dependencies>
       <group targetFramework=".NETFramework4.6.1">
         <dependency id="YamlDotNet" version="6.1.2" />

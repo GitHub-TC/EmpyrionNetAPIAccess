@@ -57,11 +57,11 @@
     </Reference>
   </ItemGroup>
   <PropertyGroup>
-    <Copyright>Copyright © 2020</Copyright>
+    <Copyright>Copyright ©2021</Copyright>
     <PackageId>EmpyrionNetAPI</PackageId>
     <Company>ASTIC/TC</Company>
     <Authors>ASTIC</Authors>
-    <Version>5.4.2</Version>
+    <Version>5.5.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 </Project>
