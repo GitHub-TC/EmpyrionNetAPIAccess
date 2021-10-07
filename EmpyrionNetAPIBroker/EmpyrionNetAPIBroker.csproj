@@ -8,8 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EmpyrionNetAPIAccess</RootNamespace>
     <AssemblyName>EmpyrionNetAPIBroker</AssemblyName>
-    <TargetFrameworks>net461</TargetFrameworks>
-    <!--<TargetFrameworks>netstandard2.0;netcoreapp2.2;net461</TargetFrameworks>-->
+    <TargetFrameworks>netstandard2.0;netcoreapp3.1;net461</TargetFrameworks>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -92,8 +91,8 @@
     <Authors>ASTIC</Authors>
     <Company>ASTIC/TC</Company>
     <Product>EmpyrionNetAPIBroker</Product>
-    <Version>1.0.0.1</Version>
-    <Copyright>Copyright © 2020</Copyright>
+    <Version>1.0.1.1</Version>
+    <Copyright>Copyright © 2021</Copyright>
     <PackageId>EmpyrionNetAPIBroker</PackageId>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>

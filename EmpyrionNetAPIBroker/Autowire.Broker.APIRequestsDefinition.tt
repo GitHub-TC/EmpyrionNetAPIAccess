@@ -37,7 +37,7 @@ namespace EmpyrionNetAPIAccess
         }
 
         public async <#=signatureTimeout#>{     
-          <#="return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<"+signature.returnType+">"#>(CmdId.<#=signature.methodName#>,<#=signature.HasArgWithName("arg") ? "arg" : "null" #>));
+          <#="return await TaskTools.For(new TimeSpan(0,0,(int)timeoutSeconds), SendRequestAsync<"+signature.returnType+">"#>(CmdId.<#=signature.methodName#>,<#=signature.HasArgWithName("arg") ? "arg" : "null" #>));
         }
       <#}#>
     }
