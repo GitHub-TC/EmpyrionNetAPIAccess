@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EmpyrionNetAPIAccess</RootNamespace>
     <AssemblyName>EmpyrionNetAPIBroker</AssemblyName>
-    <TargetFrameworks>netstandard2.0;netcoreapp3.1;net461</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netcoreapp3.1;net48</TargetFrameworks>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -42,6 +42,11 @@
     <Copy SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="F:\NuGet.Local\Release\$(PackageId).$(PackageVersion)\" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
   </Target>
   <ItemGroup>
+    <Compile Remove="Properties\**" />
+    <EmbeddedResource Remove="Properties\**" />
+    <None Remove="Properties\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="Mif">
       <HintPath>..\dependencies\Mif.dll</HintPath>
     </Reference>
@@ -55,9 +60,6 @@
       <Name>EmpyrionNetAPIDefinitions</Name>
     </ProjectReference>
     <ProjectReference Include="..\EmpyrionNetAPITools\EmpyrionNetAPITools.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NuGet.CommandLine" Version="5.1.0">
@@ -91,9 +93,9 @@
     <Authors>ASTIC</Authors>
     <Company>ASTIC/TC</Company>
     <Product>EmpyrionNetAPIBroker</Product>
-    <Version>1.0.1.1</Version>
-    <Copyright>Copyright © 2021</Copyright>
+    <Version>1.0.2.1</Version>
+    <Copyright>ASTIC/TC ©2021</Copyright>
     <PackageId>EmpyrionNetAPIBroker</PackageId>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 </Project>

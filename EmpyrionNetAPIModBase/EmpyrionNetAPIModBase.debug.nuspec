@@ -12,7 +12,7 @@
     <description>Introduces the EmpyironModBase Type as an inheritable type for Empyrion Mods. Empyrion &gt;=A10</description>
     <copyright>Copyright 2021</copyright>
     <dependencies>
-      <group targetFramework=".NETFramework4.6.1">
+      <group targetFramework=".NETFramework4.8">
         <dependency id="YamlDotNet" version="6.1.2" />
         <dependency id="Newtonsoft.Json" version="12.0.2" />
       </group>
@@ -27,10 +27,10 @@
     </dependencies>
   </metadata>
   <files>    
-    <file src="bin\Debug\net461\EmpyrionNetAPIBroker.dll"       target="lib\net461\EmpyrionNetAPIBroker.dll" />
-    <file src="bin\Debug\net461\EmpyrionNetApiTools.dll"        target="lib\net461\EmpyrionNetApiTools.dll" />
-    <file src="bin\Debug\net461\EmpyrionNetApiDefinitions.dll"  target="lib\net461\EmpyrionNetApiDefinitions.dll" />
-    <file src="bin\Debug\net461\EmpyrionNetAPIModBase.dll"      target="lib\net461\EmpyrionNetAPIModBase.dll" />
+    <file src="bin\Debug\net48\EmpyrionNetAPIBroker.dll"       target="lib\net48\EmpyrionNetAPIBroker.dll" />
+    <file src="bin\Debug\net48\EmpyrionNetApiTools.dll"        target="lib\net48\EmpyrionNetApiTools.dll" />
+    <file src="bin\Debug\net48\EmpyrionNetApiDefinitions.dll"  target="lib\net48\EmpyrionNetApiDefinitions.dll" />
+    <file src="bin\Debug\net48\EmpyrionNetAPIModBase.dll"      target="lib\net48\EmpyrionNetAPIModBase.dll" />
 
     <file src="bin\Debug\netstandard2.0\EmpyrionNetAPIBroker.dll" target="lib\netstandard2.0\EmpyrionNetAPIBroker.dll" />
     <file src="bin\Debug\netstandard2.0\EmpyrionNetApiTools.dll" target="lib\netstandard2.0\EmpyrionNetApiTools.dll" />
