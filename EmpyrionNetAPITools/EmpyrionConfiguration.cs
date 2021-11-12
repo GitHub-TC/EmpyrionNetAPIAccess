@@ -10,16 +10,22 @@ namespace EmpyrionNetAPITools
 {
     public class EmpyrionConfiguration
     {
-        public static string ProgramPath { get; private set; } = Environment.GetCommandLineArgs().Contains("-GameDir")
+        static Lazy<string> ProgramPathLazy { get; } = new Lazy<string>(() => Environment.GetCommandLineArgs().Contains("-GameDir")
                                                                             ? Environment.GetCommandLineArgs().SkipWhile(A => string.Compare(A, "-GameDir", StringComparison.InvariantCultureIgnoreCase) != 0).Skip(1).FirstOrDefault()
-                                                                            : GetDirWith(Directory.GetCurrentDirectory(), "BuildNumber.txt");
-        public static string ModPath { get; private set; } = Path.Combine(ProgramPath, @"Content\Mods");
-        public static string DedicatedFilename { get; private set; } = Environment.GetCommandLineArgs().Contains("-dedicated")
+                                                                            : GetDirWith(Directory.GetCurrentDirectory(), "BuildNumber.txt"));
+        public static string ProgramPath => ProgramPathLazy.Value;
+
+        static Lazy<string> ModPathLazy { get; } = new Lazy<string>(() => Path.Combine(ProgramPath, @"Content\Mods"));
+        public static string ModPath => ModPathLazy.Value;
+
+        static Lazy<string> DedicatedFilenameLazy { get; } = new Lazy<string>(() => Environment.GetCommandLineArgs().Contains("-dedicated")
                                                                             ? Environment.GetCommandLineArgs().SkipWhile(A => string.Compare(A, "-dedicated", StringComparison.InvariantCultureIgnoreCase) != 0).Skip(1).FirstOrDefault()
                                                                             : (Environment.GetCommandLineArgs().Any(A => A.Contains("configFile="))
                                                                                 ? Environment.GetCommandLineArgs().SkipWhile(A => !A.Contains("configFile=")).FirstOrDefault()?.Substring("configFile=".Length)
                                                                                 : "dedicated.yaml"
-                                                                                );
+                                                                                ));
+
+        public static string DedicatedFilename => DedicatedFilenameLazy.Value;
 
         public static IReadOnlyDictionary<string, int> BlockNameIdMapping
         {
@@ -72,8 +78,11 @@ namespace EmpyrionNetAPITools
             get { return Path.Combine(SaveGamePath, "Mods", ModName ?? String.Empty); }
         }
 
-        public static DedicatedYamlStruct DedicatedYaml { get; set; } = new DedicatedYamlStruct(Path.Combine(ProgramPath, DedicatedFilename));
-        public static AdminconfigYamlStruct AdminconfigYaml { get; set; } = new AdminconfigYamlStruct(Path.Combine(ProgramPath, "Saves", "adminconfig.yaml"));
+        static Lazy<DedicatedYamlStruct> DedicatedYamlLazy { get; } = new Lazy<DedicatedYamlStruct>(() => new DedicatedYamlStruct(Path.Combine(ProgramPath, DedicatedFilename)));
+        public static DedicatedYamlStruct DedicatedYaml => DedicatedYamlLazy.Value;
+        static Lazy<AdminconfigYamlStruct> AdminconfigYamlLazy { get; } = new Lazy<AdminconfigYamlStruct>(() => new AdminconfigYamlStruct(Path.Combine(ProgramPath, "Saves", "adminconfig.yaml")));
+        public static AdminconfigYamlStruct AdminconfigYaml => AdminconfigYamlLazy.Value;
+
         public static string Version
         {
             get {
@@ -164,15 +173,15 @@ namespace EmpyrionNetAPITools
 
                     var Root = (YamlMappingNode)yaml.Documents[0].RootNode;
 
-                    var ServerConfigNode = Root.GetChild("ServerConfig") as YamlMappingNode;
+                    var ServerConfigNode = Root.GetChild<YamlMappingNode>("ServerConfig");
 
-                    ServerName          = ServerConfigNode.GetChild("Srv_Name")?.ToString();
-                    SaveDirectory       = ServerConfigNode.GetChild("SaveDirectory")?.ToString();
+                    ServerName          = ServerConfigNode.GetChild<YamlNode>("Srv_Name")?.ToString();
+                    SaveDirectory       = ServerConfigNode.GetChild<YamlNode>("SaveDirectory")?.ToString();
 
-                    var GameConfigNode  = Root.GetChild("GameConfig") as YamlMappingNode;
+                    var GameConfigNode  = Root.GetChild<YamlMappingNode>("GameConfig");
 
-                    SaveGameName        = GameConfigNode.GetChild("GameName")?.ToString();
-                    CustomScenarioName  = GameConfigNode.GetChild("CustomScenario")?.ToString();
+                    SaveGameName        = GameConfigNode.GetChild<YamlNode>("GameName")?.ToString();
+                    CustomScenarioName  = GameConfigNode.GetChild<YamlNode>("CustomScenario")?.ToString();
                 }
             }
         }
@@ -221,26 +230,26 @@ namespace EmpyrionNetAPITools
 
                     var Root = (YamlMappingNode)yaml.Documents[0].RootNode;
 
-                    var ElevatedNode = (Root.GetChild("Elevated") as YamlSequenceNode)?.Children;
+                    var ElevatedNode = Root.GetChild<YamlSequenceNode>("Elevated")?.Children;
 
                     ElevatedUsers = ElevatedNode?.OfType<YamlMappingNode>().Select(N =>
                     {
                         return new ElevatedUserStruct()
                         {
                             SteamId = N.Children[new YamlScalarNode("Id")]?.ToString(),
-                            Name = N.GetChild("Name")?.ToString(),
-                            Permission = int.TryParse(N.GetChild("Permission")?.ToString(), out int Result) ? Result : 0,
+                            Name = N.GetChild<YamlNode>("Name")?.ToString(),
+                            Permission = int.TryParse(N.GetChild<YamlNode>("Permission")?.ToString(), out int Result) ? Result : 0,
                         };
                     }).ToArray();
 
-                    var BannedNode = (Root.GetChild("Banned") as YamlSequenceNode)?.Children;
+                    var BannedNode = Root.GetChild<YamlSequenceNode>("Banned")?.Children;
 
                     BannedUsers = BannedNode?.OfType<YamlMappingNode>().Select(N =>
                     {
                         return new BannedUserStruct()
                         {
-                            SteamId = N.GetChild("Id")?.ToString(),
-                            Until = DateTime.TryParse(N.GetChild("Until")?.ToString(), out DateTime Result) ? Result : DateTime.MinValue,
+                            SteamId = N.GetChild<YamlNode>("Id")?.ToString(),
+                            Until = DateTime.TryParse(N.GetChild<YamlNode>("Until")?.ToString(), out DateTime Result) ? Result : DateTime.MinValue,
                         };
                     }).ToArray();
                 }

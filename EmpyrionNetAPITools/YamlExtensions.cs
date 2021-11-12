@@ -8,9 +8,9 @@ namespace EmpyrionNetAPITools.Extensions
 {
     public static class YamlExtensions
     {
-        public static YamlNode GetChild(this YamlMappingNode aNode, string aChildName)
+        public static T GetChild<T>(this YamlMappingNode aNode, string aChildName) where T : class
         {
-            return aNode?.Children.FirstOrDefault(C => C.Key.ToString() == aChildName).Value;
+            return aNode?.Children.FirstOrDefault(C => C.Key.ToString() == aChildName).Value as T;
         }
         public static T YamlToObject<T>(TextReader aYamlData)
         {
