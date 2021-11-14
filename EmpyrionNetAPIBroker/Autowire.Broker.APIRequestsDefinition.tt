@@ -2,6 +2,7 @@
 <#@ assembly name="System.Core" #>
 <#@ assembly name="$(SolutionDir)\dependencies\Mif.dll"  #>
 <#@ assembly name="$(SolutionDir)\EmpyrionNetAPIDefinitions\bin\$(Configuration)\$(TargetFramework)\EmpyrionNetAPIDefinitions.dll" #>
+<#@ assembly name="C:\Program Files\dotnet\sdk\3.1.415\Microsoft\Microsoft.NET.Build.Extensions\net461\lib\netstandard.dll" #>
 <#@ import namespace="EmpyrionNetAPIDefinitions" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
@@ -31,14 +32,23 @@ namespace EmpyrionNetAPIAccess
         var signature        = generateMethodSignature(false, item);
         var signatureTimeout = generateMethodSignature(true,  item);       
       #>
-    		
+    	<# if (signature.noReturnValue) { #>	
         public async <#=signature#>{     
-          <#="return await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<"+signature.returnType+">"#>(CmdId.<#=signature.methodName#>,<#=signature.HasArgWithName("arg") ? "arg" : "null" #>));
+          try{
+          <#=signature.returnStatement + " await TaskTools.For(TimeSpan.Zero, SendRequestAsync<"+signature.returnType+">"#>(CmdId.<#=signature.methodName#>,<#=signature.HasArgWithName("arg") ? "arg" : "null" #>));
+          } catch(TaskCanceledException) { }
+        }
+        <# } else { #> 
+        public async <#=signature#>{     
+          <#=signature.returnStatement + " await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<"+signature.returnType+">"#>(CmdId.<#=signature.methodName#>,<#=signature.HasArgWithName("arg") ? "arg" : "null" #>));
         }
 
         public async <#=signatureTimeout#>{     
-          <#="return await TaskTools.For(new TimeSpan(0,0,(int)timeoutSeconds), SendRequestAsync<"+signature.returnType+">"#>(CmdId.<#=signature.methodName#>,<#=signature.HasArgWithName("arg") ? "arg" : "null" #>));
+          try{
+          <#=signature.returnStatement + " await TaskTools.For(new TimeSpan(0,0,(int)timeoutSeconds), SendRequestAsync<"+signature.returnType+">"#>(CmdId.<#=signature.methodName#>,<#=signature.HasArgWithName("arg") ? "arg" : "null" #>));
+          } catch(TaskCanceledException) { if((int)timeoutSeconds > 0) throw; else <#=signature.returnTaskDefault#>; }
         }
+        <# } #>
       <#}#>
     }
 }
@@ -66,7 +76,11 @@ namespace EmpyrionNetAPIAccess
 
   public class GenericMethodSignature {
     public string methodName;
+    public string returnStatement;
     public string returnType;
+    public string returnTask;
+    public string returnTaskDefault;
+    public bool   noReturnValue;
     
     public List<GenericArg> args;
     private static Regex actionTypePattern = new Regex(@"Action<(.*)>");
@@ -92,7 +106,7 @@ namespace EmpyrionNetAPIAccess
 
     public override string ToString(){
       var argString = String.Join(", ", this.args);
-      return $"Task<{returnType}> {methodName}({argString})";
+      return $"{returnTask} {methodName}({argString})";
     }
   }
 
@@ -108,7 +122,20 @@ namespace EmpyrionNetAPIAccess
       tmpArgList.Add(new GenericArg(item.ParamType.Name, "arg"));
     }
 
-	result.returnType = expectedResponse.ParamType?.Name ?? "bool";
+    if(string.IsNullOrEmpty(expectedResponse.ParamType?.Name)){
+        result.noReturnValue     = true;
+        result.returnStatement   = "";
+	    result.returnType        = "bool";
+	    result.returnTask        = $"Task";
+	    result.returnTaskDefault = $"await Task.CompletedTask";
+    }
+    else{
+        result.noReturnValue     = false;
+        result.returnStatement   = "return";
+	    result.returnType        = expectedResponse.ParamType?.Name;
+	    result.returnTask        = $"Task<{expectedResponse.ParamType?.Name}>";
+	    result.returnTaskDefault = $"return await Task.FromResult(default({expectedResponse.ParamType?.Name}))";
+    }
 
     result.args = tmpArgList;
     return result;

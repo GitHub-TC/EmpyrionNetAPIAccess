@@ -2,6 +2,7 @@
 <#@ assembly name="System.Core" #>
 <#@ assembly name="$(SolutionDir)\dependencies\Mif.dll"  #>
 <#@ assembly name="$(SolutionDir)\EmpyrionNetAPIDefinitions\bin\$(Configuration)\$(TargetFramework)\EmpyrionNetAPIDefinitions.dll" #>
+<#@ assembly name="C:\Program Files\dotnet\sdk\3.1.415\Microsoft\Microsoft.NET.Build.Extensions\net461\lib\netstandard.dll" #>
 <#@ import namespace="EmpyrionNetAPIDefinitions" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>

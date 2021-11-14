@@ -2,6 +2,7 @@
 <#@ assembly name="System.Core" #>
 <#@ assembly name="$(SolutionDir)\dependencies\Mif.dll"  #>
 <#@ assembly name="$(SolutionDir)\EmpyrionNetAPIDefinitions\bin\$(Configuration)\$(TargetFramework)\EmpyrionNetAPIDefinitions.dll" #>
+<#@ assembly name="C:\Program Files\dotnet\sdk\3.1.415\Microsoft\Microsoft.NET.Build.Extensions\net461\lib\netstandard.dll" #>
 <#@ import namespace="EmpyrionNetAPIDefinitions" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
@@ -31,14 +32,23 @@ namespace EmpyrionNetAPIAccess
 
 		#>
 
+    	<# if (signature.noReturnValue) { #>	
+		public async <#= signature #> {
+          try{
+			<#= signature.GetMethodBodyTemplate() #>
+          } catch(TaskCanceledException) { }
+		}
+        <# } else { #> 
 		public async <#= signature #> {
 			<#= signature.GetMethodBodyTemplate() #>
 		}
 
 		public async <#= signatureTimeout #> {
+          try{
 			<#= signatureTimeout.GetMethodBodyTemplate() #>
+          } catch(TaskCanceledException) { if((int)timeoutSeconds > 0) throw; else return await Task.FromResult(default(<#=signature.returnType#>)); }
 		}
-
+        <# } #>
 	<# } #>}
 }
 
@@ -74,7 +84,11 @@ namespace EmpyrionNetAPIAccess
 	public class GenericMethodSignature 
 	{
 		public string methodName;
+		public string returnStatement;
 		public string returnType;
+		public string returnTask;
+		public string returnTaskDefault;
+		public bool   noReturnValue;
     
 		public List<GenericArg> args = new List<GenericArg>();
 		private static Regex actionTypePattern = new Regex(@"Action<(.*)>");
@@ -106,7 +120,7 @@ namespace EmpyrionNetAPIAccess
 
 		public string GetMethodBodyTemplate()
 		{
-			return string.Format("return await Broker.{0}({1});", 
+			return string.Format(noReturnValue ? "await Broker.{0}({1});" : "return await Broker.{0}({1});", 
 				methodName, 
 				args.Aggregate((string)null, (s,a) => {return s == null ? a.argName : s + ", " + a.argName;})
 			);
@@ -123,7 +137,7 @@ namespace EmpyrionNetAPIAccess
 
 		public override string ToString()
 		{			
-			return string.Format("{0} {1}({2})", returnType == null ? "Task<bool>" : $"Task<{returnType}>", methodName, string.Join(", ", this.args));
+			return string.Format("{0} {1}({2})",noReturnValue ? "Task" : $"Task<{returnType}>", methodName, string.Join(", ", this.args));
 		}
 	}
 
@@ -138,7 +152,21 @@ namespace EmpyrionNetAPIAccess
 		if (withTimeout)			tmpArgList.Add(new GenericArg("timeoutSeconds", "Timeouts"));
 		if (item.ParamType != null) tmpArgList.Add(new GenericArg("arg", item.ParamType.Name));	
 			
-		result.returnType = expectedResponse.ParamType?.Name;
+		if(string.IsNullOrEmpty(expectedResponse.ParamType?.Name)){
+			result.noReturnValue     = true;
+			result.returnStatement   = "";
+			result.returnType        = "bool";
+			result.returnTask        = $"Task";
+			result.returnTaskDefault = $"await Task.CompletedTask";
+		}
+		else{
+			result.noReturnValue     = false;
+			result.returnStatement   = "return";
+			result.returnType        = expectedResponse.ParamType?.Name;
+			result.returnTask        = $"Task<{expectedResponse.ParamType?.Name}>";
+			result.returnTaskDefault = $"return await Task.FromResult(default({expectedResponse.ParamType?.Name}))";
+		}
+		
 		result.args = tmpArgList;
 
 		return result;

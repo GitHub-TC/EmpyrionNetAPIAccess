@@ -3,7 +3,7 @@ using Eleon.Modding;
 using System;
 using System.Collections.Generic;
 
-//this file was auto-generatedx
+//this file was auto-generated
 
 namespace EmpyrionNetAPIAccess
 {
