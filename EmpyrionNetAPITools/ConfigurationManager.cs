@@ -13,7 +13,7 @@ namespace EmpyrionNetAPITools
         XML
     }
 
-    public class ConfigurationManager<T>
+    public class ConfigurationManager<T> : IDisposable
     {
         public string ConfigFilename {
             get => _mConfigFilename;
@@ -24,6 +24,7 @@ namespace EmpyrionNetAPITools
             }
         }
         string _mConfigFilename;
+        private bool disposedValue;
 
         FileSystemWatcher mConfigFileChangedWatcher { get; set; }
 
@@ -141,5 +142,24 @@ namespace EmpyrionNetAPITools
             }
         }
 
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    mConfigFileChangedWatcher.EnableRaisingEvents = false;
+                    mConfigFileChangedWatcher.Dispose();
+                }
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
     }
 }

@@ -61,7 +61,7 @@
     <PackageId>EmpyrionNetAPI</PackageId>
     <Company>ASTIC/TC</Company>
     <Authors>ASTIC</Authors>
-    <Version>6.0.5</Version>
+    <Version>6.0.6</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 </Project>
