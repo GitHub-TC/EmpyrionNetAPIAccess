@@ -40,7 +40,7 @@
     <Copy SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="F:\NuGet.Local\Release\$(PackageId).$(PackageVersion)\" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
   </Target>
   <ItemGroup>
-    <PackageReference Include="NuGet.CommandLine" Version="5.1.0">
+    <PackageReference Include="NuGet.CommandLine" Version="6.2.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
@@ -57,11 +57,11 @@
     </Reference>
   </ItemGroup>
   <PropertyGroup>
-    <Copyright>ASTIC/TC ©2021</Copyright>
+    <Copyright>ASTIC/TC ©2022</Copyright>
     <PackageId>EmpyrionNetAPI</PackageId>
     <Company>ASTIC/TC</Company>
     <Authors>ASTIC</Authors>
-    <Version>6.0.6</Version>
+    <Version>6.1.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 </Project>

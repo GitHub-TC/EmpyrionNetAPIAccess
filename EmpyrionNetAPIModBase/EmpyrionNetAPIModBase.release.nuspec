@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>EmpyrionNetAPIModBase</id>
-    <version>1.0.1.1</version>
+    <version>1.1.0.0</version>
     <title>EmpyrionNetAPI EmpyrionModBase</title>
     <authors>ASTIC/TC</authors>
     <owners>ASTIC/TC</owners>
@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/GitHub-TC/EmpyrionNetAPIAccess</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Introduces the EmpyironModBase Type as an inheritable type for Empyrion Mods. Empyrion &gt;=A10</description>
-    <copyright>Copyright 2021</copyright>
+    <copyright>Copyright 2022</copyright>
     <dependencies>
       <group targetFramework=".NETFramework4.8">
         <dependency id="YamlDotNet" version="6.1.2" />

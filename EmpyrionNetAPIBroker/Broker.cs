@@ -1,7 +1,6 @@
 ﻿using Eleon.Modding;
 using EmpyrionNetAPIDefinitions;
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace EmpyrionNetAPIAccess
