@@ -21,6 +21,14 @@ namespace EmpyrionNetAPIAccess
             catch (TaskCanceledException) { if ((int)timeoutSeconds > 0) throw; else return await Task.FromResult(default(GlobalStructureInfo)); }
         }
 
+        public async Task Request_SendChatMessage(Eleon.MessageData message)
+        {
+            try
+            {
+                await TaskTools.For(EmpyrionRequestsDefaultTimeout, SendRequestAsync<GlobalStructureInfo>(CmdId.Event_ChatMessage + 100, message));
+            }
+            catch (TaskCanceledException) { }
+        }
 
     }
 }

@@ -86,7 +86,10 @@ namespace EmpyrionNetAPITools
                 {
                     default:
                     case ConfigurationFileFormat.JSON:
-                        Current = JsonConvert.DeserializeObject<T>(File.ReadAllText(ConfigFilename));
+                        using(var fileData = File.OpenText(ConfigFilename))
+                        {
+                            Current = (T)new JsonSerializer().Deserialize(fileData, typeof(T));
+                        }
                         break;
                     case ConfigurationFileFormat.XML:
                         var serializer = new XmlSerializer(typeof(T));
@@ -107,7 +110,9 @@ namespace EmpyrionNetAPITools
             }
         }
 
-        public void Save()
+        public void Save() => Save(false);
+
+        public void Save(bool changeDetection)
         {
             try
             {
@@ -118,9 +123,22 @@ namespace EmpyrionNetAPITools
                 {
                     default:
                     case ConfigurationFileFormat.JSON:
-                        var data = JsonConvert.SerializeObject(Current, Newtonsoft.Json.Formatting.Indented);
-                        if (!File.Exists(ConfigFilename) || File.ReadAllText(ConfigFilename) != data) File.WriteAllText(ConfigFilename, data);
-                        else                                                                          Log?.Invoke($"ConfigurationManager no change '{ConfigFilename}'");
+                        if (changeDetection) { 
+                            var data = JsonConvert.SerializeObject(Current, Newtonsoft.Json.Formatting.Indented);
+                            if (!File.Exists(ConfigFilename) || File.ReadAllText(ConfigFilename) != data) File.WriteAllText(ConfigFilename, data);
+                            else                                                                          Log?.Invoke($"ConfigurationManager no change '{ConfigFilename}'");
+                        }
+                        else
+                        {
+                            using (var fileData = File.CreateText(ConfigFilename))
+                            {
+                                JsonSerializer.Create(new JsonSerializerSettings 
+                                    { 
+                                        Formatting = Newtonsoft.Json.Formatting.Indented 
+                                    }
+                                ).Serialize(fileData, Current);
+                            }
+                        }
                         break;
                     case ConfigurationFileFormat.XML:
                         var serializer = new XmlSerializer(typeof(T));
