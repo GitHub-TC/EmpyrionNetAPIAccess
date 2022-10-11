@@ -40,7 +40,7 @@
     <Copy SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="F:\NuGet.Local\Release\$(PackageId).$(PackageVersion)\" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
   </Target>
   <ItemGroup>
-    <PackageReference Include="NuGet.CommandLine" Version="6.2.1">
+    <PackageReference Include="NuGet.CommandLine" Version="6.2.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
