@@ -100,7 +100,15 @@ namespace EmpyrionNetAPITools
                         break;
                 }
 
-                ConfigFileLoaded?.Invoke(this, EventArgs.Empty);
+                try
+                {
+                    mConfigFileChangedWatcher.EnableRaisingEvents = false;
+                    ConfigFileLoaded?.Invoke(this, EventArgs.Empty);
+                }
+                finally
+                {
+                    mConfigFileChangedWatcher.EnableRaisingEvents = true;
+                }
             }
             catch (Exception Error)
             {
@@ -110,7 +118,7 @@ namespace EmpyrionNetAPITools
             }
         }
 
-        public void Save() => Save(false);
+        public void Save() => Save(true);
 
         public void Save(bool changeDetection)
         {
