@@ -25,11 +25,10 @@ namespace NameIdMappingTools
         public IReadOnlyDictionary<string, int> NameId
         {
             get {
-                if (_BlockNameIdMapping == null && 
-                    !string.IsNullOrEmpty(NameIdMappingFilename) &&
-                    NameIdMappingFilename != LastNameIdMappingFilename &&
-                    File.Exists(NameIdMappingFilename))
+                if ((_BlockNameIdMapping == null || (!string.IsNullOrEmpty(NameIdMappingFilename) && NameIdMappingFilename != LastNameIdMappingFilename)) && File.Exists(NameIdMappingFilename))
                 {
+                    LastNameIdMappingFilename = NameIdMappingFilename;
+
                     Log($"NameIdMapping:'{NameIdMappingFilename}' CurrentDirectory:{Directory.GetCurrentDirectory()}", LogLevel.Message);
                     try { 
                         _BlockNameIdMapping = JsonConvert.DeserializeObject<Dictionary<string, int>>(File.ReadAllText(NameIdMappingFilename));
