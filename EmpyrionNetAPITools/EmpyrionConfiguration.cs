@@ -147,6 +147,9 @@ namespace EmpyrionNetAPITools
             public string CustomScenarioName { get; private set; }
             public string ServerName { get; private set; }
             public string SaveDirectory { get; private set; }
+            public bool Tel_Enabled { get; private set; }
+            public int Tel_Port { get; private set; }
+            public string Tel_Pwd { get; private set; }
 
             public DedicatedYamlStruct(string aFilename)
             {
@@ -177,6 +180,10 @@ namespace EmpyrionNetAPITools
 
                     ServerName          = ServerConfigNode.GetChild<YamlNode>("Srv_Name")?.ToString();
                     SaveDirectory       = ServerConfigNode.GetChild<YamlNode>("SaveDirectory")?.ToString();
+
+                    Tel_Enabled = ServerConfigNode.GetChild<YamlNode>("Tel_Enabled")?.ToString().ToLower() == "true";
+                    Tel_Port    = int.TryParse(ServerConfigNode.GetChild<YamlNode>("Tel_Port")?.ToString(), out var port) ? port : 0;
+                    Tel_Pwd     = ServerConfigNode.GetChild<YamlNode>("Tel_Pwd")?.ToString();
 
                     var GameConfigNode  = Root.GetChild<YamlMappingNode>("GameConfig");
 
