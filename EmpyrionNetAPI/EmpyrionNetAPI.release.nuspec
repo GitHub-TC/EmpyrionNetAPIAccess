@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>EmpyrionNetAPI</id>
-		<version>6.3.2.0</version>
+		<version>6.5.0.0</version>
 		<title>EmpyrionNetAPI</title>
 		<authors>ASTIC/TC</authors>
 		<owners>ASTIC/TC</owners>
@@ -39,10 +39,10 @@
 		<file src="bin\Release\netstandard2.0\EmpyrionNetApiModBase.dll" target="lib\netstandard2.0\EmpyrionNetApiModBase.dll" />
 		<file src="bin\Release\netstandard2.0\EmpyrionNetApi.dll" target="lib\netstandard2.0\EmpyrionNetApi.dll" />
 
-		<file src="bin\Release\net8.0\EmpyrionNetApiTools.dll" target="lib\net6.0\EmpyrionNetApiTools.dll" />
-		<file src="bin\Release\net8.0\EmpyrionNetApiDefinitions.dll" target="lib\net6.0\EmpyrionNetApiDefinitions.dll" />
-		<file src="bin\Release\net8.0\EmpyrionNetApiBroker.dll" target="lib\net6.0\EmpyrionNetApiBroker.dll" />
-		<file src="bin\Release\net8.0\EmpyrionNetApiModBase.dll" target="lib\net6.0\EmpyrionNetApiModBase.dll" />
-		<file src="bin\Release\net8.0\EmpyrionNetApi.dll" target="lib\net6.0\EmpyrionNetApi.dll" />
+		<file src="bin\Release\net8.0\EmpyrionNetApiTools.dll" target="lib\net8.0\EmpyrionNetApiTools.dll" />
+		<file src="bin\Release\net8.0\EmpyrionNetApiDefinitions.dll" target="lib\net8.0\EmpyrionNetApiDefinitions.dll" />
+		<file src="bin\Release\net8.0\EmpyrionNetApiBroker.dll" target="lib\net8.0\EmpyrionNetApiBroker.dll" />
+		<file src="bin\Release\net8.0\EmpyrionNetApiModBase.dll" target="lib\net8.0\EmpyrionNetApiModBase.dll" />
+		<file src="bin\Release\net8.0\EmpyrionNetApi.dll" target="lib\net8.0\EmpyrionNetApi.dll" />
 	</files>
 </package>
