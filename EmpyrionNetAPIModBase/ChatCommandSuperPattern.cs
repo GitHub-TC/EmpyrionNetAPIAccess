@@ -33,7 +33,7 @@ namespace EmpyrionNetAPIAccess
                 patternDict[key] = item;
             }
             var superPattern = string.Join("|", patternList.ToArray());
-            var superRegex = new Regex(superPattern, RegexOptions.Compiled);
+            var superRegex = new Regex(superPattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
             return new ChatCommandSuperPattern(superRegex, patternDict);
         }

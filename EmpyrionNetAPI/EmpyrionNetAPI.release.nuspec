@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>EmpyrionNetAPI</id>
-		<version>6.3.1.0</version>
+		<version>6.3.2.0</version>
 		<title>EmpyrionNetAPI</title>
 		<authors>ASTIC/TC</authors>
 		<owners>ASTIC/TC</owners>
@@ -10,17 +10,13 @@
 		<projectUrl>https://github.com/GitHub-TC/EmpyrionNetAPIAccess</projectUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>A simple framework for building Empyrions mods with .NET for the EWA EmpyrionWebAccess or the ModLoader. Empyrion &gt;=1.5</description>
-		<copyright>Copyright 2023</copyright>
+		<copyright>Copyright 2024</copyright>
 		<dependencies>
 			<group targetFramework=".NETFramework4.8">
 				<dependency id="YamlDotNet" version="12.0.0" />
 				<dependency id="Newtonsoft.Json" version="13.0.1" />
 			</group>
-			<group targetFramework=".NETCoreApp3.1">
-				<dependency id="YamlDotNet" version="12.0.0" />
-				<dependency id="Newtonsoft.Json" version="13.0.1" />
-			</group>
-			<group targetFramework=".NET6.0">
+			<group targetFramework=".NET8.0">
 				<dependency id="YamlDotNet" version="12.0.0" />
 				<dependency id="Newtonsoft.Json" version="13.0.1" />
 			</group>
@@ -43,16 +39,10 @@
 		<file src="bin\Release\netstandard2.0\EmpyrionNetApiModBase.dll" target="lib\netstandard2.0\EmpyrionNetApiModBase.dll" />
 		<file src="bin\Release\netstandard2.0\EmpyrionNetApi.dll" target="lib\netstandard2.0\EmpyrionNetApi.dll" />
 
-		<file src="bin\Release\netcoreapp3.1\EmpyrionNetApiTools.dll" target="lib\netcoreapp3.1\EmpyrionNetApiTools.dll" />
-		<file src="bin\Release\netcoreapp3.1\EmpyrionNetApiDefinitions.dll" target="lib\netcoreapp3.1\EmpyrionNetApiDefinitions.dll" />
-		<file src="bin\Release\netcoreapp3.1\EmpyrionNetApiBroker.dll" target="lib\netcoreapp3.1\EmpyrionNetApiBroker.dll" />
-		<file src="bin\Release\netcoreapp3.1\EmpyrionNetApiModBase.dll" target="lib\netcoreapp3.1\EmpyrionNetApiModBase.dll" />
-		<file src="bin\Release\netcoreapp3.1\EmpyrionNetApi.dll" target="lib\netcoreapp3.1\EmpyrionNetApi.dll" />
-
-		<file src="bin\Release\net6.0\EmpyrionNetApiTools.dll" target="lib\net6.0\EmpyrionNetApiTools.dll" />
-		<file src="bin\Release\net6.0\EmpyrionNetApiDefinitions.dll" target="lib\net6.0\EmpyrionNetApiDefinitions.dll" />
-		<file src="bin\Release\net6.0\EmpyrionNetApiBroker.dll" target="lib\net6.0\EmpyrionNetApiBroker.dll" />
-		<file src="bin\Release\net6.0\EmpyrionNetApiModBase.dll" target="lib\net6.0\EmpyrionNetApiModBase.dll" />
-		<file src="bin\Release\net6.0\EmpyrionNetApi.dll" target="lib\net6.0\EmpyrionNetApi.dll" />
+		<file src="bin\Release\net8.0\EmpyrionNetApiTools.dll" target="lib\net6.0\EmpyrionNetApiTools.dll" />
+		<file src="bin\Release\net8.0\EmpyrionNetApiDefinitions.dll" target="lib\net6.0\EmpyrionNetApiDefinitions.dll" />
+		<file src="bin\Release\net8.0\EmpyrionNetApiBroker.dll" target="lib\net6.0\EmpyrionNetApiBroker.dll" />
+		<file src="bin\Release\net8.0\EmpyrionNetApiModBase.dll" target="lib\net6.0\EmpyrionNetApiModBase.dll" />
+		<file src="bin\Release\net8.0\EmpyrionNetApi.dll" target="lib\net6.0\EmpyrionNetApi.dll" />
 	</files>
 </package>

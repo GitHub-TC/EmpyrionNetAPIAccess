@@ -34,13 +34,15 @@ namespace EmpyrionNetAPIAccess
 
         public string MsgString(string prefix)
         {
-            var CmdString = GetCommandPattern.Match(invocationPattern).Groups["cmd"]?.Value ?? invocationPattern;
+            var CmdString = GetCommandPattern.Match(invocationPattern).Groups["cmd"]?.Value;
+            if(string.IsNullOrEmpty(CmdString)) CmdString = invocationPattern;
+
             return $"[c][ff00ff]{ prefix }{ CmdString.Replace(@"\\", @"\") }[-][/c]{ paramNames.Aggregate(" ", (S, P) => S + $"<[c][00ff00]{P}[-][/c]> ") }: { description }";
         }
         
-        private static Regex GetCommandPattern = new Regex(@"(?<cmd>(\w|\/|\\|\s)+)");
+        private static Regex GetCommandPattern = new Regex(@"(?<cmd>(\w|\/|\\|:|\s)+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-        private static Regex extractionPattern = new Regex(@"\(\?<([\w_]+)>[^)]+\)", RegexOptions.Compiled);
+        private static Regex extractionPattern = new Regex(@"\(\?<([\w_]+)>[^)]+\)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         public static string PatternToParamString(string pattern)
         {
